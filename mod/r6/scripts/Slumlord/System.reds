@@ -12,10 +12,12 @@ public class SlumlordSystem extends ScriptableSystem {
   private persistent let m_empireComplete: Bool;
   private persistent let m_reportWeeks: Int32;   // rent days covered by the latest tenant report
   private persistent let m_rentDays: Int32;      // rent days processed on this save: seeds tenant rolls
+  private persistent let m_unlockedContractors: array<CName>; // quest/fixer Contractors unlocked on this save
 
   // ---- Runtime only ----
   private let m_districts: array<ref<SlumlordDistrictDef>>;
   private let m_properties: array<ref<SlumlordPropertyDef>>;
+  private let m_contractors: array<ref<SlumlordContractorDef>>;
   private let m_tickId: DelayID;
   private let m_tickActive: Bool;
   private let m_pinIds: array<NewMappinID>;
@@ -59,6 +61,9 @@ public class SlumlordSystem extends ScriptableSystem {
     }
     if ArraySize(this.m_properties) == 0 {
       this.m_properties = SlumlordData.Properties();
+    }
+    if ArraySize(this.m_contractors) == 0 {
+      this.m_contractors = SlumlordContractors.All();
     }
     for def in this.m_properties {
       let existing = this.GetState(def.id);
@@ -110,6 +115,7 @@ public class SlumlordSystem extends ScriptableSystem {
     for state in this.m_states {
       state.reportIn = 0;
       state.reportOut = 0;
+      state.jobsThisWeek = 0;   // Contractor job limit resets on rent day
     }
     let simWeeks = Min(elapsed, SlumlordTuning.MaxTenantCatchUpWeeks());
     let accrued = 0;
@@ -396,6 +402,8 @@ public class SlumlordSystem extends ScriptableSystem {
     state.weeksUncollected = 0;
     state.reportIn = 0;
     state.reportOut = 0;
+    state.rankPoints = 0;
+    state.jobsThisWeek = 0;
     ModLog(n"Slumlord", "Bought " + def.displayName);
     this.RefreshPins();
     let boss = SlumlordBoss.GetInstance(this.GetGameInstance());
@@ -443,6 +451,86 @@ public class SlumlordSystem extends ScriptableSystem {
     }
   }
 
+  // ===================================================================== contractors (Contractors.reds)
+
+  public func GetContractors() -> array<ref<SlumlordContractorDef>> {
+    this.EnsureLoaded();
+    return this.m_contractors;
+  }
+
+  public func GetContractorDef(id: CName) -> ref<SlumlordContractorDef> {
+    for c in this.m_contractors {
+      if Equals(c.id, id) { return c; }
+    }
+    return null;
+  }
+
+  // District Contractors come with their district's Street Cred gate; the rest are unlocked by quests or fixers.
+  public func IsContractorAvailable(c: ref<SlumlordContractorDef>) -> Bool {
+    if !IsDefined(c) { return false; }
+    if IsNameValid(c.districtId) {
+      return this.IsDistrictUnlocked(c.districtId);
+    }
+    return ArrayContains(this.m_unlockedContractors, c.id);
+  }
+
+  public func UnlockContractor(id: CName) -> Void {
+    if !ArrayContains(this.m_unlockedContractors, id) {
+      ArrayPush(this.m_unlockedContractors, id);
+    }
+  }
+
+  // Points needed to rank this property up from its current rank (0 at S).
+  public func GetRankPointsNeeded(id: CName) -> Int32 {
+    let def = this.GetPropertyDef(id);
+    let state = this.GetState(id);
+    if !IsDefined(def) || !IsDefined(state) || state.rank >= SlumlordTuning.MaxRank() { return 0; }
+    let price = Cast<Float>(SlumlordEconomy.Price(def, this.GetDistrictDef(def.districtId)));
+    return Max(1, RoundF(price * SlumlordTuning.RankBarShare(state.rank)));
+  }
+
+  public func GetJobsLeft(id: CName) -> Int32 {
+    let state = this.GetState(id);
+    if !IsDefined(state) { return 0; }
+    return Max(0, SlumlordTuning.JobsPerRentDay() - state.jobsThisWeek);
+  }
+
+  public func CanHire(propertyId: CName, contractorId: CName) -> SlumlordHireResult {
+    this.EnsureLoaded();
+    let def = this.GetPropertyDef(propertyId);
+    let state = this.GetState(propertyId);
+    let c = this.GetContractorDef(contractorId);
+    if !IsDefined(def) || !IsDefined(state) || !IsDefined(c) { return SlumlordHireResult.UnknownProperty; }
+    if !state.owned { return SlumlordHireResult.NotOwned; }
+    if state.rank >= SlumlordTuning.MaxRank() { return SlumlordHireResult.MaxRank; }
+    if state.jobsThisWeek >= SlumlordTuning.JobsPerRentDay() { return SlumlordHireResult.JobLimit; }
+    if !this.IsContractorAvailable(c) { return SlumlordHireResult.ContractorLocked; }
+    if !IsDefined(this.GetPlayer()) { return SlumlordHireResult.NoPlayer; }
+    if this.GetPlayerMoney() < SlumlordTuning.ContractorFee(c.stars) { return SlumlordHireResult.NotEnoughMoney; }
+    return SlumlordHireResult.Progress;
+  }
+
+  // One Contractor job: pay the fee, add points; a full bar raises the rank by one (excess points are lost).
+  public func Hire(propertyId: CName, contractorId: CName) -> SlumlordHireResult {
+    let result = this.CanHire(propertyId, contractorId);
+    if !Equals(result, SlumlordHireResult.Progress) { return result; }
+    let def = this.GetPropertyDef(propertyId);
+    let state = this.GetState(propertyId);
+    let c = this.GetContractorDef(contractorId);
+    if !this.TakeMoney(SlumlordTuning.ContractorFee(c.stars)) { return SlumlordHireResult.NotEnoughMoney; }
+    let needed = this.GetRankPointsNeeded(propertyId);
+    state.jobsThisWeek += 1;
+    state.rankPoints += SlumlordContractors.JobPoints(c, def);
+    if state.rankPoints >= needed {
+      state.rank += 1;
+      state.rankPoints = 0;
+      ModLog(n"Slumlord", def.displayName + " renovated by " + c.crew + ": rank " + SlumlordEconomy.RankLetter(state.rank));
+      this.RefreshPins();
+      return SlumlordHireResult.RankedUp;
+    }
+    return SlumlordHireResult.Progress;
+  }
+
   // ===================================================================== debug (called from the CET tool)
 
   public func Debug_ForceRentDay() -> Int32 {
@@ -473,6 +561,8 @@ public class SlumlordSystem extends ScriptableSystem {
     state.weeksUncollected = 0;
     state.reportIn = 0;
     state.reportOut = 0;
+    state.rankPoints = 0;
+    state.jobsThisWeek = 0;
     this.RefreshPins();
     return true;
   }
@@ -481,7 +571,26 @@ public class SlumlordSystem extends ScriptableSystem {
     let state = this.GetState(id);
     if !IsDefined(state) { return false; }
     state.rank = Clamp(rank, 0, SlumlordTuning.MaxRank());
+    state.rankPoints = 0;
+    this.RefreshPins();
     return true;
+  }
+
+  // Makes the quest/fixer Contractors (The Architect, Oshima) available.
+  public func Debug_UnlockContractors() -> Void {
+    this.EnsureLoaded();
+    for c in this.m_contractors {
+      if !IsNameValid(c.districtId) {
+        this.UnlockContractor(c.id);
+      }
+    }
+  }
+
+  // Clears every property's Contractor job count for this week.
+  public func Debug_ResetJobs() -> Void {
+    for s in this.m_states {
+      s.jobsThisWeek = 0;
+    }
   }
 
   public func Debug_ResetAll() -> Void {
@@ -515,7 +624,9 @@ public class SlumlordSystem extends ScriptableSystem {
             out = out + "  OWNED rank " + SlumlordEconomy.RankLetter(s.rank)
               + "  " + IntToString(s.occupiedUnits) + "/" + IntToString(p.units) + " units"
               + "  weekly " + SlumlordEconomy.FormatMoney(this.GetWeeklyRent(p.id))
-              + "  waiting " + SlumlordEconomy.FormatMoney(s.uncollected);
+              + "  waiting " + SlumlordEconomy.FormatMoney(s.uncollected)
+              + "  bar " + IntToString(s.rankPoints) + "/" + IntToString(this.GetRankPointsNeeded(p.id))
+              + "  jobs " + IntToString(s.jobsThisWeek) + "/" + IntToString(SlumlordTuning.JobsPerRentDay());
           }
           if !SlumlordPositions.Has(p.id) {
             out = out + "  (no pin position)";

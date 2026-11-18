@@ -95,6 +95,49 @@ public abstract class SlumlordTuning {
     }
   }
 
+  // ---- Contractors and rank bars (design doc 4.4). Stars 1..5; fit 0 poor .. 3 great.
+
+  public static func ContractorFee(stars: Int32) -> Int32 {
+    switch stars {
+      case 1: return 500;
+      case 2: return 1500;
+      case 3: return 4000;
+      case 4: return 10000;
+      default: return 25000;
+    }
+  }
+
+  public static func ContractorPoints(stars: Int32) -> Int32 {
+    switch stars {
+      case 1: return 600;
+      case 2: return 2000;
+      case 3: return 6000;
+      case 4: return 16000;
+      default: return 45000;
+    }
+  }
+
+  public static func FitMultiplier(fit: Int32) -> Float {
+    switch fit {
+      case 3: return 1.5;
+      case 2: return 1.0;
+      case 1: return 0.6;
+      default: return 0.3;
+    }
+  }
+
+  // Points to rank up from `rank`, as a share of the purchase price (D->C, C->B, B->A, A->S).
+  public static func RankBarShare(rank: Int32) -> Float {
+    switch rank {
+      case 0: return 0.30;
+      case 1: return 0.50;
+      case 2: return 0.80;
+      default: return 1.20;
+    }
+  }
+
+  public static func JobsPerRentDay() -> Int32 { return 3; }
+
   // Most weeks of tenant changes simulated in one catch-up (long sleeps, old saves).
   public static func MaxTenantCatchUpWeeks() -> Int32 { return 52; }
 

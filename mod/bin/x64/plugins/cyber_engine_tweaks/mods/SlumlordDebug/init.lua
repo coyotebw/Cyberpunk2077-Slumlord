@@ -244,6 +244,22 @@ registerForEvent("onDraw", function()
     end
 
     ImGui.Separator()
+    ImGui.Text("Contractors (renovation)")
+    if ImGui.Button("Unlock gig contractors") then
+      guarded("Unlock contractors", function()
+        system():Debug_UnlockContractors()
+        setStatus("The Architect and Oshima are available")
+      end)
+    end
+    ImGui.SameLine()
+    if ImGui.Button("Reset job limits") then
+      guarded("Reset jobs", function()
+        system():Debug_ResetJobs()
+        setStatus("Contractor jobs reset on every property")
+      end)
+    end
+
+    ImGui.Separator()
     ImGui.Text("Watson boss: Oshima's call")
     if ImGui.Button("Ring now") then
       guarded("Ring", function()

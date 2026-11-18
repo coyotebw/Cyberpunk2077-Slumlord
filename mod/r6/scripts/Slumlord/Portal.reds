@@ -1,5 +1,6 @@
 // The Slumlord portal: a NETdir site on every in-game computer.
-// Address: NETdir://slumlord.estate  Pages: /listings /holdings /districts /collect  Filter: ?d=<district id>
+// Address: NETdir://slumlord.estate  Pages: /listings /holdings /districts /collect /renovate
+// Filters: ?d=<district id> (listings, holdings), ?p=<property id> (renovate)
 // Layout follows the Slumlord UI Design System. Sizes are design px, converted by SlumlordUi.Px().
 // Hooked into the browser by Browser.reds (no framework needed); also registers with Browser Extension
 // when that is installed (BrowserExtensionBridge.reds).
@@ -12,6 +13,7 @@ public class SlumlordSite extends IScriptable {
   private let m_message: String;
   private let m_messageKind: CName;   // n"good", n"bad"
   private let m_lastCollected: Int32;
+  private let m_renovateProperty: CName;   // property on the Renovate page
 
   // Scrolling: the body is a list of rows; the mouse wheel hides rows from the top.
   private let m_rows: array<wref<inkWidget>>;
@@ -22,6 +24,8 @@ public class SlumlordSite extends IScriptable {
   // Card sizes in design px.
   private let m_cardW: Float;
   private let m_cardH: Float;
+  private let m_holdingCardH: Float;
+  private let m_contractorCardH: Float;
   private let m_districtCardW: Float;
   private let m_districtCardH: Float;
 
@@ -41,6 +45,8 @@ public class SlumlordSite extends IScriptable {
     // four property cards or three district cards to a row; the wheel scrolls row by row.
     this.m_cardW = 220.0;
     this.m_cardH = 250.0;
+    this.m_holdingCardH = 262.0;     // room for the Renovate button
+    this.m_contractorCardH = 236.0;  // a row of four fits under the Renovate summary strip
     this.m_districtCardW = 280.0;
     this.m_districtCardH = 136.0;
   }
@@ -87,7 +93,7 @@ public class SlumlordSite extends IScriptable {
 
     // Pinned: header and tabs (with the message line). Scrolls: everything in body.
     this.BuildHeader(col, sys);
-    this.BuildTabs(col, page, sys);
+    this.BuildTabs(col, Equals(page, n"renovate") ? n"holdings" : page, sys);
     let body = SlumlordUi.Column(12.0);
     body.Reparent(col);
 
@@ -95,6 +101,7 @@ public class SlumlordSite extends IScriptable {
     if Equals(page, n"holdings") { this.BuildHoldings(body, sys, this.DistrictOf(address)); }
     if Equals(page, n"districts") { this.BuildDistricts(body, sys); }
     if Equals(page, n"collect") { this.BuildCollect(body, sys); }
+    if Equals(page, n"renovate") { this.BuildRenovate(body, sys, this.PropertyOf(address)); }
     this.ApplyScroll();
 
     let scroller = new SlumlordScrollController();
@@ -108,12 +115,20 @@ public class SlumlordSite extends IScriptable {
     if StrContains(address, "/holdings") { return n"holdings"; }
     if StrContains(address, "/districts") { return n"districts"; }
     if StrContains(address, "/collect") { return n"collect"; }
+    if StrContains(address, "/renovate") { return n"renovate"; }
     return n"home";
   }
 
   private func DistrictOf(address: String) -> CName {
     if StrContains(address, "?d=") {
       return StringToName(StrAfterFirst(address, "?d="));
+    }
+    return n"";
+  }
+
+  private func PropertyOf(address: String) -> CName {
+    if StrContains(address, "?p=") {
+      return StringToName(StrAfterFirst(address, "?p="));
     }
     return n"";
   }
@@ -403,7 +418,7 @@ public class SlumlordSite extends IScriptable {
 
   private func HoldingCard(sys: ref<SlumlordSystem>, p: ref<SlumlordPropertyDef>, s: ref<SlumlordPropertyState>) -> ref<inkWidget> {
     let w = SlumlordUi.Px(this.m_cardW);
-    let h = SlumlordUi.Px(this.m_cardH);
+    let h = SlumlordUi.Px(this.m_holdingCardH);
     let pad = SlumlordUi.Px(14.0);
     let rentReady = s.uncollected > 0;
     let frame = rentReady ? SlumlordColors.Gold() : SlumlordColors.LineStrong();
@@ -434,6 +449,118 @@ public class SlumlordSite extends IScriptable {
     } else {
       SlumlordUi.Stat("Occupancy", IntToString(s.occupiedUnits) + " / " + IntToString(p.units) + " units", SlumlordColors.Cyan()).Reparent(body);
     }
+
+    let canRank = s.rank < SlumlordTuning.MaxRank();
+    let renovate = SlumlordUi.Button(canRank ? "Renovate" : "Max rank", p.id, 192.0, n"outline", canRank);
+    SlumlordUi.OnClick(renovate, this, n"OnRenovatePressed");
+    SlumlordUi.Place(renovate, pad, h - pad - SlumlordUi.Px(36.0), card);
+    return card;
+  }
+
+  // ================================================================== renovate (Contractors.reds)
+
+  private func BuildRenovate(parent: ref<inkVerticalPanel>, sys: ref<SlumlordSystem>, id: CName) -> Void {
+    let def = sys.GetPropertyDef(id);
+    let s = sys.GetState(id);
+    if !IsDefined(def) || !IsDefined(s) || !s.owned {
+      this.AddRow(parent, SlumlordUi.Body("Pick one of your properties on the Holdings tab to renovate it.", SlumlordColors.InkMuted()));
+      return;
+    }
+    this.m_renovateProperty = id;
+    this.AddRow(parent, this.RenovateSummary(sys, def, s));
+
+    // Available crews first, then locked ones (dimmed), each in roster order.
+    let cards: array<ref<inkWidget>>;
+    let locked: array<ref<inkWidget>>;
+    for c in sys.GetContractors() {
+      if sys.IsContractorAvailable(c) {
+        ArrayPush(cards, this.ContractorCard(sys, def, s, c));
+      } else {
+        ArrayPush(locked, this.ContractorCard(sys, def, s, c));
+      }
+    }
+    for c in locked { ArrayPush(cards, c); }
+    this.Grid(parent, cards, 4);
+  }
+
+  // One strip: rank badge, name, progress to the next rank, jobs left this week, back to holdings.
+  private func RenovateSummary(sys: ref<SlumlordSystem>, def: ref<SlumlordPropertyDef>, s: ref<SlumlordPropertyState>) -> ref<inkWidget> {
+    let w = SlumlordUi.Px(1000.0);
+    let h = SlumlordUi.Px(76.0);
+    let pad = SlumlordUi.Px(14.0);
+    let panel = SlumlordUi.Panel(w, h, SlumlordColors.Panel(), SlumlordColors.LineStrong(), 14.0);
+    let row = SlumlordUi.Row(28.0);
+    SlumlordUi.Place(row, pad, pad, panel);
+
+    SlumlordUi.RankBadge(s.rank).Reparent(row);
+    let name = SlumlordUi.Column(2.0);
+    name.Reparent(row);
+    SlumlordUi.Title(def.displayName).Reparent(name);
+    SlumlordUi.Caption(def.commercial ? "Commercial" : "Residential, " + IntToString(def.units) + " units").Reparent(name);
+
+    let needed = sys.GetRankPointsNeeded(def.id);
+    let progress = SlumlordUi.Column(6.0);
+    progress.Reparent(row);
+    if needed > 0 {
+      SlumlordUi.Caption("Progress to rank " + SlumlordEconomy.RankLetter(s.rank + 1) + "  " + IntToString(s.rankPoints) + " / " + IntToString(needed) + " points").Reparent(progress);
+      SlumlordUi.ProgressBar(300.0, Cast<Float>(s.rankPoints) / Cast<Float>(needed), SlumlordColors.Cyan()).Reparent(progress);
+    } else {
+      SlumlordUi.Caption("Top rank").Reparent(progress);
+      SlumlordUi.ProgressBar(300.0, 1.0, SlumlordColors.Gold()).Reparent(progress);
+    }
+
+    let jobsLeft = sys.GetJobsLeft(def.id);
+    SlumlordUi.Stat("Jobs left this week", IntToString(jobsLeft) + " of " + IntToString(SlumlordTuning.JobsPerRentDay()), jobsLeft > 0 ? SlumlordColors.Ink() : SlumlordColors.InkMuted()).Reparent(row);
+
+    let back = SlumlordUi.Button("Holdings", def.districtId, 150.0, n"ghost", true);
+    SlumlordUi.OnClick(back, this, n"OnHoldingsChipPressed");
+    SlumlordUi.Place(back, w - pad - SlumlordUi.Px(150.0), pad, panel);
+    return panel;
+  }
+
+  private func ContractorCard(sys: ref<SlumlordSystem>, def: ref<SlumlordPropertyDef>, s: ref<SlumlordPropertyState>, c: ref<SlumlordContractorDef>) -> ref<inkWidget> {
+    let w = SlumlordUi.Px(this.m_cardW);
+    let h = SlumlordUi.Px(this.m_contractorCardH);
+    let pad = SlumlordUi.Px(14.0);
+    let available = sys.IsContractorAvailable(c);
+    let card = SlumlordUi.Panel(w, h, SlumlordColors.Panel(), SlumlordColors.LineStrong(), 14.0);
+    if !available { card.SetOpacity(0.55); }
+
+    let body = SlumlordUi.Column(6.0);
+    SlumlordUi.Place(body, pad, pad, card);
+    let title = SlumlordUi.Title(c.crew);
+    title.SetWrapping(true, w - 2.0 * pad);
+    title.Reparent(body);
+    SlumlordUi.Body(c.boss, SlumlordColors.InkMuted()).Reparent(body);
+    SlumlordUi.StarMeter(c.stars).Reparent(body);
+
+    let fit = SlumlordContractors.Fit(c, def);
+    let fitText = SlumlordContractors.FitWord(fit) + (def.commercial ? " with shops" : " with apartments");
+    if SlumlordUi.GlyphsEnabled() { fitText = SlumlordContractors.FitGlyph(fit) + " " + fitText; }
+    let fitColor = fit >= 2 ? SlumlordColors.Cyan() : (fit == 1 ? SlumlordColors.InkMuted() : SlumlordColors.Trouble());
+    SlumlordUi.Data(fitText, fitColor).Reparent(body);
+
+    let stats = SlumlordUi.Row(16.0);
+    stats.Reparent(body);
+    SlumlordUi.Stat("Fee", SlumlordEconomy.FormatMoney(SlumlordTuning.ContractorFee(c.stars)), SlumlordColors.Gold()).Reparent(stats);
+    SlumlordUi.Stat("Work", "+" + IntToString(SlumlordContractors.JobPoints(c, def)) + " pts", SlumlordColors.Ink()).Reparent(stats);
+
+    let label = "Hire";
+    let enabled = true;
+    switch sys.CanHire(def.id, c.id) {
+      case SlumlordHireResult.Progress: break;
+      case SlumlordHireResult.ContractorLocked:
+        label = IsNameValid(c.districtId) ? "Street Cred " + IntToString(sys.GetDistrictDef(c.districtId).streetCredRequired) : "Unlocked by a gig";
+        enabled = false;
+        break;
+      case SlumlordHireResult.NotEnoughMoney: label = "Insufficient funds"; enabled = false; break;
+      case SlumlordHireResult.JobLimit: label = "No jobs left"; enabled = false; break;
+      case SlumlordHireResult.MaxRank: label = "Max rank"; enabled = false; break;
+      default: label = "Unavailable"; enabled = false;
+    }
+    let hire = SlumlordUi.Button(label, c.id, 192.0, n"gold", enabled);
+    SlumlordUi.OnClick(hire, this, n"OnHirePressed");
+    SlumlordUi.Place(hire, pad, h - pad - SlumlordUi.Px(36.0), card);
     return card;
   }
 
@@ -587,6 +714,54 @@ public class SlumlordSite extends IScriptable {
           break;
         default:
           this.Say("Purchase failed.", n"bad");
+      }
+      this.Reload();
+    }
+    return false;
+  }
+
+  protected cb func OnRenovatePressed(evt: ref<inkPointerEvent>) -> Bool {
+    if evt.IsAction(n"click") || evt.IsAction(n"tap") {
+      evt.Consume();
+      SlumlordUi.PlaySound(n"ui_menu_onpress");
+      this.Go("/renovate?p=" + NameToString(evt.GetCurrentTarget().GetName()));
+    }
+    return false;
+  }
+
+  protected cb func OnHirePressed(evt: ref<inkPointerEvent>) -> Bool {
+    if evt.IsAction(n"click") || evt.IsAction(n"tap") {
+      evt.Consume();
+      let sys = this.Sys();
+      if !IsDefined(sys) { return false; }
+      let contractorId = evt.GetCurrentTarget().GetName();
+      let c = sys.GetContractorDef(contractorId);
+      let def = sys.GetPropertyDef(this.m_renovateProperty);
+      if !IsDefined(c) || !IsDefined(def) { return false; }
+      let points = SlumlordContractors.JobPoints(c, def);
+      switch sys.Hire(this.m_renovateProperty, contractorId) {
+        case SlumlordHireResult.RankedUp:
+          SlumlordUi.PlaySound(n"ui_menu_onpress");
+          this.Say(c.crew + " finished. " + def.displayName + " is now rank " + SlumlordEconomy.RankLetter(sys.GetState(def.id).rank) + ".", n"good");
+          break;
+        case SlumlordHireResult.Progress:
+          SlumlordUi.PlaySound(n"ui_menu_onpress");
+          this.Say(c.crew + " did the work: +" + IntToString(points) + " points.", n"good");
+          break;
+        case SlumlordHireResult.NotEnoughMoney:
+          this.Say("Insufficient funds.", n"bad");
+          break;
+        case SlumlordHireResult.JobLimit:
+          this.Say("No more jobs here until rent day.", n"bad");
+          break;
+        case SlumlordHireResult.MaxRank:
+          this.Say("Already top rank.", n"bad");
+          break;
+        case SlumlordHireResult.ContractorLocked:
+          this.Say("That crew isn't available yet.", n"bad");
+          break;
+        default:
+          this.Say("Hire failed.", n"bad");
       }
       this.Reload();
     }

@@ -12,6 +12,8 @@ public class SlumlordPropertyState {
   public persistent let weeksUncollected: Int32; // capped by SlumlordTuning.MaxUncollectedWeeks()
   public persistent let reportIn: Int32;         // tenants moved in since the last tenant report (Tenants.reds)
   public persistent let reportOut: Int32;        // tenants moved out since the last tenant report
+  public persistent let rankPoints: Int32;       // progress toward the next rank (Contractors.reds)
+  public persistent let jobsThisWeek: Int32;     // Contractor jobs since the last rent day
 }
 
 public enum SlumlordBuyResult {

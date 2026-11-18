@@ -271,6 +271,35 @@ public abstract class SlumlordUi {
     return row;
   }
 
+  // Staff rating: five pips, gold for each star (no font glyphs needed).
+  public static func StarMeter(stars: Int32) -> ref<inkHorizontalPanel> {
+    let row = SlumlordUi.Row(4.0);
+    let i = 0;
+    while i < 5 {
+      let color = i < stars ? SlumlordColors.Gold() : SlumlordColors.Line();
+      SlumlordUi.Rect(SlumlordUi.Px(18.0), SlumlordUi.Px(8.0), color).Reparent(row);
+      i += 1;
+    }
+    return row;
+  }
+
+  // Horizontal progress bar, 0..1.
+  public static func ProgressBar(widthPx: Float, fraction: Float, color: HDRColor) -> ref<inkCanvas> {
+    let w = SlumlordUi.Px(widthPx);
+    let h = SlumlordUi.Px(10.0);
+    let bar = new inkCanvas();
+    bar.SetSize(new Vector2(w, h));
+    bar.SetFitToContent(false);
+    bar.SetHAlign(inkEHorizontalAlign.Left);
+    bar.SetVAlign(inkEVerticalAlign.Top);
+    SlumlordUi.Place(SlumlordUi.Rect(w, h, SlumlordColors.Line()), 0.0, 0.0, bar);
+    let f = ClampF(fraction, 0.0, 1.0);
+    if f > 0.0 {
+      SlumlordUi.Place(SlumlordUi.Rect(w * f, h, color), 0.0, 0.0, bar);
+    }
+    return bar;
+  }
+
   // ------------------------------------------------------------------ sound
 
   public static func PlaySound(sound: CName) -> Void {
