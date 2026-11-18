@@ -371,8 +371,9 @@ public abstract class SlumlordCallScripts {
       case 2: line.Set(n"", "Name's Quentin Finger. Owner of the Las Palapas? Been runnin' Arroyo since before your balls dropped, squirt.", 0.0, "Finger", 0.6); return true;
       case 3: line.Set(n"", "Right.", 0.0, "V", 0.6); return true;
       case 4: line.Set(n"", "Santo's got one landlord. Me. You wanna flip apartments, go do it in Watson with the rest of the gonks.", 0.0, "Finger", 0.6); return true;
-      case 5: line.Set(n"", "Here's how it goes. You sell back what you bought, nobody gets hurt. You don't, and your tenants start havin' a real bad time. Then you do.", 0.0, "Finger", 0.6); return true;
-      case 6: line.Set(n"", "Not happening.", 0.0, "V", 0.6); return true;
+      case 5: line.Set(n"", "Here's how it goes. Sell off what you bought, stay the fuck out of my neighborhood, and nobody gets hurt. You don't, and your tenants start havin' a real bad time. Then maybe you do, too.", 0.0, "Finger", 0.6); return true;
+      // V: an insult, expletive or refusal; placeholder subtitle until a vanilla V clip is picked (it then matches the clip).
+      case 6: line.Set(n"", "Go fuck yourself.", 0.0, "V", 0.6); return true;
       case 7: line.Set(n"", "Folks say my bark's worse than my bite. Go on and find out, V.", 0.0, "Finger", 0.9); return true;
       default: return false;
     }
