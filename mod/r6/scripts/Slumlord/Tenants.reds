@@ -8,7 +8,8 @@
 //    Commercial (business) tenants roll CommercialMoveOutChance(rank) only; safety does not apply.
 // Rolls are seeded by property id, rent-day number (saved) and roll number, so reloading a save gives the same result.
 //
-// The report is one journal message (contact "Slumlord Realty", Slumlord.archive), re-sent each rent day.
+// The report is one journal message (contact "Slumlord Realty", Slumlord.archive), re-sent each rent day;
+// a second message in the same thread carries alerts (lease broken, Finger.reds).
 // Its stored text is only a fallback ("Your weekly tenant report is ready."): the conversation view and
 // the incoming-message pop-up draw the live report instead (hooks at the end of this file).
 module Slumlord
@@ -82,6 +83,9 @@ public abstract class SlumlordTenantReport {
   public static func Thread() -> String { return SlumlordTenantReport.Contact() + "/slumlord_realty_reports"; }
   public static func MessageId() -> String { return "slumlord_realty_report"; }
   public static func Message() -> String { return SlumlordTenantReport.Thread() + "/" + SlumlordTenantReport.MessageId(); }
+  // Alerts (lease broken, Finger.reds): a second reusable message in the same thread.
+  public static func AlertId() -> String { return "slumlord_realty_alert"; }
+  public static func Alert() -> String { return SlumlordTenantReport.Thread() + "/" + SlumlordTenantReport.AlertId(); }
 
   // Re-sends the report message: inactive, then active with a notification.
   // Does nothing when Slumlord.archive (with the contact) is not installed.
@@ -95,6 +99,32 @@ public abstract class SlumlordTenantReport {
     SlumlordJournal.Set(game, SlumlordTenantReport.Thread(), "gameJournalPhoneConversation", gameJournalEntryState.Active, false);
     SlumlordJournal.Set(game, SlumlordTenantReport.Message(), "gameJournalPhoneMessage", gameJournalEntryState.Inactive, false);
     SlumlordJournal.Set(game, SlumlordTenantReport.Message(), "gameJournalPhoneMessage", gameJournalEntryState.Active, true);
+  }
+
+  public static func SendAlert(game: GameInstance) -> Void {
+    let jm = GameInstance.GetJournalManager(game);
+    if !IsDefined(jm.GetEntryByString(SlumlordTenantReport.Alert(), "gameJournalPhoneMessage")) {
+      ModLog(n"Slumlord", "Alert: message missing (Slumlord.archive not installed or outdated).");
+      return;
+    }
+    SlumlordJournal.Set(game, SlumlordTenantReport.Contact(), "gameJournalContact", gameJournalEntryState.Active, false);
+    SlumlordJournal.Set(game, SlumlordTenantReport.Thread(), "gameJournalPhoneConversation", gameJournalEntryState.Active, false);
+    SlumlordJournal.Set(game, SlumlordTenantReport.Alert(), "gameJournalPhoneMessage", gameJournalEntryState.Inactive, false);
+    SlumlordJournal.Set(game, SlumlordTenantReport.Alert(), "gameJournalPhoneMessage", gameJournalEntryState.Active, true);
+  }
+
+  // Live text for our messages; "" for any other entry.
+  public static func LiveText(entry: wref<JournalEntry>, game: GameInstance) -> String {
+    if !IsDefined(entry) { return ""; }
+    let id = entry.GetId();
+    let system = SlumlordSystem.GetInstance(game);
+    if Equals(id, SlumlordTenantReport.MessageId()) {
+      return IsDefined(system) ? system.BuildTenantReport() : "Your weekly tenant report is ready.";
+    }
+    if Equals(id, SlumlordTenantReport.AlertId()) {
+      return IsDefined(system) ? system.BuildAlertText() : "TENANT MOVED OUT - LEASE BROKEN!";
+    }
+    return "";
   }
 
   public static func IsReport(entry: wref<JournalEntry>) -> Bool {
@@ -131,8 +161,9 @@ public abstract class SlumlordTenantReportLine {
 @wrapMethod(MessangerItemRenderer)
 protected func OnJournalEntryUpdated(entry: wref<JournalEntry>, extraData: ref<IScriptable>) -> Void {
   wrappedMethod(entry, extraData);
-  if SlumlordTenantReport.IsReport(entry) {
-    inkTextRef.SetText(this.m_labelPathRef, SlumlordTenantReport.Text(GetGameInstance()));
+  let text = SlumlordTenantReport.LiveText(entry, GetGameInstance());
+  if StrLen(text) > 0 {
+    inkTextRef.SetText(this.m_labelPathRef, text);
   }
 }
 
@@ -140,8 +171,8 @@ protected func OnJournalEntryUpdated(entry: wref<JournalEntry>, extraData: ref<I
 @wrapMethod(PhoneMessageNotificationsGameController)
 private final func ShowNotification() -> Void {
   wrappedMethod();
-  if IsDefined(this.m_data) && SlumlordTenantReport.IsReport(this.m_data.journalEntry) {
-    let text = SlumlordTenantReport.Text(GetGameInstance());
+  let text = IsDefined(this.m_data) ? SlumlordTenantReport.LiveText(this.m_data.journalEntry, GetGameInstance()) : "";
+  if StrLen(text) > 0 {
     if this.m_maxMessageSize > 0 && StrLen(text) > this.m_maxMessageSize {
       text = StrLeft(text, this.m_maxMessageSize) + "...";
     }

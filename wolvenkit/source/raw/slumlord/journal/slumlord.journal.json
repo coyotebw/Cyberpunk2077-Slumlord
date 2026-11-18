@@ -190,6 +190,162 @@
                                         },
                                         "optional": 0
                                       }
+                                    },
+                                    {
+                                      "HandleId": "21",
+                                      "Data": {
+                                        "$type": "gameJournalQuestObjective",
+                                        "counter": 0,
+                                        "description": {
+                                          "unk1": "0",
+                                          "value": "slumlord-fc-buy-0"
+                                        },
+                                        "districtID": "",
+                                        "entries": [],
+                                        "id": "slumlord_fc_buy_0",
+                                        "itemID": {
+                                          "$type": "TweakDBID",
+                                          "$storage": "uint64",
+                                          "$value": "0"
+                                        },
+                                        "journalEntryOverrideDataList": [],
+                                        "locationPrefabRef": {
+                                          "$type": "NodeRef",
+                                          "$storage": "uint64",
+                                          "$value": "0"
+                                        },
+                                        "optional": 0
+                                      }
+                                    },
+                                    {
+                                      "HandleId": "22",
+                                      "Data": {
+                                        "$type": "gameJournalQuestObjective",
+                                        "counter": 0,
+                                        "description": {
+                                          "unk1": "0",
+                                          "value": "slumlord-fc-buy-1"
+                                        },
+                                        "districtID": "",
+                                        "entries": [],
+                                        "id": "slumlord_fc_buy_1",
+                                        "itemID": {
+                                          "$type": "TweakDBID",
+                                          "$storage": "uint64",
+                                          "$value": "0"
+                                        },
+                                        "journalEntryOverrideDataList": [],
+                                        "locationPrefabRef": {
+                                          "$type": "NodeRef",
+                                          "$storage": "uint64",
+                                          "$value": "0"
+                                        },
+                                        "optional": 0
+                                      }
+                                    },
+                                    {
+                                      "HandleId": "23",
+                                      "Data": {
+                                        "$type": "gameJournalQuestObjective",
+                                        "counter": 0,
+                                        "description": {
+                                          "unk1": "0",
+                                          "value": "slumlord-fc-buy-2"
+                                        },
+                                        "districtID": "",
+                                        "entries": [],
+                                        "id": "slumlord_fc_buy_2",
+                                        "itemID": {
+                                          "$type": "TweakDBID",
+                                          "$storage": "uint64",
+                                          "$value": "0"
+                                        },
+                                        "journalEntryOverrideDataList": [],
+                                        "locationPrefabRef": {
+                                          "$type": "NodeRef",
+                                          "$storage": "uint64",
+                                          "$value": "0"
+                                        },
+                                        "optional": 0
+                                      }
+                                    },
+                                    {
+                                      "HandleId": "24",
+                                      "Data": {
+                                        "$type": "gameJournalQuestObjective",
+                                        "counter": 0,
+                                        "description": {
+                                          "unk1": "0",
+                                          "value": "slumlord-fc-buy-3"
+                                        },
+                                        "districtID": "",
+                                        "entries": [],
+                                        "id": "slumlord_fc_buy_3",
+                                        "itemID": {
+                                          "$type": "TweakDBID",
+                                          "$storage": "uint64",
+                                          "$value": "0"
+                                        },
+                                        "journalEntryOverrideDataList": [],
+                                        "locationPrefabRef": {
+                                          "$type": "NodeRef",
+                                          "$storage": "uint64",
+                                          "$value": "0"
+                                        },
+                                        "optional": 0
+                                      }
+                                    },
+                                    {
+                                      "HandleId": "25",
+                                      "Data": {
+                                        "$type": "gameJournalQuestObjective",
+                                        "counter": 0,
+                                        "description": {
+                                          "unk1": "0",
+                                          "value": "slumlord-fc-buy-4"
+                                        },
+                                        "districtID": "",
+                                        "entries": [],
+                                        "id": "slumlord_fc_buy_4",
+                                        "itemID": {
+                                          "$type": "TweakDBID",
+                                          "$storage": "uint64",
+                                          "$value": "0"
+                                        },
+                                        "journalEntryOverrideDataList": [],
+                                        "locationPrefabRef": {
+                                          "$type": "NodeRef",
+                                          "$storage": "uint64",
+                                          "$value": "0"
+                                        },
+                                        "optional": 0
+                                      }
+                                    },
+                                    {
+                                      "HandleId": "40",
+                                      "Data": {
+                                        "$type": "gameJournalQuestObjective",
+                                        "counter": 0,
+                                        "description": {
+                                          "unk1": "0",
+                                          "value": "slumlord-fc-buy-5"
+                                        },
+                                        "districtID": "",
+                                        "entries": [],
+                                        "id": "slumlord_fc_buy_5",
+                                        "itemID": {
+                                          "$type": "TweakDBID",
+                                          "$storage": "uint64",
+                                          "$value": "0"
+                                        },
+                                        "journalEntryOverrideDataList": [],
+                                        "locationPrefabRef": {
+                                          "$type": "NodeRef",
+                                          "$storage": "uint64",
+                                          "$value": "0"
+                                        },
+                                        "optional": 0
+                                      }
                                     }
                                   ]
                                 }
@@ -203,6 +359,309 @@
                                     "value": "slumlord-fc-desc"
                                   },
                                   "id": "slumlord_fc_desc"
+                                }
+                              },
+                              {
+                                "HandleId": "26",
+                                "Data": {
+                                  "$type": "gameJournalQuestDescription",
+                                  "description": {
+                                    "unk1": "0",
+                                    "value": "slumlord-fc-desc-intro"
+                                  },
+                                  "id": "slumlord_fc_desc_intro"
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "HandleId": "36",
+                          "Data": {
+                            "$type": "gameJournalQuest",
+                            "districtID": "Districts.SantoDomingo",
+                            "id": "slumlord_wont_bite",
+                            "journalEntryOverrideDataList": [],
+                            "recommendedLevelID": {
+                              "$type": "TweakDBID",
+                              "$storage": "uint64",
+                              "$value": "0"
+                            },
+                            "title": {
+                              "unk1": "0",
+                              "value": "slumlord-wb-title"
+                            },
+                            "type": "MinorQuest",
+                            "entries": [
+                              {
+                                "HandleId": "35",
+                                "Data": {
+                                  "$type": "gameJournalQuestPhase",
+                                  "id": "slumlord_wb_phase",
+                                  "journalEntryOverrideDataList": [],
+                                  "locationPrefabRef": {
+                                    "$type": "NodeRef",
+                                    "$storage": "uint64",
+                                    "$value": "0"
+                                  },
+                                  "entries": [
+                                    {
+                                      "HandleId": "27",
+                                      "Data": {
+                                        "$type": "gameJournalQuestObjective",
+                                        "counter": 0,
+                                        "description": {
+                                          "unk1": "0",
+                                          "value": "slumlord-wb-buy-0"
+                                        },
+                                        "districtID": "",
+                                        "entries": [],
+                                        "id": "slumlord_wb_buy_0",
+                                        "itemID": {
+                                          "$type": "TweakDBID",
+                                          "$storage": "uint64",
+                                          "$value": "0"
+                                        },
+                                        "journalEntryOverrideDataList": [],
+                                        "locationPrefabRef": {
+                                          "$type": "NodeRef",
+                                          "$storage": "uint64",
+                                          "$value": "0"
+                                        },
+                                        "optional": 0
+                                      }
+                                    },
+                                    {
+                                      "HandleId": "28",
+                                      "Data": {
+                                        "$type": "gameJournalQuestObjective",
+                                        "counter": 0,
+                                        "description": {
+                                          "unk1": "0",
+                                          "value": "slumlord-wb-buy-1"
+                                        },
+                                        "districtID": "",
+                                        "entries": [],
+                                        "id": "slumlord_wb_buy_1",
+                                        "itemID": {
+                                          "$type": "TweakDBID",
+                                          "$storage": "uint64",
+                                          "$value": "0"
+                                        },
+                                        "journalEntryOverrideDataList": [],
+                                        "locationPrefabRef": {
+                                          "$type": "NodeRef",
+                                          "$storage": "uint64",
+                                          "$value": "0"
+                                        },
+                                        "optional": 0
+                                      }
+                                    },
+                                    {
+                                      "HandleId": "29",
+                                      "Data": {
+                                        "$type": "gameJournalQuestObjective",
+                                        "counter": 0,
+                                        "description": {
+                                          "unk1": "0",
+                                          "value": "slumlord-wb-buy-2"
+                                        },
+                                        "districtID": "",
+                                        "entries": [],
+                                        "id": "slumlord_wb_buy_2",
+                                        "itemID": {
+                                          "$type": "TweakDBID",
+                                          "$storage": "uint64",
+                                          "$value": "0"
+                                        },
+                                        "journalEntryOverrideDataList": [],
+                                        "locationPrefabRef": {
+                                          "$type": "NodeRef",
+                                          "$storage": "uint64",
+                                          "$value": "0"
+                                        },
+                                        "optional": 0
+                                      }
+                                    },
+                                    {
+                                      "HandleId": "30",
+                                      "Data": {
+                                        "$type": "gameJournalQuestObjective",
+                                        "counter": 0,
+                                        "description": {
+                                          "unk1": "0",
+                                          "value": "slumlord-wb-buy-3"
+                                        },
+                                        "districtID": "",
+                                        "entries": [],
+                                        "id": "slumlord_wb_buy_3",
+                                        "itemID": {
+                                          "$type": "TweakDBID",
+                                          "$storage": "uint64",
+                                          "$value": "0"
+                                        },
+                                        "journalEntryOverrideDataList": [],
+                                        "locationPrefabRef": {
+                                          "$type": "NodeRef",
+                                          "$storage": "uint64",
+                                          "$value": "0"
+                                        },
+                                        "optional": 0
+                                      }
+                                    },
+                                    {
+                                      "HandleId": "31",
+                                      "Data": {
+                                        "$type": "gameJournalQuestObjective",
+                                        "counter": 0,
+                                        "description": {
+                                          "unk1": "0",
+                                          "value": "slumlord-wb-buy-4"
+                                        },
+                                        "districtID": "",
+                                        "entries": [],
+                                        "id": "slumlord_wb_buy_4",
+                                        "itemID": {
+                                          "$type": "TweakDBID",
+                                          "$storage": "uint64",
+                                          "$value": "0"
+                                        },
+                                        "journalEntryOverrideDataList": [],
+                                        "locationPrefabRef": {
+                                          "$type": "NodeRef",
+                                          "$storage": "uint64",
+                                          "$value": "0"
+                                        },
+                                        "optional": 0
+                                      }
+                                    },
+                                    {
+                                      "HandleId": "41",
+                                      "Data": {
+                                        "$type": "gameJournalQuestObjective",
+                                        "counter": 0,
+                                        "description": {
+                                          "unk1": "0",
+                                          "value": "slumlord-wb-buy-5"
+                                        },
+                                        "districtID": "",
+                                        "entries": [],
+                                        "id": "slumlord_wb_buy_5",
+                                        "itemID": {
+                                          "$type": "TweakDBID",
+                                          "$storage": "uint64",
+                                          "$value": "0"
+                                        },
+                                        "journalEntryOverrideDataList": [],
+                                        "locationPrefabRef": {
+                                          "$type": "NodeRef",
+                                          "$storage": "uint64",
+                                          "$value": "0"
+                                        },
+                                        "optional": 0
+                                      }
+                                    },
+                                    {
+                                      "HandleId": "32",
+                                      "Data": {
+                                        "$type": "gameJournalQuestObjective",
+                                        "counter": 0,
+                                        "description": {
+                                          "unk1": "0",
+                                          "value": "slumlord-wb-wait"
+                                        },
+                                        "districtID": "",
+                                        "entries": [],
+                                        "id": "slumlord_wb_wait",
+                                        "itemID": {
+                                          "$type": "TweakDBID",
+                                          "$storage": "uint64",
+                                          "$value": "0"
+                                        },
+                                        "journalEntryOverrideDataList": [],
+                                        "locationPrefabRef": {
+                                          "$type": "NodeRef",
+                                          "$storage": "uint64",
+                                          "$value": "0"
+                                        },
+                                        "optional": 0
+                                      }
+                                    },
+                                    {
+                                      "HandleId": "33",
+                                      "Data": {
+                                        "$type": "gameJournalQuestObjective",
+                                        "counter": 0,
+                                        "description": {
+                                          "unk1": "0",
+                                          "value": "slumlord-wb-motel"
+                                        },
+                                        "districtID": "",
+                                        "entries": [],
+                                        "id": "slumlord_wb_motel",
+                                        "itemID": {
+                                          "$type": "TweakDBID",
+                                          "$storage": "uint64",
+                                          "$value": "0"
+                                        },
+                                        "journalEntryOverrideDataList": [],
+                                        "locationPrefabRef": {
+                                          "$type": "NodeRef",
+                                          "$storage": "uint64",
+                                          "$value": "0"
+                                        },
+                                        "optional": 0
+                                      }
+                                    },
+                                    {
+                                      "HandleId": "34",
+                                      "Data": {
+                                        "$type": "gameJournalQuestObjective",
+                                        "counter": 0,
+                                        "description": {
+                                          "unk1": "0",
+                                          "value": "slumlord-wb-goons"
+                                        },
+                                        "districtID": "",
+                                        "entries": [],
+                                        "id": "slumlord_wb_goons",
+                                        "itemID": {
+                                          "$type": "TweakDBID",
+                                          "$storage": "uint64",
+                                          "$value": "0"
+                                        },
+                                        "journalEntryOverrideDataList": [],
+                                        "locationPrefabRef": {
+                                          "$type": "NodeRef",
+                                          "$storage": "uint64",
+                                          "$value": "0"
+                                        },
+                                        "optional": 0
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "HandleId": "37",
+                                "Data": {
+                                  "$type": "gameJournalQuestDescription",
+                                  "description": {
+                                    "unk1": "0",
+                                    "value": "slumlord-wb-desc-intro"
+                                  },
+                                  "id": "slumlord_wb_desc_intro"
+                                }
+                              },
+                              {
+                                "HandleId": "38",
+                                "Data": {
+                                  "$type": "gameJournalQuestDescription",
+                                  "description": {
+                                    "unk1": "0",
+                                    "value": "slumlord-wb-desc-motel"
+                                  },
+                                  "id": "slumlord_wb_desc_motel"
                                 }
                               }
                             ]
@@ -431,6 +890,27 @@
                                   "text": {
                                     "unk1": "0",
                                     "value": "slumlord-realty-report"
+                                  }
+                                }
+                              },
+                              {
+                                "HandleId": "39",
+                                "Data": {
+                                  "$type": "gameJournalPhoneMessage",
+                                  "attachment": null,
+                                  "delay": 1,
+                                  "id": "slumlord_realty_alert",
+                                  "imageId": {
+                                    "$type": "TweakDBID",
+                                    "$storage": "uint64",
+                                    "$value": "0"
+                                  },
+                                  "isQuestImportant": 0,
+                                  "journalEntryOverrideDataList": [],
+                                  "sender": "NPC",
+                                  "text": {
+                                    "unk1": "0",
+                                    "value": "slumlord-realty-alert"
                                   }
                                 }
                               }

@@ -30,7 +30,7 @@ public abstract class SlumlordData {
   public static func Districts() -> array<ref<SlumlordDistrictDef>> {
     let list: array<ref<SlumlordDistrictDef>>;
     ArrayPush(list, SlumlordData.District(n"watson",        "Watson",        "ワトソン",         2,  0, "Hideyoshi Oshima",       "Tyger Claws, Maelstrom", 2));
-    ArrayPush(list, SlumlordData.District(n"santo_domingo", "Santo Domingo", "サントドミンゴ",   1,  5, "TBD",                    "6th Street", 2));
+    ArrayPush(list, SlumlordData.District(n"santo_domingo", "Santo Domingo", "サントドミンゴ",   1,  5, "Quentin Finger",         "6th Street", 2));
     ArrayPush(list, SlumlordData.District(n"pacifica",      "Pacifica",      "パシフィカ",       1, 10, "Ozob Bozo",              "Voodoo Boys, Animals", 1));
     ArrayPush(list, SlumlordData.District(n"badlands",      "Badlands",      "バッドランズ",     1, 10, "TBD",                    "Wraiths", 1));
     ArrayPush(list, SlumlordData.District(n"heywood",       "Heywood",       "ヘイウッド",       3, 15, "TBD",                    "Valentinos", 3));

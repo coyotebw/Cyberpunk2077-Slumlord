@@ -13,6 +13,12 @@ public class SlumlordSystem extends ScriptableSystem {
   private persistent let m_reportWeeks: Int32;   // rent days covered by the latest tenant report
   private persistent let m_rentDays: Int32;      // rent days processed on this save: seeds tenant rolls
   private persistent let m_unlockedContractors: array<CName>; // quest/fixer Contractors unlocked on this save
+  // Latest alert text (Slumlord Realty's alert message, drawn by Tenants.reds). Strings can't be saved:
+  // kind 1 = lease broken (Finger.reds); property id, name index (Names.reds), complaint index.
+  private persistent let m_alertKind: Int32;
+  private persistent let m_alertProperty: CName;
+  private persistent let m_alertName: Int32;
+  private persistent let m_alertComplaint: Int32;
 
   // ---- Runtime only ----
   private let m_districts: array<ref<SlumlordDistrictDef>>;
@@ -126,6 +132,10 @@ public class SlumlordSystem extends ScriptableSystem {
       n += 1;
     }
     this.m_reportWeeks = simWeeks;
+    let finger = SlumlordFinger.GetInstance(this.GetGameInstance());
+    if IsDefined(finger) {
+      finger.OnRentDay(this.m_rentDays);   // lease-broken events for the coming week
+    }
 
     if this.GetOwnedCount() > 0 {
       this.RefreshPins();   // owned pins turn into rent-ready pins
@@ -210,6 +220,10 @@ public class SlumlordSystem extends ScriptableSystem {
   public func OnTick() -> Void {
     this.m_tickActive = false;
     this.Refresh();
+    let finger = SlumlordFinger.GetInstance(this.GetGameInstance());
+    if IsDefined(finger) {
+      finger.OnSystemTick();
+    }
     this.ScheduleTick();
   }
 
@@ -291,9 +305,12 @@ public class SlumlordSystem extends ScriptableSystem {
 
   // Rivals are named on the portal once V has met them. Watson: Oshima reveals himself on his call.
   public func IsRivalMet(districtId: CName) -> Bool {
+    let boss = SlumlordBoss.GetInstance(this.GetGameInstance());
     if Equals(districtId, n"watson") {
-      let boss = SlumlordBoss.GetInstance(this.GetGameInstance());
       return IsDefined(boss) && boss.IsCallDone();
+    }
+    if Equals(districtId, n"santo_domingo") {
+      return IsDefined(boss) && boss.IsFingerMet();
     }
     return false;
   }
@@ -410,11 +427,41 @@ public class SlumlordSystem extends ScriptableSystem {
     if IsDefined(boss) {
       boss.OnPropertyBought(def);
     }
+    this.NotifyBosses();
+    this.CheckEmpireComplete();
+  }
+
+  // Boss quests track how much of their district V owns ("Buy up <district> (n/5)").
+  private func NotifyBosses() -> Void {
     let fight = SlumlordFight.GetInstance(this.GetGameInstance());
     if IsDefined(fight) {
-      fight.CheckTrigger();
+      fight.OnPropertyChanged();
     }
-    this.CheckEmpireComplete();
+    let finger = SlumlordFinger.GetInstance(this.GetGameInstance());
+    if IsDefined(finger) {
+      finger.OnPropertyChanged();
+    }
+  }
+
+  // ---- alert text (Slumlord Realty) ----
+
+  public func SetAlert(kind: Int32, property: CName, nameIndex: Int32, complaintIndex: Int32) -> Void {
+    this.m_alertKind = kind;
+    this.m_alertProperty = property;
+    this.m_alertName = nameIndex;
+    this.m_alertComplaint = complaintIndex;
+  }
+
+  public func BuildAlertText() -> String {
+    this.EnsureLoaded();
+    let def = this.GetPropertyDef(this.m_alertProperty);
+    if this.m_alertKind != 1 || !IsDefined(def) { return "TENANT MOVED OUT - LEASE BROKEN!"; }
+    let name = SlumlordNames.Get(this.m_alertName);
+    let complaint = SlumlordWontBite.Complaint(this.m_alertComplaint);
+    if def.commercial {
+      return "BUSINESS MOVED OUT - LEASE BROKEN!\n" + name + " closed up shop at " + def.displayName + " in a huff, complaining " + complaint;
+    }
+    return "TENANT MOVED OUT - LEASE BROKEN!\n" + name + " moved out of " + def.displayName + " in a huff, complaining " + complaint;
   }
 
   private func CheckEmpireComplete() -> Void {
@@ -564,6 +611,7 @@ public class SlumlordSystem extends ScriptableSystem {
     state.rankPoints = 0;
     state.jobsThisWeek = 0;
     this.RefreshPins();
+    this.NotifyBosses();
     return true;
   }
 

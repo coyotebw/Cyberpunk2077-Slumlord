@@ -43,6 +43,7 @@ public class SlumlordFight extends ScriptableSystem {
   private persistent let m_stage: Int32;       // 0 waiting, 1 texts arriving, 2 quest active, 3 won
   private persistent let m_textsSent: Int32;
   private persistent let m_thanked: Bool;      // Karl's thank-you text after the win
+  private persistent let m_started: Bool;      // quest shown since Oshima's call ("Buy up Watson (n/5)")
 
   private let m_ticking: Bool;
   private let m_textQueued: Bool;
@@ -116,6 +117,14 @@ public class SlumlordFight extends ScriptableSystem {
     this.m_spawned = false;
     this.m_phase = 0;
     this.DeleteScene();
+    // Saves from before the quest started at the call: show it now.
+    let boss = SlumlordBoss.GetInstance(this.GetGameInstance());
+    if this.m_stage == 0 && !this.m_started && IsDefined(boss) && boss.IsCallDone() {
+      this.StartQuest(false);
+    }
+    if this.m_stage == 3 {
+      this.UnlockOshima();
+    }
     if this.m_stage == 3 && !this.m_thanked {
       this.Queue(n"thanks", 10.0);
     } else if this.m_stage == 1 {
@@ -124,6 +133,41 @@ public class SlumlordFight extends ScriptableSystem {
       this.StartQuestLoop();
     } else {
       this.Queue(n"check", 10.0);
+    }
+  }
+
+  // ---- the quest starts when Oshima's call ends: "Buy up Watson (n/5)" ----
+
+  public func OnCallDone() -> Void {
+    if this.m_stage == 0 && !this.m_started {
+      this.StartQuest(true);
+    }
+    this.CheckTrigger();
+  }
+
+  private func StartQuest(notify: Bool) -> Void {
+    let game = this.GetGameInstance();
+    if !SlumlordJournal.Installed(game) { return; }
+    this.m_started = true;
+    SlumlordJournal.Set(game, SlumlordJournal.Quest(), "gameJournalQuest", gameJournalEntryState.Active, notify);
+    SlumlordJournal.Set(game, SlumlordJournal.Quest() + "/slumlord_fc_desc_intro", "gameJournalQuestDescription", gameJournalEntryState.Active, false);
+    SlumlordJournal.Set(game, SlumlordJournal.Phase(), "gameJournalQuestPhase", gameJournalEntryState.Active, false);
+    SlumlordBuyUp.Update(game, SlumlordJournal.Phase(), "slumlord_fc_buy_", n"watson", true);
+    SlumlordUi.Log("Million Dollar Baby: started after Oshima's call");
+  }
+
+  // Every purchase and release (System.reds).
+  public func OnPropertyChanged() -> Void {
+    if this.m_started && this.m_stage == 0 {
+      SlumlordBuyUp.Update(this.GetGameInstance(), SlumlordJournal.Phase(), "slumlord_fc_buy_", n"watson", false);
+    }
+    this.CheckTrigger();
+  }
+
+  private func UnlockOshima() -> Void {
+    let sys = SlumlordSystem.GetInstance(this.GetGameInstance());
+    if IsDefined(sys) {
+      sys.UnlockContractor(n"con_oshima");
     }
   }
 
@@ -170,6 +214,9 @@ public class SlumlordFight extends ScriptableSystem {
     }
     this.m_stage = 1;
     this.m_textsSent = 0;
+    if this.m_started {
+      SlumlordBuyUp.Update(this.GetGameInstance(), SlumlordJournal.Phase(), "slumlord_fc_buy_", n"watson", false);   // 5/5 done
+    }
     SlumlordUi.Log("Million Dollar Baby: Watson owned, Karl texts in " + FloatToStringPrec(delay, 0) + " s");
     this.QueueText(delay);
   }
@@ -200,6 +247,7 @@ public class SlumlordFight extends ScriptableSystem {
     // last text: the quest
     this.m_stage = 2;
     SlumlordJournal.Set(game, SlumlordJournal.Quest(), "gameJournalQuest", gameJournalEntryState.Active, true);
+    SlumlordJournal.Set(game, SlumlordJournal.Quest() + "/slumlord_fc_desc_intro", "gameJournalQuestDescription", gameJournalEntryState.Inactive, false);
     SlumlordJournal.Set(game, SlumlordJournal.Quest() + "/slumlord_fc_desc", "gameJournalQuestDescription", gameJournalEntryState.Active, false);
     SlumlordJournal.Set(game, SlumlordJournal.Phase(), "gameJournalQuestPhase", gameJournalEntryState.Active, false);
     SlumlordJournal.Objective(game, "slumlord_fc_go", gameJournalEntryState.Active);
@@ -644,6 +692,7 @@ public class SlumlordFight extends ScriptableSystem {
     SlumlordJournal.Set(game, SlumlordJournal.Quest(), "gameJournalQuest", gameJournalEntryState.Succeeded, true);
     this.SetPin(false);
     GameInstance.GetQuestsSystem(game).SetFactStr(SlumlordFight.DoneFact(), 1);
+    this.UnlockOshima();   // he joins V as Contractor #16 (design doc 4.4)
     RPGManager.AwardExperienceInstantly(GetPlayer(game), SlumlordFight.RewardXP(), gamedataProficiencyType.Level);
     this.Queue(n"thanks", SlumlordFight.ThanksDelay());
     if !this.m_oshimaGone {
@@ -843,6 +892,9 @@ public class SlumlordFight extends ScriptableSystem {
     this.m_textsSent = 0;
     this.m_spawned = false;
     this.m_phase = 0;
+    this.m_started = false;
+    SlumlordBuyUp.Clear(game, SlumlordJournal.Phase(), "slumlord_fc_buy_");
+    SlumlordJournal.Set(game, SlumlordJournal.Quest() + "/slumlord_fc_desc_intro", "gameJournalQuestDescription", gameJournalEntryState.Inactive, false);
     SlumlordJournal.Objective(game, "slumlord_fc_go", gameJournalEntryState.Inactive);
     SlumlordJournal.Objective(game, "slumlord_fc_fight", gameJournalEntryState.Inactive);
     SlumlordJournal.Set(game, SlumlordJournal.Phase() + "/slumlord_fc_go/slumlord_fc_pin", "gameJournalQuestMapPin", gameJournalEntryState.Inactive, false);
@@ -865,7 +917,7 @@ public class SlumlordFight extends ScriptableSystem {
     let owned = SlumlordFight.WatsonOwned(this.GetGameInstance(), total);
     let boss = SlumlordBoss.GetInstance(this.GetGameInstance());
     return "watson " + IntToString(owned) + "/" + IntToString(total) + " call=" + (IsDefined(boss) && boss.IsCallDone() ? "done" : "not done")
-      + " stage=" + IntToString(this.m_stage) + " texts=" + IntToString(this.m_textsSent) + " phase=" + IntToString(this.m_phase)
+      + " started=" + (this.m_started ? "yes" : "no") + " stage=" + IntToString(this.m_stage) + " texts=" + IntToString(this.m_textsSent) + " phase=" + IntToString(this.m_phase)
       + " spawned=" + (this.m_spawned ? "yes" : "no")
       + " in workspot=" + this.SpotsInUse()
       + " pin=" + SlumlordFight.JournalPinState(this.GetGameInstance())

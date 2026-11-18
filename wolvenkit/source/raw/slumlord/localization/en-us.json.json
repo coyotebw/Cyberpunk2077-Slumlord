@@ -129,6 +129,146 @@
               "maleVariant": "",
               "primaryKey": "0",
               "secondaryKey": "slumlord-realty-report"
+            },
+            {
+              "$type": "localizationPersistenceOnScreenEntry",
+              "femaleVariant": "A braindance director called Hideyoshi Oshima wants you out of Watson. Buy up the district anyway.",
+              "maleVariant": "",
+              "primaryKey": "0",
+              "secondaryKey": "slumlord-fc-desc-intro"
+            },
+            {
+              "$type": "localizationPersistenceOnScreenEntry",
+              "femaleVariant": "Won't Bite",
+              "maleVariant": "",
+              "primaryKey": "0",
+              "secondaryKey": "slumlord-wb-title"
+            },
+            {
+              "$type": "localizationPersistenceOnScreenEntry",
+              "femaleVariant": "Quentin Finger, who owns the Las Palapas Motel, says Santo Domingo has one landlord: him. If you keep buying, he'll run you out of town. Buy up the district anyway.",
+              "maleVariant": "",
+              "primaryKey": "0",
+              "secondaryKey": "slumlord-wb-desc-intro"
+            },
+            {
+              "$type": "localizationPersistenceOnScreenEntry",
+              "femaleVariant": "Finger says he stole something of yours. He wants you at the Las Palapas Motel tonight. Alone.",
+              "maleVariant": "",
+              "primaryKey": "0",
+              "secondaryKey": "slumlord-wb-desc-motel"
+            },
+            {
+              "$type": "localizationPersistenceOnScreenEntry",
+              "femaleVariant": "Wait until night",
+              "maleVariant": "",
+              "primaryKey": "0",
+              "secondaryKey": "slumlord-wb-wait"
+            },
+            {
+              "$type": "localizationPersistenceOnScreenEntry",
+              "femaleVariant": "Meet Finger at the Las Palapas Motel",
+              "maleVariant": "",
+              "primaryKey": "0",
+              "secondaryKey": "slumlord-wb-motel"
+            },
+            {
+              "$type": "localizationPersistenceOnScreenEntry",
+              "femaleVariant": "Deal with Finger's goons",
+              "maleVariant": "",
+              "primaryKey": "0",
+              "secondaryKey": "slumlord-wb-goons"
+            },
+            {
+              "$type": "localizationPersistenceOnScreenEntry",
+              "femaleVariant": "TENANT MOVED OUT - LEASE BROKEN!",
+              "maleVariant": "",
+              "primaryKey": "0",
+              "secondaryKey": "slumlord-realty-alert"
+            },
+            {
+              "$type": "localizationPersistenceOnScreenEntry",
+              "femaleVariant": "Buy up Watson (0/5)",
+              "maleVariant": "",
+              "primaryKey": "0",
+              "secondaryKey": "slumlord-fc-buy-0"
+            },
+            {
+              "$type": "localizationPersistenceOnScreenEntry",
+              "femaleVariant": "Buy up Santo Domingo (0/5)",
+              "maleVariant": "",
+              "primaryKey": "0",
+              "secondaryKey": "slumlord-wb-buy-0"
+            },
+            {
+              "$type": "localizationPersistenceOnScreenEntry",
+              "femaleVariant": "Buy up Watson (1/5)",
+              "maleVariant": "",
+              "primaryKey": "0",
+              "secondaryKey": "slumlord-fc-buy-1"
+            },
+            {
+              "$type": "localizationPersistenceOnScreenEntry",
+              "femaleVariant": "Buy up Santo Domingo (1/5)",
+              "maleVariant": "",
+              "primaryKey": "0",
+              "secondaryKey": "slumlord-wb-buy-1"
+            },
+            {
+              "$type": "localizationPersistenceOnScreenEntry",
+              "femaleVariant": "Buy up Watson (2/5)",
+              "maleVariant": "",
+              "primaryKey": "0",
+              "secondaryKey": "slumlord-fc-buy-2"
+            },
+            {
+              "$type": "localizationPersistenceOnScreenEntry",
+              "femaleVariant": "Buy up Santo Domingo (2/5)",
+              "maleVariant": "",
+              "primaryKey": "0",
+              "secondaryKey": "slumlord-wb-buy-2"
+            },
+            {
+              "$type": "localizationPersistenceOnScreenEntry",
+              "femaleVariant": "Buy up Watson (3/5)",
+              "maleVariant": "",
+              "primaryKey": "0",
+              "secondaryKey": "slumlord-fc-buy-3"
+            },
+            {
+              "$type": "localizationPersistenceOnScreenEntry",
+              "femaleVariant": "Buy up Santo Domingo (3/5)",
+              "maleVariant": "",
+              "primaryKey": "0",
+              "secondaryKey": "slumlord-wb-buy-3"
+            },
+            {
+              "$type": "localizationPersistenceOnScreenEntry",
+              "femaleVariant": "Buy up Watson (4/5)",
+              "maleVariant": "",
+              "primaryKey": "0",
+              "secondaryKey": "slumlord-fc-buy-4"
+            },
+            {
+              "$type": "localizationPersistenceOnScreenEntry",
+              "femaleVariant": "Buy up Santo Domingo (4/5)",
+              "maleVariant": "",
+              "primaryKey": "0",
+              "secondaryKey": "slumlord-wb-buy-4"
+            },
+            {
+              "$type": "localizationPersistenceOnScreenEntry",
+              "femaleVariant": "Buy up Watson (5/5)",
+              "maleVariant": "",
+              "primaryKey": "0",
+              "secondaryKey": "slumlord-fc-buy-5"
+            },
+            {
+              "$type": "localizationPersistenceOnScreenEntry",
+              "femaleVariant": "Buy up Santo Domingo (5/5)",
+              "maleVariant": "",
+              "primaryKey": "0",
+              "secondaryKey": "slumlord-wb-buy-5"
             }
           ]
         }
