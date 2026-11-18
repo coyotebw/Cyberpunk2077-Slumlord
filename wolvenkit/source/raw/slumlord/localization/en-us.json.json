@@ -108,6 +108,27 @@
               "maleVariant": "",
               "primaryKey": "0",
               "secondaryKey": "slumlord-fc-pin"
+            },
+            {
+              "$type": "localizationPersistenceOnScreenEntry",
+              "femaleVariant": "Slumlord Realty",
+              "maleVariant": "",
+              "primaryKey": "0",
+              "secondaryKey": "slumlord-realty-name"
+            },
+            {
+              "$type": "localizationPersistenceOnScreenEntry",
+              "femaleVariant": "Tenant reports",
+              "maleVariant": "",
+              "primaryKey": "0",
+              "secondaryKey": "slumlord-realty-thread"
+            },
+            {
+              "$type": "localizationPersistenceOnScreenEntry",
+              "femaleVariant": "Your weekly tenant report is ready.",
+              "maleVariant": "",
+              "primaryKey": "0",
+              "secondaryKey": "slumlord-realty-report"
             }
           ]
         }

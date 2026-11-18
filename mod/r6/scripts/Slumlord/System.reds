@@ -10,6 +10,8 @@ public class SlumlordSystem extends ScriptableSystem {
   private persistent let m_initialized: Bool;
   private persistent let m_lifetimeCollected: Int32;
   private persistent let m_empireComplete: Bool;
+  private persistent let m_reportWeeks: Int32;   // rent days covered by the latest tenant report
+  private persistent let m_rentDays: Int32;      // rent days processed on this save: seeds tenant rolls
 
   // ---- Runtime only ----
   private let m_districts: array<ref<SlumlordDistrictDef>>;
@@ -94,6 +96,8 @@ public class SlumlordSystem extends ScriptableSystem {
   }
 
   // Lazy accrual: works across sleeping, waiting and fast travel.
+  // Each elapsed rent day, per owned property: rent for the week just ended (current occupancy),
+  // then tenant move-outs and arrivals (Tenants.reds). One tenant report text covers them all.
   // Returns the number of rent days processed.
   public func Refresh() -> Int32 {
     this.EnsureLoaded();
@@ -102,15 +106,33 @@ public class SlumlordSystem extends ScriptableSystem {
     let elapsed = week - this.m_lastRentWeek;
     if elapsed <= 0 { return 0; }
     this.m_lastRentWeek = week;
-    let accrued = this.AccrueRent(elapsed);
-    if accrued > 0 {
+
+    for state in this.m_states {
+      state.reportIn = 0;
+      state.reportOut = 0;
+    }
+    let simWeeks = Min(elapsed, SlumlordTuning.MaxTenantCatchUpWeeks());
+    let accrued = 0;
+    let n = 0;
+    while n < simWeeks {
+      this.m_rentDays += 1;   // saved, so reloading replays the same rolls; forced debug rent days get new ones
+      accrued += this.ProcessRentDay(this.m_rentDays);
+      n += 1;
+    }
+    this.m_reportWeeks = simWeeks;
+
+    if this.GetOwnedCount() > 0 {
       this.RefreshPins();   // owned pins turn into rent-ready pins
+      SlumlordTenantReport.Send(this.GetGameInstance());
+    }
+    if accrued > 0 {
       this.ShowMessage("Rent is due. " + SlumlordEconomy.FormatMoney(this.GetUncollectedTotal()) + " waiting to be collected.");
     }
     return elapsed;
   }
 
-  private func AccrueRent(weeks: Int32) -> Int32 {
+  // One rent day for every owned property. `rentDay` numbers it (seeds the tenant rolls). Returns the rent added.
+  private func ProcessRentDay(rentDay: Int32) -> Int32 {
     let total = 0;
     for state in this.m_states {
       if state.owned {
@@ -119,17 +141,47 @@ public class SlumlordSystem extends ScriptableSystem {
         if IsDefined(def) {
           district = this.GetDistrictDef(def.districtId);
         }
-        let room = Max(SlumlordTuning.MaxUncollectedWeeks() - state.weeksUncollected, 0);
-        let payable = Min(weeks, room);
-        if payable > 0 && IsDefined(district) {
-          let amount = payable * SlumlordEconomy.WeeklyRent(def, district, state);
-          state.uncollected += amount;
-          state.weeksUncollected += payable;
-          total += amount;
+        if IsDefined(def) && IsDefined(district) {
+          if state.weeksUncollected < SlumlordTuning.MaxUncollectedWeeks() {
+            let amount = SlumlordEconomy.WeeklyRent(def, district, state);
+            state.uncollected += amount;
+            state.weeksUncollected += 1;
+            total += amount;
+          }
+          SlumlordTenants.StepWeek(def, district, state, rentDay);
         }
       }
     }
     return total;
+  }
+
+  // Text of the latest tenant report (shown in Slumlord Realty's message).
+  public func BuildTenantReport() -> String {
+    this.EnsureLoaded();
+    let weeks = this.m_reportWeeks;
+    let title = weeks > 1 ? "Tenant report, last " + IntToString(weeks) + " weeks" : "Tenant report";
+    let lines = "";
+    let totalIn = 0;
+    let totalOut = 0;
+    let occupied = 0;
+    let units = 0;
+    for def in this.m_properties {
+      let state = this.GetState(def.id);
+      if IsDefined(state) && state.owned {
+        occupied += state.occupiedUnits;
+        units += def.units;
+        totalIn += state.reportIn;
+        totalOut += state.reportOut;
+        if state.reportIn > 0 || state.reportOut > 0 {
+          lines = lines + "\n" + SlumlordTenantReportLine.For(def, state.reportIn, state.reportOut);
+        }
+      }
+    }
+    let period = weeks > 1 ? "these weeks" : "this week";
+    let summary = totalIn + totalOut == 0
+      ? "Nobody moved in or out " + period + "."
+      : "Moved in: " + IntToString(totalIn) + "   Moved out: " + IntToString(totalOut);
+    return title + "\n" + summary + lines + "\nOccupied: " + IntToString(occupied) + " of " + IntToString(units) + " units";
   }
 
   // ===================================================================== tick
@@ -342,6 +394,8 @@ public class SlumlordSystem extends ScriptableSystem {
     state.condition = SlumlordTuning.StartingCondition();
     state.uncollected = 0;
     state.weeksUncollected = 0;
+    state.reportIn = 0;
+    state.reportOut = 0;
     ModLog(n"Slumlord", "Bought " + def.displayName);
     this.RefreshPins();
     let boss = SlumlordBoss.GetInstance(this.GetGameInstance());
@@ -417,6 +471,8 @@ public class SlumlordSystem extends ScriptableSystem {
     state.occupiedUnits = 0;
     state.uncollected = 0;
     state.weeksUncollected = 0;
+    state.reportIn = 0;
+    state.reportOut = 0;
     this.RefreshPins();
     return true;
   }

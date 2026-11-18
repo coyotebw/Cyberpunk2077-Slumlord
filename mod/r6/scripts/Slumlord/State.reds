@@ -10,6 +10,8 @@ public class SlumlordPropertyState {
   public persistent let condition: Int32;        // 0..100
   public persistent let uncollected: Int32;      // €$ waiting at the portal
   public persistent let weeksUncollected: Int32; // capped by SlumlordTuning.MaxUncollectedWeeks()
+  public persistent let reportIn: Int32;         // tenants moved in since the last tenant report (Tenants.reds)
+  public persistent let reportOut: Int32;        // tenants moved out since the last tenant report
 }
 
 public enum SlumlordBuyResult {

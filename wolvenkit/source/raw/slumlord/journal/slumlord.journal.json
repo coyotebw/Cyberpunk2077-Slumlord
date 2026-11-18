@@ -382,6 +382,63 @@
                         }
                       ]
                     }
+                  },
+                  {
+                    "HandleId": "20",
+                    "Data": {
+                      "$type": "gameJournalContact",
+                      "avatarID": {
+                        "$type": "TweakDBID",
+                        "$storage": "string",
+                        "$value": "PhoneAvatars.Avatar_Unknown"
+                      },
+                      "id": "slumlord_realty",
+                      "isCallableDefault": 0,
+                      "journalEntryOverrideDataList": [],
+                      "name": {
+                        "unk1": "0",
+                        "value": "slumlord-realty-name"
+                      },
+                      "type": "Texter",
+                      "useFlatMessageLayout": 1,
+                      "entries": [
+                        {
+                          "HandleId": "19",
+                          "Data": {
+                            "$type": "gameJournalPhoneConversation",
+                            "id": "slumlord_realty_reports",
+                            "journalEntryOverrideDataList": [],
+                            "title": {
+                              "unk1": "0",
+                              "value": "slumlord-realty-thread"
+                            },
+                            "entries": [
+                              {
+                                "HandleId": "18",
+                                "Data": {
+                                  "$type": "gameJournalPhoneMessage",
+                                  "attachment": null,
+                                  "delay": 1,
+                                  "id": "slumlord_realty_report",
+                                  "imageId": {
+                                    "$type": "TweakDBID",
+                                    "$storage": "uint64",
+                                    "$value": "0"
+                                  },
+                                  "isQuestImportant": 0,
+                                  "journalEntryOverrideDataList": [],
+                                  "sender": "NPC",
+                                  "text": {
+                                    "unk1": "0",
+                                    "value": "slumlord-realty-report"
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
                   }
                 ]
               }

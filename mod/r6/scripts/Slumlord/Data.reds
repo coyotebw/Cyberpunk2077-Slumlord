@@ -9,6 +9,7 @@ public class SlumlordDistrictDef {
   public let katakana: String;          // vertical label on the district card
   public let wealthTier: Int32;         // 1 (poorest) .. 5 (richest): drives price and rent
   public let streetCredRequired: Int32; // district unlocks at this Street Cred
+  public let safety: Int32;             // 1 (combat zone) .. 5 (corp-policed): drives tenant arrivals and move-outs
   public let rival: String;             // rival landlord display name; the portal shows "Unknown" until V has met them
   public let gangs: String;             // display only for now
 }
@@ -28,13 +29,13 @@ public abstract class SlumlordData {
 
   public static func Districts() -> array<ref<SlumlordDistrictDef>> {
     let list: array<ref<SlumlordDistrictDef>>;
-    ArrayPush(list, SlumlordData.District(n"watson",        "Watson",        "ワトソン",         2,  0, "Hideyoshi Oshima",       "Tyger Claws, Maelstrom"));
-    ArrayPush(list, SlumlordData.District(n"santo_domingo", "Santo Domingo", "サントドミンゴ",   1,  5, "TBD",                    "6th Street"));
-    ArrayPush(list, SlumlordData.District(n"pacifica",      "Pacifica",      "パシフィカ",       1, 10, "Ozob Bozo",              "Voodoo Boys, Animals"));
-    ArrayPush(list, SlumlordData.District(n"badlands",      "Badlands",      "バッドランズ",     1, 10, "TBD",                    "Wraiths"));
-    ArrayPush(list, SlumlordData.District(n"heywood",       "Heywood",       "ヘイウッド",       3, 15, "TBD",                    "Valentinos"));
-    ArrayPush(list, SlumlordData.District(n"westbrook",     "Westbrook",     "ウエストブルック", 4, 25, "TBD",                    "Tyger Claws"));
-    ArrayPush(list, SlumlordData.District(n"city_center",   "City Center",   "シティセンター",   5, 40, "TBD",                    "None (NCPD permit fees)"));
+    ArrayPush(list, SlumlordData.District(n"watson",        "Watson",        "ワトソン",         2,  0, "Hideyoshi Oshima",       "Tyger Claws, Maelstrom", 2));
+    ArrayPush(list, SlumlordData.District(n"santo_domingo", "Santo Domingo", "サントドミンゴ",   1,  5, "TBD",                    "6th Street", 2));
+    ArrayPush(list, SlumlordData.District(n"pacifica",      "Pacifica",      "パシフィカ",       1, 10, "Ozob Bozo",              "Voodoo Boys, Animals", 1));
+    ArrayPush(list, SlumlordData.District(n"badlands",      "Badlands",      "バッドランズ",     1, 10, "TBD",                    "Wraiths", 1));
+    ArrayPush(list, SlumlordData.District(n"heywood",       "Heywood",       "ヘイウッド",       3, 15, "TBD",                    "Valentinos", 3));
+    ArrayPush(list, SlumlordData.District(n"westbrook",     "Westbrook",     "ウエストブルック", 4, 25, "TBD",                    "Tyger Claws", 4));
+    ArrayPush(list, SlumlordData.District(n"city_center",   "City Center",   "シティセンター",   5, 40, "TBD",                    "None (NCPD permit fees)", 5));
     return list;
   }
 
@@ -93,7 +94,7 @@ public abstract class SlumlordData {
     return list;
   }
 
-  private static func District(id: CName, name: String, kana: String, wealth: Int32, cred: Int32, rival: String, gangs: String) -> ref<SlumlordDistrictDef> {
+  private static func District(id: CName, name: String, kana: String, wealth: Int32, cred: Int32, rival: String, gangs: String, safety: Int32) -> ref<SlumlordDistrictDef> {
     let d = new SlumlordDistrictDef();
     d.id = id;
     d.displayName = name;
@@ -102,6 +103,7 @@ public abstract class SlumlordData {
     d.streetCredRequired = cred;
     d.rival = rival;
     d.gangs = gangs;
+    d.safety = Clamp(safety, 1, 5);
     return d;
   }
 

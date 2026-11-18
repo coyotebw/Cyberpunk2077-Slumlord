@@ -40,6 +40,64 @@ public abstract class SlumlordTuning {
     }
   }
 
+  // ---- Tenants (design doc 4.3). Rank index: 0 = D ... 4 = S. Safety: 1..5, 3 = neutral.
+
+  // New tenants per building per week at safety 3. S (negative) fills every empty unit each week.
+  public static func ArrivalsPerWeek(rank: Int32) -> Float {
+    switch rank {
+      case 0: return 0.40;
+      case 1: return 0.70;
+      case 2: return 1.20;
+      case 3: return 2.50;
+      default: return -1.0;
+    }
+  }
+
+  // Chance per residential tenant per week of moving out, at safety 3.
+  public static func MoveOutChance(rank: Int32) -> Float {
+    switch rank {
+      case 0: return 0.06;
+      case 1: return 0.045;
+      case 2: return 0.03;
+      case 3: return 0.02;
+      default: return 0.01;
+    }
+  }
+
+  // Chance per week that a commercial (business) tenant leaves. Rank only; safety does not apply.
+  public static func CommercialMoveOutChance(rank: Int32) -> Float {
+    switch rank {
+      case 0: return 0.03;
+      case 1: return 0.0225;
+      case 2: return 0.015;
+      case 3: return 0.01;
+      default: return 0.005;
+    }
+  }
+
+  public static func SafetyArrivalMultiplier(safety: Int32) -> Float {
+    switch safety {
+      case 1: return 0.70;
+      case 2: return 0.85;
+      case 4: return 1.15;
+      case 5: return 1.30;
+      default: return 1.0;
+    }
+  }
+
+  public static func SafetyMoveOutMultiplier(safety: Int32) -> Float {
+    switch safety {
+      case 1: return 1.5;
+      case 2: return 1.25;
+      case 4: return 0.8;
+      case 5: return 0.6;
+      default: return 1.0;
+    }
+  }
+
+  // Most weeks of tenant changes simulated in one catch-up (long sleeps, old saves).
+  public static func MaxTenantCatchUpWeeks() -> Int32 { return 52; }
+
   public static func StartingOccupancyPercent() -> Int32 { return 60; }
   public static func StartingCondition() -> Int32 { return 70; }
   public static func MaxUncollectedWeeks() -> Int32 { return 4; }
