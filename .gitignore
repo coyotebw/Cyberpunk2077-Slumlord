@@ -1,0 +1,22 @@
+# WolvenKit build output and local state
+wolvenkit/packed/
+wolvenkit/.projectFiles/
+wolvenkit/install_log.xml
+wolvenkit/*.log
+
+# Vanilla game files: never commit (CDPR assets)
+wolvenkit/_extracted_vanilla/
+wolvenkit/source/raw/base/
+wolvenkit/source/raw/ep1/
+*.wem
+*cooked_journal*
+
+# Other mods, kept locally for reference only
+reference/
+
+# Python / misc
+__pycache__/
+*.pyc
+.venv/
+.DS_Store
+Thumbs.db

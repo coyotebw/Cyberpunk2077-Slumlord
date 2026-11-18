@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CP77Mod xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Name>Slumlord</Name>
+  <ModName>Slumlord</ModName>
+  <Author>coyotebongwater</Author>
+  <Email>coyoteware@protonmail.com</Email>
+  <Version>1.0.0</Version>
+  <ModIoId>-1</ModIoId>
+</CP77Mod>

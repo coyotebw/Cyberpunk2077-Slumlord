@@ -1,0 +1,436 @@
+{
+  "Header": {
+    "WolvenKitVersion": "10.0.0-beta.1",
+    "WKitJsonVersion": "0.0.9",
+    "GameVersion": 2500,
+    "ExportedDateTime": "2026-11-18T00:00:00.0000000Z",
+    "DataType": "CR2W",
+    "ArchiveFileName": ""
+  },
+  "Data": {
+    "Version": 195,
+    "BuildVersion": 0,
+    "RootChunk": {
+      "$type": "inkTextureAtlas",
+      "activeTexture": "StaticTexture",
+      "cookingPlatform": "PLATFORM_None",
+      "dynamicTexture": {
+        "DepotPath": {
+          "$type": "ResourcePath",
+          "$storage": "uint64",
+          "$value": "0"
+        },
+        "Flags": "Default"
+      },
+      "dynamicTextureSlot": {
+        "$type": "inkDynamicTextureSlot",
+        "parts": [],
+        "texture": {
+          "DepotPath": {
+            "$type": "ResourcePath",
+            "$storage": "uint64",
+            "$value": "0"
+          },
+          "Flags": "Default"
+        }
+      },
+      "isSingleTextureMode": 1,
+      "parts": [],
+      "slices": [],
+      "slots": {
+        "Elements": [
+          {
+            "$type": "inkTextureSlot",
+            "parts": [
+              {
+                "$type": "inkTextureAtlasMapper",
+                "clippingRectInPixels": {
+                  "$type": "Rect",
+                  "bottom": 128,
+                  "left": 0,
+                  "right": 128,
+                  "top": 0
+                },
+                "clippingRectInUVCoords": {
+                  "$type": "RectF",
+                  "Bottom": 0.5,
+                  "Left": 0.0,
+                  "Right": 0.25,
+                  "Top": 0.0
+                },
+                "partName": {
+                  "$type": "CName",
+                  "$storage": "string",
+                  "$value": "slumlord_pin_s"
+                }
+              },
+              {
+                "$type": "inkTextureAtlasMapper",
+                "clippingRectInPixels": {
+                  "$type": "Rect",
+                  "bottom": 128,
+                  "left": 128,
+                  "right": 256,
+                  "top": 0
+                },
+                "clippingRectInUVCoords": {
+                  "$type": "RectF",
+                  "Bottom": 0.5,
+                  "Left": 0.25,
+                  "Right": 0.5,
+                  "Top": 0.0
+                },
+                "partName": {
+                  "$type": "CName",
+                  "$storage": "string",
+                  "$value": "slumlord_pin_a"
+                }
+              },
+              {
+                "$type": "inkTextureAtlasMapper",
+                "clippingRectInPixels": {
+                  "$type": "Rect",
+                  "bottom": 128,
+                  "left": 256,
+                  "right": 384,
+                  "top": 0
+                },
+                "clippingRectInUVCoords": {
+                  "$type": "RectF",
+                  "Bottom": 0.5,
+                  "Left": 0.5,
+                  "Right": 0.75,
+                  "Top": 0.0
+                },
+                "partName": {
+                  "$type": "CName",
+                  "$storage": "string",
+                  "$value": "slumlord_pin_b"
+                }
+              },
+              {
+                "$type": "inkTextureAtlasMapper",
+                "clippingRectInPixels": {
+                  "$type": "Rect",
+                  "bottom": 128,
+                  "left": 384,
+                  "right": 512,
+                  "top": 0
+                },
+                "clippingRectInUVCoords": {
+                  "$type": "RectF",
+                  "Bottom": 0.5,
+                  "Left": 0.75,
+                  "Right": 1.0,
+                  "Top": 0.0
+                },
+                "partName": {
+                  "$type": "CName",
+                  "$storage": "string",
+                  "$value": "slumlord_pin_c"
+                }
+              },
+              {
+                "$type": "inkTextureAtlasMapper",
+                "clippingRectInPixels": {
+                  "$type": "Rect",
+                  "bottom": 256,
+                  "left": 0,
+                  "right": 128,
+                  "top": 128
+                },
+                "clippingRectInUVCoords": {
+                  "$type": "RectF",
+                  "Bottom": 1.0,
+                  "Left": 0.0,
+                  "Right": 0.25,
+                  "Top": 0.5
+                },
+                "partName": {
+                  "$type": "CName",
+                  "$storage": "string",
+                  "$value": "slumlord_pin_d"
+                }
+              },
+              {
+                "$type": "inkTextureAtlasMapper",
+                "clippingRectInPixels": {
+                  "$type": "Rect",
+                  "bottom": 256,
+                  "left": 128,
+                  "right": 256,
+                  "top": 128
+                },
+                "clippingRectInUVCoords": {
+                  "$type": "RectF",
+                  "Bottom": 1.0,
+                  "Left": 0.25,
+                  "Right": 0.5,
+                  "Top": 0.5
+                },
+                "partName": {
+                  "$type": "CName",
+                  "$storage": "string",
+                  "$value": "slumlord_pin_rent"
+                }
+              },
+              {
+                "$type": "inkTextureAtlasMapper",
+                "clippingRectInPixels": {
+                  "$type": "Rect",
+                  "bottom": 256,
+                  "left": 256,
+                  "right": 384,
+                  "top": 128
+                },
+                "clippingRectInUVCoords": {
+                  "$type": "RectF",
+                  "Bottom": 1.0,
+                  "Left": 0.5,
+                  "Right": 0.75,
+                  "Top": 0.5
+                },
+                "partName": {
+                  "$type": "CName",
+                  "$storage": "string",
+                  "$value": "slumlord_pin_trouble"
+                }
+              },
+              {
+                "$type": "inkTextureAtlasMapper",
+                "clippingRectInPixels": {
+                  "$type": "Rect",
+                  "bottom": 256,
+                  "left": 384,
+                  "right": 512,
+                  "top": 128
+                },
+                "clippingRectInUVCoords": {
+                  "$type": "RectF",
+                  "Bottom": 1.0,
+                  "Left": 0.75,
+                  "Right": 1.0,
+                  "Top": 0.5
+                },
+                "partName": {
+                  "$type": "CName",
+                  "$storage": "string",
+                  "$value": "slumlord_pin_listing"
+                }
+              }
+            ],
+            "slices": [],
+            "texture": {
+              "DepotPath": {
+                "$type": "ResourcePath",
+                "$storage": "string",
+                "$value": "slumlord\\gui\\slumlord_pins.xbm"
+              },
+              "Flags": "Soft"
+            }
+          },
+          {
+            "$type": "inkTextureSlot",
+            "parts": [
+              {
+                "$type": "inkTextureAtlasMapper",
+                "clippingRectInPixels": {
+                  "$type": "Rect",
+                  "bottom": 64,
+                  "left": 0,
+                  "right": 64,
+                  "top": 0
+                },
+                "clippingRectInUVCoords": {
+                  "$type": "RectF",
+                  "Bottom": 0.5,
+                  "Left": 0.0,
+                  "Right": 0.25,
+                  "Top": 0.0
+                },
+                "partName": {
+                  "$type": "CName",
+                  "$storage": "string",
+                  "$value": "slumlord_pin_s"
+                }
+              },
+              {
+                "$type": "inkTextureAtlasMapper",
+                "clippingRectInPixels": {
+                  "$type": "Rect",
+                  "bottom": 64,
+                  "left": 64,
+                  "right": 128,
+                  "top": 0
+                },
+                "clippingRectInUVCoords": {
+                  "$type": "RectF",
+                  "Bottom": 0.5,
+                  "Left": 0.25,
+                  "Right": 0.5,
+                  "Top": 0.0
+                },
+                "partName": {
+                  "$type": "CName",
+                  "$storage": "string",
+                  "$value": "slumlord_pin_a"
+                }
+              },
+              {
+                "$type": "inkTextureAtlasMapper",
+                "clippingRectInPixels": {
+                  "$type": "Rect",
+                  "bottom": 64,
+                  "left": 128,
+                  "right": 192,
+                  "top": 0
+                },
+                "clippingRectInUVCoords": {
+                  "$type": "RectF",
+                  "Bottom": 0.5,
+                  "Left": 0.5,
+                  "Right": 0.75,
+                  "Top": 0.0
+                },
+                "partName": {
+                  "$type": "CName",
+                  "$storage": "string",
+                  "$value": "slumlord_pin_b"
+                }
+              },
+              {
+                "$type": "inkTextureAtlasMapper",
+                "clippingRectInPixels": {
+                  "$type": "Rect",
+                  "bottom": 64,
+                  "left": 192,
+                  "right": 256,
+                  "top": 0
+                },
+                "clippingRectInUVCoords": {
+                  "$type": "RectF",
+                  "Bottom": 0.5,
+                  "Left": 0.75,
+                  "Right": 1.0,
+                  "Top": 0.0
+                },
+                "partName": {
+                  "$type": "CName",
+                  "$storage": "string",
+                  "$value": "slumlord_pin_c"
+                }
+              },
+              {
+                "$type": "inkTextureAtlasMapper",
+                "clippingRectInPixels": {
+                  "$type": "Rect",
+                  "bottom": 128,
+                  "left": 0,
+                  "right": 64,
+                  "top": 64
+                },
+                "clippingRectInUVCoords": {
+                  "$type": "RectF",
+                  "Bottom": 1.0,
+                  "Left": 0.0,
+                  "Right": 0.25,
+                  "Top": 0.5
+                },
+                "partName": {
+                  "$type": "CName",
+                  "$storage": "string",
+                  "$value": "slumlord_pin_d"
+                }
+              },
+              {
+                "$type": "inkTextureAtlasMapper",
+                "clippingRectInPixels": {
+                  "$type": "Rect",
+                  "bottom": 128,
+                  "left": 64,
+                  "right": 128,
+                  "top": 64
+                },
+                "clippingRectInUVCoords": {
+                  "$type": "RectF",
+                  "Bottom": 1.0,
+                  "Left": 0.25,
+                  "Right": 0.5,
+                  "Top": 0.5
+                },
+                "partName": {
+                  "$type": "CName",
+                  "$storage": "string",
+                  "$value": "slumlord_pin_rent"
+                }
+              },
+              {
+                "$type": "inkTextureAtlasMapper",
+                "clippingRectInPixels": {
+                  "$type": "Rect",
+                  "bottom": 128,
+                  "left": 128,
+                  "right": 192,
+                  "top": 64
+                },
+                "clippingRectInUVCoords": {
+                  "$type": "RectF",
+                  "Bottom": 1.0,
+                  "Left": 0.5,
+                  "Right": 0.75,
+                  "Top": 0.5
+                },
+                "partName": {
+                  "$type": "CName",
+                  "$storage": "string",
+                  "$value": "slumlord_pin_trouble"
+                }
+              },
+              {
+                "$type": "inkTextureAtlasMapper",
+                "clippingRectInPixels": {
+                  "$type": "Rect",
+                  "bottom": 128,
+                  "left": 192,
+                  "right": 256,
+                  "top": 64
+                },
+                "clippingRectInUVCoords": {
+                  "$type": "RectF",
+                  "Bottom": 1.0,
+                  "Left": 0.75,
+                  "Right": 1.0,
+                  "Top": 0.5
+                },
+                "partName": {
+                  "$type": "CName",
+                  "$storage": "string",
+                  "$value": "slumlord_pin_listing"
+                }
+              }
+            ],
+            "slices": [],
+            "texture": {
+              "DepotPath": {
+                "$type": "ResourcePath",
+                "$storage": "string",
+                "$value": "slumlord\\gui\\slumlord_pins_1080.xbm"
+              },
+              "Flags": "Soft"
+            }
+          }
+        ]
+      },
+      "texture": {
+        "DepotPath": {
+          "$type": "ResourcePath",
+          "$storage": "string",
+          "$value": ""
+        },
+        "Flags": "Default"
+      },
+      "textureResolution": "UltraHD_3840_2160"
+    },
+    "EmbeddedFiles": []
+  }
+}

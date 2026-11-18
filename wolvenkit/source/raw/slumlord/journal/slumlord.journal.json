@@ -1,0 +1,397 @@
+{
+  "Header": {
+    "WolvenKitVersion": "10.0.0-beta.1",
+    "WKitJsonVersion": "0.0.9",
+    "GameVersion": 2500,
+    "ExportedDateTime": "2026-11-18T00:00:00.0000000Z",
+    "DataType": "CR2W",
+    "ArchiveFileName": ""
+  },
+  "Data": {
+    "Version": 195,
+    "BuildVersion": 0,
+    "RootChunk": {
+      "$type": "gameJournalResource",
+      "cookingPlatform": "PLATFORM_PC",
+      "entry": {
+        "HandleId": "0",
+        "Data": {
+          "$type": "gameJournalRootFolderEntry",
+          "descriptor": {
+            "DepotPath": {
+              "$type": "ResourcePath",
+              "$storage": "string",
+              "$value": "base\\journal\\descriptor.journaldesc"
+            },
+            "Flags": "Soft"
+          },
+          "entries": [
+            {
+              "HandleId": "17",
+              "Data": {
+                "$type": "gameJournalPrimaryFolderEntry",
+                "id": "quests",
+                "journalEntryOverrideDataList": [],
+                "entries": [
+                  {
+                    "HandleId": "16",
+                    "Data": {
+                      "$type": "gameJournalFolderEntry",
+                      "id": "minor_quest",
+                      "journalEntryOverrideDataList": [],
+                      "entries": [
+                        {
+                          "HandleId": "15",
+                          "Data": {
+                            "$type": "gameJournalQuest",
+                            "districtID": "Districts.Watson",
+                            "id": "slumlord_final_cut",
+                            "journalEntryOverrideDataList": [],
+                            "recommendedLevelID": {
+                              "$type": "TweakDBID",
+                              "$storage": "uint64",
+                              "$value": "0"
+                            },
+                            "title": {
+                              "unk1": "0",
+                              "value": "slumlord-fc-title"
+                            },
+                            "type": "MinorQuest",
+                            "entries": [
+                              {
+                                "HandleId": "13",
+                                "Data": {
+                                  "$type": "gameJournalQuestPhase",
+                                  "id": "slumlord_fc_phase",
+                                  "journalEntryOverrideDataList": [],
+                                  "locationPrefabRef": {
+                                    "$type": "NodeRef",
+                                    "$storage": "uint64",
+                                    "$value": "0"
+                                  },
+                                  "entries": [
+                                    {
+                                      "HandleId": "11",
+                                      "Data": {
+                                        "$type": "gameJournalQuestObjective",
+                                        "counter": 0,
+                                        "description": {
+                                          "unk1": "0",
+                                          "value": "slumlord-fc-go"
+                                        },
+                                        "districtID": "",
+                                        "entries": [
+                                          {
+                                            "HandleId": "10",
+                                            "Data": {
+                                              "$type": "gameJournalQuestMapPin",
+                                              "enableGPS": 1,
+                                              "entries": [],
+                                              "id": "slumlord_fc_pin",
+                                              "journalEntryOverrideDataList": [],
+                                              "mappinData": {
+                                                "$type": "gamemappinsMappinData",
+                                                "active": 1,
+                                                "debugCaption": "slumlord-fc-pin",
+                                                "localizedCaption": {
+                                                  "unk1": "0",
+                                                  "value": "slumlord-fc-pin"
+                                                },
+                                                "mappinType": {
+                                                  "$type": "TweakDBID",
+                                                  "$storage": "string",
+                                                  "$value": "Mappins.QuestStaticMappinDefinition"
+                                                },
+                                                "scriptData": null,
+                                                "variant": "DefaultQuestVariant",
+                                                "visibleThroughWalls": 1
+                                              },
+                                              "offset": {
+                                                "$type": "Vector3",
+                                                "X": 0,
+                                                "Y": 0,
+                                                "Z": 0
+                                              },
+                                              "reference": {
+                                                "$type": "gameEntityReference",
+                                                "dynamicEntityUniqueName": {
+                                                  "$type": "CName",
+                                                  "$storage": "string",
+                                                  "$value": "None"
+                                                },
+                                                "names": [],
+                                                "reference": {
+                                                  "$type": "NodeRef",
+                                                  "$storage": "string",
+                                                  "$value": "$/slumlord/final_cut/#slumlord_fc_marker"
+                                                },
+                                                "sceneActorContextName": {
+                                                  "$type": "CName",
+                                                  "$storage": "string",
+                                                  "$value": "None"
+                                                },
+                                                "slotName": {
+                                                  "$type": "CName",
+                                                  "$storage": "string",
+                                                  "$value": "None"
+                                                },
+                                                "type": "EntityRef"
+                                              },
+                                              "slotName": {
+                                                "$type": "CName",
+                                                "$storage": "string",
+                                                "$value": "None"
+                                              },
+                                              "uiAnimation": {
+                                                "$type": "TweakDBID",
+                                                "$storage": "uint64",
+                                                "$value": "0"
+                                              }
+                                            }
+                                          }
+                                        ],
+                                        "id": "slumlord_fc_go",
+                                        "itemID": {
+                                          "$type": "TweakDBID",
+                                          "$storage": "uint64",
+                                          "$value": "0"
+                                        },
+                                        "journalEntryOverrideDataList": [],
+                                        "locationPrefabRef": {
+                                          "$type": "NodeRef",
+                                          "$storage": "uint64",
+                                          "$value": "0"
+                                        },
+                                        "optional": 0
+                                      }
+                                    },
+                                    {
+                                      "HandleId": "12",
+                                      "Data": {
+                                        "$type": "gameJournalQuestObjective",
+                                        "counter": 0,
+                                        "description": {
+                                          "unk1": "0",
+                                          "value": "slumlord-fc-fight"
+                                        },
+                                        "districtID": "",
+                                        "entries": [],
+                                        "id": "slumlord_fc_fight",
+                                        "itemID": {
+                                          "$type": "TweakDBID",
+                                          "$storage": "uint64",
+                                          "$value": "0"
+                                        },
+                                        "journalEntryOverrideDataList": [],
+                                        "locationPrefabRef": {
+                                          "$type": "NodeRef",
+                                          "$storage": "uint64",
+                                          "$value": "0"
+                                        },
+                                        "optional": 0
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "HandleId": "14",
+                                "Data": {
+                                  "$type": "gameJournalQuestDescription",
+                                  "description": {
+                                    "unk1": "0",
+                                    "value": "slumlord-fc-desc"
+                                  },
+                                  "id": "slumlord_fc_desc"
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "HandleId": "9",
+              "Data": {
+                "$type": "gameJournalPrimaryFolderEntry",
+                "id": "contacts",
+                "journalEntryOverrideDataList": [],
+                "entries": [
+                  {
+                    "HandleId": "8",
+                    "Data": {
+                      "$type": "gameJournalContact",
+                      "avatarID": {
+                        "$type": "TweakDBID",
+                        "$storage": "string",
+                        "$value": "PhoneAvatars.Avatar_Unknown"
+                      },
+                      "id": "slumlord_karl",
+                      "isCallableDefault": 0,
+                      "journalEntryOverrideDataList": [],
+                      "name": {
+                        "unk1": "0",
+                        "value": "slumlord-karl-name"
+                      },
+                      "type": "Texter",
+                      "useFlatMessageLayout": 1,
+                      "entries": [
+                        {
+                          "HandleId": "7",
+                          "Data": {
+                            "$type": "gameJournalPhoneConversation",
+                            "id": "slumlord_karl_harbor",
+                            "journalEntryOverrideDataList": [],
+                            "title": {
+                              "unk1": "0",
+                              "value": "slumlord-karl-thread"
+                            },
+                            "entries": [
+                              {
+                                "HandleId": "1",
+                                "Data": {
+                                  "$type": "gameJournalPhoneMessage",
+                                  "attachment": null,
+                                  "delay": 3,
+                                  "id": "slumlord_karl_01",
+                                  "imageId": {
+                                    "$type": "TweakDBID",
+                                    "$storage": "uint64",
+                                    "$value": "0"
+                                  },
+                                  "isQuestImportant": 1,
+                                  "journalEntryOverrideDataList": [],
+                                  "sender": "NPC",
+                                  "text": {
+                                    "unk1": "0",
+                                    "value": "slumlord-karl-01"
+                                  }
+                                }
+                              },
+                              {
+                                "HandleId": "2",
+                                "Data": {
+                                  "$type": "gameJournalPhoneMessage",
+                                  "attachment": null,
+                                  "delay": 3,
+                                  "id": "slumlord_karl_02",
+                                  "imageId": {
+                                    "$type": "TweakDBID",
+                                    "$storage": "uint64",
+                                    "$value": "0"
+                                  },
+                                  "isQuestImportant": 1,
+                                  "journalEntryOverrideDataList": [],
+                                  "sender": "NPC",
+                                  "text": {
+                                    "unk1": "0",
+                                    "value": "slumlord-karl-02"
+                                  }
+                                }
+                              },
+                              {
+                                "HandleId": "3",
+                                "Data": {
+                                  "$type": "gameJournalPhoneMessage",
+                                  "attachment": null,
+                                  "delay": 3,
+                                  "id": "slumlord_karl_03",
+                                  "imageId": {
+                                    "$type": "TweakDBID",
+                                    "$storage": "uint64",
+                                    "$value": "0"
+                                  },
+                                  "isQuestImportant": 1,
+                                  "journalEntryOverrideDataList": [],
+                                  "sender": "NPC",
+                                  "text": {
+                                    "unk1": "0",
+                                    "value": "slumlord-karl-03"
+                                  }
+                                }
+                              },
+                              {
+                                "HandleId": "4",
+                                "Data": {
+                                  "$type": "gameJournalPhoneMessage",
+                                  "attachment": null,
+                                  "delay": 3,
+                                  "id": "slumlord_karl_04",
+                                  "imageId": {
+                                    "$type": "TweakDBID",
+                                    "$storage": "uint64",
+                                    "$value": "0"
+                                  },
+                                  "isQuestImportant": 1,
+                                  "journalEntryOverrideDataList": [],
+                                  "sender": "NPC",
+                                  "text": {
+                                    "unk1": "0",
+                                    "value": "slumlord-karl-04"
+                                  }
+                                }
+                              },
+                              {
+                                "HandleId": "5",
+                                "Data": {
+                                  "$type": "gameJournalPhoneMessage",
+                                  "attachment": null,
+                                  "delay": 3,
+                                  "id": "slumlord_karl_05",
+                                  "imageId": {
+                                    "$type": "TweakDBID",
+                                    "$storage": "uint64",
+                                    "$value": "0"
+                                  },
+                                  "isQuestImportant": 1,
+                                  "journalEntryOverrideDataList": [],
+                                  "sender": "NPC",
+                                  "text": {
+                                    "unk1": "0",
+                                    "value": "slumlord-karl-05"
+                                  }
+                                }
+                              },
+                              {
+                                "HandleId": "6",
+                                "Data": {
+                                  "$type": "gameJournalPhoneMessage",
+                                  "attachment": null,
+                                  "delay": 3,
+                                  "id": "slumlord_karl_06",
+                                  "imageId": {
+                                    "$type": "TweakDBID",
+                                    "$storage": "uint64",
+                                    "$value": "0"
+                                  },
+                                  "isQuestImportant": 1,
+                                  "journalEntryOverrideDataList": [],
+                                  "sender": "NPC",
+                                  "text": {
+                                    "unk1": "0",
+                                    "value": "slumlord-karl-06"
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ],
+          "id": "",
+          "journalEntryOverrideDataList": []
+        }
+      }
+    },
+    "EmbeddedFiles": []
+  }
+}

@@ -1,0 +1,221 @@
+{
+  "Header": {
+    "WolvenKitVersion": "10.0.0-beta.1",
+    "WKitJsonVersion": "0.0.9",
+    "GameVersion": 2500,
+    "ExportedDateTime": "2026-11-18T00:00:00.0000000Z",
+    "DataType": "CR2W",
+    "ArchiveFileName": ""
+  },
+  "Data": {
+    "Version": 195,
+    "BuildVersion": 0,
+    "RootChunk": {
+      "$type": "worldStreamingSector",
+      "cookingPlatform": "PLATFORM_PC",
+      "level": 0,
+      "category": "AlwaysLoaded",
+      "version": 68,
+      "nodeData": {
+        "Flags": 7471104,
+        "Bytes": "SLn7xFKUI0U9CpFBAAAAAAAAAAAAAAAAAAAAAAAAgD8AAIA/AACAPwAAgD9IufvEUpQjRT0KkUFIufvEUpQjRT0KkUFIufvEUpQjRT0KkUEAAAAAAAAAANxPDVdiWd41AAAAAAAAAAAAAAAAAAAAAAAAEAAAAQAA//9/f///f3//////AAAAAAAAAAAAAAAA4dL7xD2yI0VI4ZJBAAAAAAAAAAAAAAAA9sp9PkQDeD8AAIA/AACAPwAAgD/h0vvEPbIjRUjhkkHh0vvEPbIjRUjhkkHh0vvEPbIjRUjhkkEAAAAAAAAAAI54vmxgszGdAAAAAAAAAAAAAAAAAAAAAAEAEAAAAQAA//9/f///f3//////AAAAAAAAAAAAAAAAXJ/7xKS8I0VI4ZJBAAAAAAAAAAAAAAAAy2RFPyMCIz8AAIA/AACAPwAAgD9cn/vEpLwjRUjhkkFcn/vEpLwjRUjhkkFcn/vEpLwjRUjhkkEAAAAAAAAAAAhprAkD8zQVAAAAAAAAAAAAAAAAAAAAAAIAEAAAAQAA//9/f///f3//////AAAAAAAAAAAAAAAAM9v7xPZYI0UzM5FBAAAAAAAAAAAAAAAAIrhMvyS1GT8AAIA/AACAPwAAgD8z2/vE9lgjRTMzkUEz2/vE9lgjRTMzkUEz2/vE9lgjRTMzkUEAAAAAAAAAAIqZq/IeNLLKAAAAAAAAAAAAAAAAAAAAAAMAEAAAAQAA//9/f///f3//////AAAAAAAAAAAAAAAAhaP7xLhiI0UzM5FBAAAAAAAAAAAAAAAA7xtoP7z51z4AAIA/AACAPwAAgD+Fo/vEuGIjRTMzkUGFo/vEuGIjRTMzkUGFo/vEuGIjRTMzkUEAAAAAAAAAAHI2a6bD8DS8AAAAAAAAAAAAAAAAAAAAAAQAEAAAAQAA//9/f///f3//////AAAAAAAAAAAAAAAAH837xOFGI0UpXJFBAAAAAAAAAAAAAAAAXRYKvmOpfT8AAIA/AACAPwAAgD8fzfvE4UYjRSlckUEfzfvE4UYjRSlckUEfzfvE4UYjRSlckUEAAAAAAAAAACTH6hciRt4mAAAAAAAAAAAAAAAAAAAAAAUAEAAAAQAA//9/f///f3//////AAAAAAAAAAAAAAAA"
+      },
+      "nodes": [
+        {
+          "HandleId": "0",
+          "Data": {
+            "$type": "worldStaticMarkerNode",
+            "debugName": {
+              "$type": "CName",
+              "$storage": "string",
+              "$value": "[Static Marker] slumlord_fc_marker"
+            },
+            "data": {
+              "HandleId": "1",
+              "Data": {
+                "$type": "worldQuestMarker"
+              }
+            }
+          }
+        },
+        {
+          "HandleId": "2",
+          "Data": {
+            "$type": "worldAISpotNode",
+            "debugName": {
+              "$type": "CName",
+              "$storage": "string",
+              "$value": "[AI Spot] slumlord_fc_spot_knocker"
+            },
+            "spot": {
+              "HandleId": "3",
+              "Data": {
+                "$type": "AIActionSpot",
+                "resource": {
+                  "DepotPath": {
+                    "$type": "ResourcePath",
+                    "$storage": "string",
+                    "$value": "base\\workspots\\common\\door\\generic__stand_door_lean_front__knock__01.workspot"
+                  },
+                  "Flags": "Default"
+                },
+                "snapToGround": 1
+              }
+            },
+            "isWorkspotInfinite": 1,
+            "disableBumps": 1
+          }
+        },
+        {
+          "HandleId": "4",
+          "Data": {
+            "$type": "worldAISpotNode",
+            "debugName": {
+              "$type": "CName",
+              "$storage": "string",
+              "$value": "[AI Spot] slumlord_fc_spot_welder"
+            },
+            "spot": {
+              "HandleId": "5",
+              "Data": {
+                "$type": "AIActionSpot",
+                "resource": {
+                  "DepotPath": {
+                    "$type": "ResourcePath",
+                    "$storage": "string",
+                    "$value": "base\\workspots\\construction_site\\generic__kneel_welder__use__01.workspot"
+                  },
+                  "Flags": "Default"
+                },
+                "snapToGround": 1
+              }
+            },
+            "isWorkspotInfinite": 1,
+            "disableBumps": 1
+          }
+        },
+        {
+          "HandleId": "6",
+          "Data": {
+            "$type": "worldAISpotNode",
+            "debugName": {
+              "$type": "CName",
+              "$storage": "string",
+              "$value": "[AI Spot] slumlord_fc_spot_smoker"
+            },
+            "spot": {
+              "HandleId": "7",
+              "Data": {
+                "$type": "AIActionSpot",
+                "resource": {
+                  "DepotPath": {
+                    "$type": "ResourcePath",
+                    "$storage": "string",
+                    "$value": "base\\workspots\\common\\ground\\generic__stand_ground_cigarette__smoke__01.workspot"
+                  },
+                  "Flags": "Default"
+                },
+                "snapToGround": 1
+              }
+            },
+            "isWorkspotInfinite": 1,
+            "disableBumps": 1
+          }
+        },
+        {
+          "HandleId": "8",
+          "Data": {
+            "$type": "worldAISpotNode",
+            "debugName": {
+              "$type": "CName",
+              "$storage": "string",
+              "$value": "[AI Spot] slumlord_fc_spot_talker"
+            },
+            "spot": {
+              "HandleId": "9",
+              "Data": {
+                "$type": "AIActionSpot",
+                "resource": {
+                  "DepotPath": {
+                    "$type": "ResourcePath",
+                    "$storage": "string",
+                    "$value": "base\\workspots\\quest\\side_quests\\sq024\\sq024_05_big_race\\sq024__sampson__stand__argue__01.workspot"
+                  },
+                  "Flags": "Default"
+                },
+                "snapToGround": 1
+              }
+            },
+            "isWorkspotInfinite": 1,
+            "disableBumps": 1
+          }
+        },
+        {
+          "HandleId": "10",
+          "Data": {
+            "$type": "worldAISpotNode",
+            "debugName": {
+              "$type": "CName",
+              "$storage": "string",
+              "$value": "[AI Spot] slumlord_fc_spot_oshima"
+            },
+            "spot": {
+              "HandleId": "11",
+              "Data": {
+                "$type": "AIActionSpot",
+                "resource": {
+                  "DepotPath": {
+                    "$type": "ResourcePath",
+                    "$storage": "string",
+                    "$value": "base\\workspots\\main_characters\\ripperdoc\\ground\\ripperdoc__stand_ground_arms_crossed__talk__01.workspot"
+                  },
+                  "Flags": "Default"
+                },
+                "snapToGround": 1
+              }
+            },
+            "isWorkspotInfinite": 1,
+            "disableBumps": 1
+          }
+        }
+      ],
+      "nodeRefs": [
+        {
+          "$type": "NodeRef",
+          "$storage": "string",
+          "$value": "$/slumlord/final_cut/#slumlord_fc_marker"
+        },
+        {
+          "$type": "NodeRef",
+          "$storage": "string",
+          "$value": "$/slumlord/final_cut/#slumlord_fc_spot_knocker"
+        },
+        {
+          "$type": "NodeRef",
+          "$storage": "string",
+          "$value": "$/slumlord/final_cut/#slumlord_fc_spot_welder"
+        },
+        {
+          "$type": "NodeRef",
+          "$storage": "string",
+          "$value": "$/slumlord/final_cut/#slumlord_fc_spot_smoker"
+        },
+        {
+          "$type": "NodeRef",
+          "$storage": "string",
+          "$value": "$/slumlord/final_cut/#slumlord_fc_spot_talker"
+        },
+        {
+          "$type": "NodeRef",
+          "$storage": "string",
+          "$value": "$/slumlord/final_cut/#slumlord_fc_spot_oshima"
+        }
+      ],
+      "variantIndices": [
+        0
+      ],
+      "persistentNodeIndex": 0
+    },
+    "EmbeddedFiles": []
+  }
+}

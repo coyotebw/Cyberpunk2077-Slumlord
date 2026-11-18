@@ -1,0 +1,9 @@
+# Slumlord: journal entries (Karl's texts, the Final Cut quest), their texts, and the world anchor for quest pins
+journal:
+  - slumlord\journal\slumlord.journal
+localization:
+  onscreens:
+    en-us: slumlord\localization\en-us.json
+streaming:
+  blocks:
+    - slumlord\world\slumlord.streamingblock
