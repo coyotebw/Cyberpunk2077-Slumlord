@@ -380,7 +380,7 @@
                           "Data": {
                             "$type": "gameJournalQuest",
                             "districtID": "Districts.SantoDomingo",
-                            "id": "slumlord_wont_bite",
+                            "id": "slumlord_conversation_overtime",
                             "journalEntryOverrideDataList": [],
                             "recommendedLevelID": {
                               "$type": "TweakDBID",
@@ -389,7 +389,7 @@
                             },
                             "title": {
                               "unk1": "0",
-                              "value": "slumlord-wb-title"
+                              "value": "slumlord-co-title"
                             },
                             "type": "MinorQuest",
                             "entries": [
@@ -397,7 +397,7 @@
                                 "HandleId": "35",
                                 "Data": {
                                   "$type": "gameJournalQuestPhase",
-                                  "id": "slumlord_wb_phase",
+                                  "id": "slumlord_co_phase",
                                   "journalEntryOverrideDataList": [],
                                   "locationPrefabRef": {
                                     "$type": "NodeRef",
@@ -412,11 +412,11 @@
                                         "counter": 0,
                                         "description": {
                                           "unk1": "0",
-                                          "value": "slumlord-wb-buy-0"
+                                          "value": "slumlord-co-buy-0"
                                         },
                                         "districtID": "",
                                         "entries": [],
-                                        "id": "slumlord_wb_buy_0",
+                                        "id": "slumlord_co_buy_0",
                                         "itemID": {
                                           "$type": "TweakDBID",
                                           "$storage": "uint64",
@@ -438,11 +438,11 @@
                                         "counter": 0,
                                         "description": {
                                           "unk1": "0",
-                                          "value": "slumlord-wb-buy-1"
+                                          "value": "slumlord-co-buy-1"
                                         },
                                         "districtID": "",
                                         "entries": [],
-                                        "id": "slumlord_wb_buy_1",
+                                        "id": "slumlord_co_buy_1",
                                         "itemID": {
                                           "$type": "TweakDBID",
                                           "$storage": "uint64",
@@ -464,11 +464,11 @@
                                         "counter": 0,
                                         "description": {
                                           "unk1": "0",
-                                          "value": "slumlord-wb-buy-2"
+                                          "value": "slumlord-co-buy-2"
                                         },
                                         "districtID": "",
                                         "entries": [],
-                                        "id": "slumlord_wb_buy_2",
+                                        "id": "slumlord_co_buy_2",
                                         "itemID": {
                                           "$type": "TweakDBID",
                                           "$storage": "uint64",
@@ -490,11 +490,11 @@
                                         "counter": 0,
                                         "description": {
                                           "unk1": "0",
-                                          "value": "slumlord-wb-buy-3"
+                                          "value": "slumlord-co-buy-3"
                                         },
                                         "districtID": "",
                                         "entries": [],
-                                        "id": "slumlord_wb_buy_3",
+                                        "id": "slumlord_co_buy_3",
                                         "itemID": {
                                           "$type": "TweakDBID",
                                           "$storage": "uint64",
@@ -516,11 +516,11 @@
                                         "counter": 0,
                                         "description": {
                                           "unk1": "0",
-                                          "value": "slumlord-wb-buy-4"
+                                          "value": "slumlord-co-buy-4"
                                         },
                                         "districtID": "",
                                         "entries": [],
-                                        "id": "slumlord_wb_buy_4",
+                                        "id": "slumlord_co_buy_4",
                                         "itemID": {
                                           "$type": "TweakDBID",
                                           "$storage": "uint64",
@@ -542,11 +542,11 @@
                                         "counter": 0,
                                         "description": {
                                           "unk1": "0",
-                                          "value": "slumlord-wb-buy-5"
+                                          "value": "slumlord-co-buy-5"
                                         },
                                         "districtID": "",
                                         "entries": [],
-                                        "id": "slumlord_wb_buy_5",
+                                        "id": "slumlord_co_buy_5",
                                         "itemID": {
                                           "$type": "TweakDBID",
                                           "$storage": "uint64",
@@ -568,11 +568,11 @@
                                         "counter": 0,
                                         "description": {
                                           "unk1": "0",
-                                          "value": "slumlord-wb-wait"
+                                          "value": "slumlord-co-wait"
                                         },
                                         "districtID": "",
                                         "entries": [],
-                                        "id": "slumlord_wb_wait",
+                                        "id": "slumlord_co_wait",
                                         "itemID": {
                                           "$type": "TweakDBID",
                                           "$storage": "uint64",
@@ -594,11 +594,11 @@
                                         "counter": 0,
                                         "description": {
                                           "unk1": "0",
-                                          "value": "slumlord-wb-motel"
+                                          "value": "slumlord-co-motel"
                                         },
                                         "districtID": "",
                                         "entries": [],
-                                        "id": "slumlord_wb_motel",
+                                        "id": "slumlord_co_motel",
                                         "itemID": {
                                           "$type": "TweakDBID",
                                           "$storage": "uint64",
@@ -620,11 +620,11 @@
                                         "counter": 0,
                                         "description": {
                                           "unk1": "0",
-                                          "value": "slumlord-wb-goons"
+                                          "value": "slumlord-co-goons"
                                         },
                                         "districtID": "",
                                         "entries": [],
-                                        "id": "slumlord_wb_goons",
+                                        "id": "slumlord_co_goons",
                                         "itemID": {
                                           "$type": "TweakDBID",
                                           "$storage": "uint64",
@@ -648,9 +648,9 @@
                                   "$type": "gameJournalQuestDescription",
                                   "description": {
                                     "unk1": "0",
-                                    "value": "slumlord-wb-desc-intro"
+                                    "value": "slumlord-co-desc-intro"
                                   },
-                                  "id": "slumlord_wb_desc_intro"
+                                  "id": "slumlord_co_desc_intro"
                                 }
                               },
                               {
@@ -659,9 +659,9 @@
                                   "$type": "gameJournalQuestDescription",
                                   "description": {
                                     "unk1": "0",
-                                    "value": "slumlord-wb-desc-motel"
+                                    "value": "slumlord-co-desc-motel"
                                   },
-                                  "id": "slumlord_wb_desc_motel"
+                                  "id": "slumlord_co_desc_motel"
                                 }
                               }
                             ]

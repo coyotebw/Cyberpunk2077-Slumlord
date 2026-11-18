@@ -457,7 +457,7 @@ public class SlumlordSystem extends ScriptableSystem {
     let def = this.GetPropertyDef(this.m_alertProperty);
     if this.m_alertKind != 1 || !IsDefined(def) { return "TENANT MOVED OUT - LEASE BROKEN!"; }
     let name = SlumlordNames.Get(this.m_alertName);
-    let complaint = SlumlordWontBite.Complaint(this.m_alertComplaint);
+    let complaint = SlumlordConversationOvertime.Complaint(this.m_alertComplaint);
     if def.commercial {
       return "BUSINESS MOVED OUT - LEASE BROKEN!\n" + name + " closed up shop at " + def.displayName + " in a huff, complaining " + complaint;
     }

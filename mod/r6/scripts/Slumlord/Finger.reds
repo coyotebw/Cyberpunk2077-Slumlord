@@ -1,4 +1,4 @@
-// Santo Domingo boss arc (design doc 4.9): Quentin Finger, owner of the Las Palapas Motel. Quest "Conversation Overtime" (working title Won't Bite; ids keep slumlord_wont_bite / slumlord_wb_).
+// Santo Domingo boss arc (design doc 4.9): Quentin Finger, owner of the Las Palapas Motel. Quest "Conversation Overtime".
 //
 //  1 Threat call after V's first Santo Domingo purchase (Boss.reds) -> quest starts: "Buy up Santo Domingo (n/5)".
 //  2 Lease broken: from the call until the win, each rent day every owned Santo Domingo property with tenants
@@ -12,9 +12,9 @@
 //    goons' services are owed to V as Muscle (staff, Phase 2).
 module Slumlord
 
-public abstract class SlumlordWontBite {
-  public static func Quest() -> String { return "quests/minor_quest/slumlord_wont_bite"; }
-  public static func Phase() -> String { return SlumlordWontBite.Quest() + "/slumlord_wb_phase"; }
+public abstract class SlumlordConversationOvertime {
+  public static func Quest() -> String { return "quests/minor_quest/slumlord_conversation_overtime"; }
+  public static func Phase() -> String { return SlumlordConversationOvertime.Quest() + "/slumlord_co_phase"; }
   public static func District() -> CName { return n"santo_domingo"; }
   public static func HarassChance() -> Float { return 0.20; }
   public static func NightStartHour() -> Int32 { return 20; }
@@ -45,12 +45,12 @@ public abstract class SlumlordWontBite {
   }
 
   public static func ComplaintCount() -> Int32 {
-    let all = SlumlordWontBite.Complaints();
+    let all = SlumlordConversationOvertime.Complaints();
     return ArraySize(all);
   }
 
   public static func Complaint(index: Int32) -> String {
-    let all = SlumlordWontBite.Complaints();
+    let all = SlumlordConversationOvertime.Complaints();
     if index < 0 || index >= ArraySize(all) { return all[0]; }
     return all[index];
   }
@@ -86,7 +86,7 @@ public class SlumlordFinger extends ScriptableSystem {
 
   private func IsNight() -> Bool {
     let hour = GameTime.Hours(GameInstance.GetTimeSystem(this.GetGameInstance()).GetGameTime());
-    return hour >= SlumlordWontBite.NightStartHour() || hour < SlumlordWontBite.NightEndHour();
+    return hour >= SlumlordConversationOvertime.NightStartHour() || hour < SlumlordConversationOvertime.NightEndHour();
   }
 
   // ---- stage 1: the threat call is over, the quest starts ----
@@ -98,9 +98,9 @@ public class SlumlordFinger extends ScriptableSystem {
       SlumlordUi.Log("Conversation Overtime: journal missing (Slumlord.archive not installed or outdated)");
     }
     this.m_stage = 1;
-    SlumlordJournal.Set(game, SlumlordWontBite.Quest(), "gameJournalQuest", gameJournalEntryState.Active, true);
-    SlumlordJournal.Set(game, SlumlordWontBite.Quest() + "/slumlord_wb_desc_intro", "gameJournalQuestDescription", gameJournalEntryState.Active, false);
-    SlumlordJournal.Set(game, SlumlordWontBite.Phase(), "gameJournalQuestPhase", gameJournalEntryState.Active, false);
+    SlumlordJournal.Set(game, SlumlordConversationOvertime.Quest(), "gameJournalQuest", gameJournalEntryState.Active, true);
+    SlumlordJournal.Set(game, SlumlordConversationOvertime.Quest() + "/slumlord_co_desc_intro", "gameJournalQuestDescription", gameJournalEntryState.Active, false);
+    SlumlordJournal.Set(game, SlumlordConversationOvertime.Phase(), "gameJournalQuestPhase", gameJournalEntryState.Active, false);
     SlumlordUi.Log("Conversation Overtime: started after Finger's call");
     this.OnPropertyChanged();
   }
@@ -109,13 +109,13 @@ public class SlumlordFinger extends ScriptableSystem {
   public func OnPropertyChanged() -> Void {
     if this.m_stage != 1 { return; }
     let game = this.GetGameInstance();
-    let done = SlumlordBuyUp.Update(game, SlumlordWontBite.Phase(), "slumlord_wb_buy_", SlumlordWontBite.District(), true);
+    let done = SlumlordBuyUp.Update(game, SlumlordConversationOvertime.Phase(), "slumlord_co_buy_", SlumlordConversationOvertime.District(), true);
     if done {
       this.m_stage = 2;
       SlumlordUi.Log("Conversation Overtime: Santo Domingo owned, Finger's goading call due");
       let boss = SlumlordBoss.GetInstance(game);
       if IsDefined(boss) {
-        boss.RequestFingerGoad(SlumlordWontBite.GoadDelaySeconds());
+        boss.RequestFingerGoad(SlumlordConversationOvertime.GoadDelaySeconds());
       }
     }
   }
@@ -126,8 +126,8 @@ public class SlumlordFinger extends ScriptableSystem {
     if this.m_stage != 2 { return; }
     let game = this.GetGameInstance();
     this.m_stage = 3;
-    SlumlordJournal.Set(game, SlumlordWontBite.Quest() + "/slumlord_wb_desc_intro", "gameJournalQuestDescription", gameJournalEntryState.Inactive, false);
-    SlumlordJournal.Set(game, SlumlordWontBite.Quest() + "/slumlord_wb_desc_motel", "gameJournalQuestDescription", gameJournalEntryState.Active, true);
+    SlumlordJournal.Set(game, SlumlordConversationOvertime.Quest() + "/slumlord_co_desc_intro", "gameJournalQuestDescription", gameJournalEntryState.Inactive, false);
+    SlumlordJournal.Set(game, SlumlordConversationOvertime.Quest() + "/slumlord_co_desc_motel", "gameJournalQuestDescription", gameJournalEntryState.Active, true);
     this.UpdateNight();
   }
 
@@ -136,9 +136,9 @@ public class SlumlordFinger extends ScriptableSystem {
     if this.m_stage != 3 { return; }
     let game = this.GetGameInstance();
     let night = this.IsNight();
-    SlumlordJournal.Set(game, SlumlordWontBite.Phase() + "/slumlord_wb_wait", "gameJournalQuestObjective", night ? gameJournalEntryState.Inactive : gameJournalEntryState.Active, false);
-    SlumlordJournal.Set(game, SlumlordWontBite.Phase() + "/slumlord_wb_motel", "gameJournalQuestObjective", night ? gameJournalEntryState.Active : gameJournalEntryState.Inactive, false);
-    SlumlordBuyUp.Track(game, SlumlordWontBite.Phase() + (night ? "/slumlord_wb_motel" : "/slumlord_wb_wait"));
+    SlumlordJournal.Set(game, SlumlordConversationOvertime.Phase() + "/slumlord_co_wait", "gameJournalQuestObjective", night ? gameJournalEntryState.Inactive : gameJournalEntryState.Active, false);
+    SlumlordJournal.Set(game, SlumlordConversationOvertime.Phase() + "/slumlord_co_motel", "gameJournalQuestObjective", night ? gameJournalEntryState.Active : gameJournalEntryState.Inactive, false);
+    SlumlordBuyUp.Track(game, SlumlordConversationOvertime.Phase() + (night ? "/slumlord_co_motel" : "/slumlord_co_wait"));
     // TODO motel scene: map pin (marker node at Las Palapas), spawn Finger, goons and the bike at night.
   }
 
@@ -152,11 +152,11 @@ public class SlumlordFinger extends ScriptableSystem {
     let now = this.NowHour();
     for def in sys.GetProperties() {
       let state = sys.GetState(def.id);
-      if Equals(def.districtId, SlumlordWontBite.District()) && IsDefined(state) && state.owned && state.occupiedUnits > 0 {
-        if SlumlordTenants.Roll(def.id, rentDay, 900) < SlumlordWontBite.HarassChance() {
+      if Equals(def.districtId, SlumlordConversationOvertime.District()) && IsDefined(state) && state.owned && state.occupiedUnits > 0 {
+        if SlumlordTenants.Roll(def.id, rentDay, 900) < SlumlordConversationOvertime.HarassChance() {
           let due = now + 1 + FloorF(SlumlordTenants.Roll(def.id, rentDay, 901) * 166.0);
           let name = SlumlordNames.RandomIndex(SlumlordTenants.Roll(def.id, rentDay, 902));
-          let complaint = FloorF(SlumlordTenants.Roll(def.id, rentDay, 903) * Cast<Float>(SlumlordWontBite.ComplaintCount()));
+          let complaint = FloorF(SlumlordTenants.Roll(def.id, rentDay, 903) * Cast<Float>(SlumlordConversationOvertime.ComplaintCount()));
           this.AddEvent(def.id, due, name, complaint);
         }
       }
@@ -220,22 +220,22 @@ public class SlumlordFinger extends ScriptableSystem {
     ArrayClear(this.m_eventDue);
     ArrayClear(this.m_eventName);
     ArrayClear(this.m_eventComplaint);
-    SlumlordJournal.Set(game, SlumlordWontBite.Phase() + "/slumlord_wb_wait", "gameJournalQuestObjective", gameJournalEntryState.Inactive, false);
-    SlumlordJournal.Set(game, SlumlordWontBite.Phase() + "/slumlord_wb_motel", "gameJournalQuestObjective", gameJournalEntryState.Succeeded, false);
-    SlumlordJournal.Set(game, SlumlordWontBite.Phase() + "/slumlord_wb_goons", "gameJournalQuestObjective", gameJournalEntryState.Succeeded, false);
-    SlumlordJournal.Set(game, SlumlordWontBite.Phase(), "gameJournalQuestPhase", gameJournalEntryState.Succeeded, false);
-    SlumlordJournal.Set(game, SlumlordWontBite.Quest(), "gameJournalQuest", gameJournalEntryState.Succeeded, true);
-    GameInstance.GetQuestsSystem(game).SetFactStr(SlumlordWontBite.DoneFact(), 1);
+    SlumlordJournal.Set(game, SlumlordConversationOvertime.Phase() + "/slumlord_co_wait", "gameJournalQuestObjective", gameJournalEntryState.Inactive, false);
+    SlumlordJournal.Set(game, SlumlordConversationOvertime.Phase() + "/slumlord_co_motel", "gameJournalQuestObjective", gameJournalEntryState.Succeeded, false);
+    SlumlordJournal.Set(game, SlumlordConversationOvertime.Phase() + "/slumlord_co_goons", "gameJournalQuestObjective", gameJournalEntryState.Succeeded, false);
+    SlumlordJournal.Set(game, SlumlordConversationOvertime.Phase(), "gameJournalQuestPhase", gameJournalEntryState.Succeeded, false);
+    SlumlordJournal.Set(game, SlumlordConversationOvertime.Quest(), "gameJournalQuest", gameJournalEntryState.Succeeded, true);
+    GameInstance.GetQuestsSystem(game).SetFactStr(SlumlordConversationOvertime.DoneFact(), 1);
     this.m_muscleOwed = true;
     this.GiveBike();
-    RPGManager.AwardExperienceInstantly(GetPlayer(game), SlumlordWontBite.RewardXP(), gamedataProficiencyType.Level);
+    RPGManager.AwardExperienceInstantly(GetPlayer(game), SlumlordConversationOvertime.RewardXP(), gamedataProficiencyType.Level);
     SlumlordUi.Log("Conversation Overtime: won, Santo Domingo dominated");
   }
 
   // The Kusanagi that isn't V's: V keeps it, in the garage.
   private func GiveBike() -> Void {
     if this.m_bikeGiven { return; }
-    this.m_bikeGiven = GameInstance.GetVehicleSystem(this.GetGameInstance()).EnablePlayerVehicle(SlumlordWontBite.BikeRecord(), true, false);
+    this.m_bikeGiven = GameInstance.GetVehicleSystem(this.GetGameInstance()).EnablePlayerVehicle(SlumlordConversationOvertime.BikeRecord(), true, false);
     SlumlordUi.Log("Conversation Overtime: Kusanagi to garage " + (this.m_bikeGiven ? "ok" : "FAILED (check the record name)"));
   }
 
@@ -253,9 +253,9 @@ public class SlumlordFinger extends ScriptableSystem {
     if !this.HarassActive() { return "quest not running (stage " + IntToString(this.m_stage) + ")"; }
     for def in sys.GetProperties() {
       let state = sys.GetState(def.id);
-      if Equals(def.districtId, SlumlordWontBite.District()) && IsDefined(state) && state.owned && state.occupiedUnits > 0 {
+      if Equals(def.districtId, SlumlordConversationOvertime.District()) && IsDefined(state) && state.owned && state.occupiedUnits > 0 {
         let r = RandF();
-        this.AddEvent(def.id, this.NowHour(), SlumlordNames.RandomIndex(r), FloorF(RandF() * Cast<Float>(SlumlordWontBite.ComplaintCount())));
+        this.AddEvent(def.id, this.NowHour(), SlumlordNames.RandomIndex(r), FloorF(RandF() * Cast<Float>(SlumlordConversationOvertime.ComplaintCount())));
         return "queued at " + def.displayName + " (fires on the next tick, up to 30 s)";
       }
     }
@@ -275,15 +275,15 @@ public class SlumlordFinger extends ScriptableSystem {
     ArrayClear(this.m_eventDue);
     ArrayClear(this.m_eventName);
     ArrayClear(this.m_eventComplaint);
-    SlumlordBuyUp.Clear(game, SlumlordWontBite.Phase(), "slumlord_wb_buy_");
-    SlumlordJournal.Set(game, SlumlordWontBite.Phase() + "/slumlord_wb_wait", "gameJournalQuestObjective", gameJournalEntryState.Inactive, false);
-    SlumlordJournal.Set(game, SlumlordWontBite.Phase() + "/slumlord_wb_motel", "gameJournalQuestObjective", gameJournalEntryState.Inactive, false);
-    SlumlordJournal.Set(game, SlumlordWontBite.Phase() + "/slumlord_wb_goons", "gameJournalQuestObjective", gameJournalEntryState.Inactive, false);
-    SlumlordJournal.Set(game, SlumlordWontBite.Phase(), "gameJournalQuestPhase", gameJournalEntryState.Inactive, false);
-    SlumlordJournal.Set(game, SlumlordWontBite.Quest() + "/slumlord_wb_desc_intro", "gameJournalQuestDescription", gameJournalEntryState.Inactive, false);
-    SlumlordJournal.Set(game, SlumlordWontBite.Quest() + "/slumlord_wb_desc_motel", "gameJournalQuestDescription", gameJournalEntryState.Inactive, false);
-    SlumlordJournal.Set(game, SlumlordWontBite.Quest(), "gameJournalQuest", gameJournalEntryState.Inactive, false);
-    GameInstance.GetQuestsSystem(game).SetFactStr(SlumlordWontBite.DoneFact(), 0);
+    SlumlordBuyUp.Clear(game, SlumlordConversationOvertime.Phase(), "slumlord_co_buy_");
+    SlumlordJournal.Set(game, SlumlordConversationOvertime.Phase() + "/slumlord_co_wait", "gameJournalQuestObjective", gameJournalEntryState.Inactive, false);
+    SlumlordJournal.Set(game, SlumlordConversationOvertime.Phase() + "/slumlord_co_motel", "gameJournalQuestObjective", gameJournalEntryState.Inactive, false);
+    SlumlordJournal.Set(game, SlumlordConversationOvertime.Phase() + "/slumlord_co_goons", "gameJournalQuestObjective", gameJournalEntryState.Inactive, false);
+    SlumlordJournal.Set(game, SlumlordConversationOvertime.Phase(), "gameJournalQuestPhase", gameJournalEntryState.Inactive, false);
+    SlumlordJournal.Set(game, SlumlordConversationOvertime.Quest() + "/slumlord_co_desc_intro", "gameJournalQuestDescription", gameJournalEntryState.Inactive, false);
+    SlumlordJournal.Set(game, SlumlordConversationOvertime.Quest() + "/slumlord_co_desc_motel", "gameJournalQuestDescription", gameJournalEntryState.Inactive, false);
+    SlumlordJournal.Set(game, SlumlordConversationOvertime.Quest(), "gameJournalQuest", gameJournalEntryState.Inactive, false);
+    GameInstance.GetQuestsSystem(game).SetFactStr(SlumlordConversationOvertime.DoneFact(), 0);
     let boss = SlumlordBoss.GetInstance(game);
     if IsDefined(boss) {
       boss.Debug_ResetFinger();
@@ -292,7 +292,7 @@ public class SlumlordFinger extends ScriptableSystem {
 
   public func Debug_State() -> String {
     let total: Int32;
-    let owned = SlumlordBuyUp.Owned(this.GetGameInstance(), SlumlordWontBite.District(), total);
+    let owned = SlumlordBuyUp.Owned(this.GetGameInstance(), SlumlordConversationOvertime.District(), total);
     let boss = SlumlordBoss.GetInstance(this.GetGameInstance());
     return "santo " + IntToString(owned) + "/" + IntToString(total) + " stage=" + IntToString(this.m_stage)
       + " night=" + (this.IsNight() ? "yes" : "no")

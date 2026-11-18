@@ -142,42 +142,42 @@
               "femaleVariant": "Conversation Overtime",
               "maleVariant": "",
               "primaryKey": "0",
-              "secondaryKey": "slumlord-wb-title"
+              "secondaryKey": "slumlord-co-title"
             },
             {
               "$type": "localizationPersistenceOnScreenEntry",
               "femaleVariant": "Quentin Finger, who owns the Las Palapas Motel, says Santo Domingo has one landlord: him. If you keep buying, he'll run you out of town. Buy up the district anyway.",
               "maleVariant": "",
               "primaryKey": "0",
-              "secondaryKey": "slumlord-wb-desc-intro"
+              "secondaryKey": "slumlord-co-desc-intro"
             },
             {
               "$type": "localizationPersistenceOnScreenEntry",
               "femaleVariant": "Finger says he stole something of yours. He wants you at the Las Palapas Motel tonight. Alone.",
               "maleVariant": "",
               "primaryKey": "0",
-              "secondaryKey": "slumlord-wb-desc-motel"
+              "secondaryKey": "slumlord-co-desc-motel"
             },
             {
               "$type": "localizationPersistenceOnScreenEntry",
               "femaleVariant": "Wait until night",
               "maleVariant": "",
               "primaryKey": "0",
-              "secondaryKey": "slumlord-wb-wait"
+              "secondaryKey": "slumlord-co-wait"
             },
             {
               "$type": "localizationPersistenceOnScreenEntry",
               "femaleVariant": "Meet Finger at the Las Palapas Motel",
               "maleVariant": "",
               "primaryKey": "0",
-              "secondaryKey": "slumlord-wb-motel"
+              "secondaryKey": "slumlord-co-motel"
             },
             {
               "$type": "localizationPersistenceOnScreenEntry",
               "femaleVariant": "Deal with Finger's goons",
               "maleVariant": "",
               "primaryKey": "0",
-              "secondaryKey": "slumlord-wb-goons"
+              "secondaryKey": "slumlord-co-goons"
             },
             {
               "$type": "localizationPersistenceOnScreenEntry",
@@ -198,7 +198,7 @@
               "femaleVariant": "Buy up Santo Domingo (0/5)",
               "maleVariant": "",
               "primaryKey": "0",
-              "secondaryKey": "slumlord-wb-buy-0"
+              "secondaryKey": "slumlord-co-buy-0"
             },
             {
               "$type": "localizationPersistenceOnScreenEntry",
@@ -212,7 +212,7 @@
               "femaleVariant": "Buy up Santo Domingo (1/5)",
               "maleVariant": "",
               "primaryKey": "0",
-              "secondaryKey": "slumlord-wb-buy-1"
+              "secondaryKey": "slumlord-co-buy-1"
             },
             {
               "$type": "localizationPersistenceOnScreenEntry",
@@ -226,7 +226,7 @@
               "femaleVariant": "Buy up Santo Domingo (2/5)",
               "maleVariant": "",
               "primaryKey": "0",
-              "secondaryKey": "slumlord-wb-buy-2"
+              "secondaryKey": "slumlord-co-buy-2"
             },
             {
               "$type": "localizationPersistenceOnScreenEntry",
@@ -240,7 +240,7 @@
               "femaleVariant": "Buy up Santo Domingo (3/5)",
               "maleVariant": "",
               "primaryKey": "0",
-              "secondaryKey": "slumlord-wb-buy-3"
+              "secondaryKey": "slumlord-co-buy-3"
             },
             {
               "$type": "localizationPersistenceOnScreenEntry",
@@ -254,7 +254,7 @@
               "femaleVariant": "Buy up Santo Domingo (4/5)",
               "maleVariant": "",
               "primaryKey": "0",
-              "secondaryKey": "slumlord-wb-buy-4"
+              "secondaryKey": "slumlord-co-buy-4"
             },
             {
               "$type": "localizationPersistenceOnScreenEntry",
@@ -268,7 +268,7 @@
               "femaleVariant": "Buy up Santo Domingo (5/5)",
               "maleVariant": "",
               "primaryKey": "0",
-              "secondaryKey": "slumlord-wb-buy-5"
+              "secondaryKey": "slumlord-co-buy-5"
             }
           ]
         }
