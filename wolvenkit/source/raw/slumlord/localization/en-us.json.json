@@ -139,7 +139,7 @@
             },
             {
               "$type": "localizationPersistenceOnScreenEntry",
-              "femaleVariant": "Won't Bite",
+              "femaleVariant": "Conversation Overtime",
               "maleVariant": "",
               "primaryKey": "0",
               "secondaryKey": "slumlord-wb-title"

@@ -1,4 +1,4 @@
-// Santo Domingo boss arc (design doc 4.9): Quentin Finger, owner of the Las Palapas Motel. Quest "Won't Bite".
+// Santo Domingo boss arc (design doc 4.9): Quentin Finger, owner of the Las Palapas Motel. Quest "Conversation Overtime" (working title Won't Bite; ids keep slumlord_wont_bite / slumlord_wb_).
 //
 //  1 Threat call after V's first Santo Domingo purchase (Boss.reds) -> quest starts: "Buy up Santo Domingo (n/5)".
 //  2 Lease broken: from the call until the win, each rent day every owned Santo Domingo property with tenants
@@ -95,13 +95,13 @@ public class SlumlordFinger extends ScriptableSystem {
     if this.m_stage != 0 { return; }
     let game = this.GetGameInstance();
     if !SlumlordJournal.Installed(game) {
-      SlumlordUi.Log("Won't Bite: journal missing (Slumlord.archive not installed or outdated)");
+      SlumlordUi.Log("Conversation Overtime: journal missing (Slumlord.archive not installed or outdated)");
     }
     this.m_stage = 1;
     SlumlordJournal.Set(game, SlumlordWontBite.Quest(), "gameJournalQuest", gameJournalEntryState.Active, true);
     SlumlordJournal.Set(game, SlumlordWontBite.Quest() + "/slumlord_wb_desc_intro", "gameJournalQuestDescription", gameJournalEntryState.Active, false);
     SlumlordJournal.Set(game, SlumlordWontBite.Phase(), "gameJournalQuestPhase", gameJournalEntryState.Active, false);
-    SlumlordUi.Log("Won't Bite: started after Finger's call");
+    SlumlordUi.Log("Conversation Overtime: started after Finger's call");
     this.OnPropertyChanged();
   }
 
@@ -112,7 +112,7 @@ public class SlumlordFinger extends ScriptableSystem {
     let done = SlumlordBuyUp.Update(game, SlumlordWontBite.Phase(), "slumlord_wb_buy_", SlumlordWontBite.District(), true);
     if done {
       this.m_stage = 2;
-      SlumlordUi.Log("Won't Bite: Santo Domingo owned, Finger's goading call due");
+      SlumlordUi.Log("Conversation Overtime: Santo Domingo owned, Finger's goading call due");
       let boss = SlumlordBoss.GetInstance(game);
       if IsDefined(boss) {
         boss.RequestFingerGoad(SlumlordWontBite.GoadDelaySeconds());
@@ -168,7 +168,7 @@ public class SlumlordFinger extends ScriptableSystem {
     ArrayPush(this.m_eventDue, due);
     ArrayPush(this.m_eventName, name);
     ArrayPush(this.m_eventComplaint, complaint);
-    SlumlordUi.Log("Won't Bite: lease broken at " + NameToString(id) + " due in " + IntToString(due - this.NowHour()) + " h");
+    SlumlordUi.Log("Conversation Overtime: lease broken at " + NameToString(id) + " due in " + IntToString(due - this.NowHour()) + " h");
   }
 
   private func RemoveEvent(i: Int32) -> Void {
@@ -207,7 +207,7 @@ public class SlumlordFinger extends ScriptableSystem {
     state.reportOut += 1;
     sys.SetAlert(1, id, this.m_eventName[i], this.m_eventComplaint[i]);
     SlumlordTenantReport.SendAlert(game);
-    SlumlordUi.Log("Won't Bite: lease broken at " + NameToString(id));
+    SlumlordUi.Log("Conversation Overtime: lease broken at " + NameToString(id));
   }
 
   // ---- stage 5: the win (stand-in until the motel scene exists) ----
@@ -229,14 +229,14 @@ public class SlumlordFinger extends ScriptableSystem {
     this.m_muscleOwed = true;
     this.GiveBike();
     RPGManager.AwardExperienceInstantly(GetPlayer(game), SlumlordWontBite.RewardXP(), gamedataProficiencyType.Level);
-    SlumlordUi.Log("Won't Bite: won, Santo Domingo dominated");
+    SlumlordUi.Log("Conversation Overtime: won, Santo Domingo dominated");
   }
 
   // The Kusanagi that isn't V's: V keeps it, in the garage.
   private func GiveBike() -> Void {
     if this.m_bikeGiven { return; }
     this.m_bikeGiven = GameInstance.GetVehicleSystem(this.GetGameInstance()).EnablePlayerVehicle(SlumlordWontBite.BikeRecord(), true, false);
-    SlumlordUi.Log("Won't Bite: Kusanagi to garage " + (this.m_bikeGiven ? "ok" : "FAILED (check the record name)"));
+    SlumlordUi.Log("Conversation Overtime: Kusanagi to garage " + (this.m_bikeGiven ? "ok" : "FAILED (check the record name)"));
   }
 
   // ---- debug (CET tool) ----

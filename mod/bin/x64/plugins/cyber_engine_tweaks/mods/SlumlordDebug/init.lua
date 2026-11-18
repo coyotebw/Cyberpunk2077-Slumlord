@@ -308,47 +308,47 @@ registerForEvent("onDraw", function()
     if ImGui.Button("Capture spot") then guarded("Capture spot", captureSpot) end
 
     ImGui.Separator()
-    ImGui.Text("Santo Domingo boss: Won't Bite (Quentin Finger)")
+    ImGui.Text("Santo Domingo boss: Conversation Overtime (Quentin Finger)")
     if ImGui.Button("Ring threat") then
       guarded("Ring threat", function()
         boss():Debug_RingFinger(false)
-        setStatus("Won't Bite: " .. finger():Debug_State())
+        setStatus("Conversation Overtime: " .. finger():Debug_State())
       end)
     end
     ImGui.SameLine()
     if ImGui.Button("Ring goad") then
       guarded("Ring goad", function()
         boss():Debug_RingFinger(true)
-        setStatus("Won't Bite: " .. finger():Debug_State())
+        setStatus("Conversation Overtime: " .. finger():Debug_State())
       end)
     end
     ImGui.SameLine()
     if ImGui.Button("Start quest") then
       guarded("Start quest", function()
         finger():Debug_StartQuest()
-        setStatus("Won't Bite: " .. finger():Debug_State())
+        setStatus("Conversation Overtime: " .. finger():Debug_State())
       end)
     end
     if ImGui.Button("Lease broken now") then
-      guarded("Lease broken", function() setStatus("Won't Bite: " .. finger():Debug_HarassNow()) end)
+      guarded("Lease broken", function() setStatus("Conversation Overtime: " .. finger():Debug_HarassNow()) end)
     end
     ImGui.SameLine()
     if ImGui.Button("Win (stand-in)") then
       guarded("Win", function()
         finger():Debug_Win()
-        setStatus("Won't Bite: " .. finger():Debug_State())
+        setStatus("Conversation Overtime: " .. finger():Debug_State())
       end)
     end
     ImGui.SameLine()
-    if ImGui.Button("Reset Won't Bite") then
-      guarded("Reset Won't Bite", function()
+    if ImGui.Button("Reset Conversation Overtime") then
+      guarded("Reset Conversation Overtime", function()
         finger():Debug_Reset()
-        setStatus("Won't Bite: " .. finger():Debug_State())
+        setStatus("Conversation Overtime: " .. finger():Debug_State())
       end)
     end
     ImGui.SameLine()
-    if ImGui.Button("Won't Bite state") then
-      guarded("Won't Bite state", function() setStatus("Won't Bite: " .. finger():Debug_State()) end)
+    if ImGui.Button("Conversation Overtime state") then
+      guarded("Conversation Overtime state", function() setStatus("Conversation Overtime: " .. finger():Debug_State()) end)
     end
 
     ImGui.Separator()

@@ -4,7 +4,7 @@ Idempotent. Edits the WolvenKit raw JSON in place (see add_realty_contact.py for
   - Million Dollar Baby (quests/minor_quest/slumlord_final_cut): "Buy up Watson (n/5)" objectives
     slumlord_fc_buy_0..4 and an intro description slumlord_fc_desc_intro (the quest now starts after
     Oshima's call).
-  - Won't Bite (quests/minor_quest/slumlord_wont_bite): phase slumlord_wb_phase with "Buy up Santo Domingo
+  - Conversation Overtime (quests/minor_quest/slumlord_wont_bite; id kept from the working title Won't Bite): phase slumlord_wb_phase with "Buy up Santo Domingo
     (n/5)" objectives slumlord_wb_buy_0..5, slumlord_wb_wait, slumlord_wb_motel, slumlord_wb_goons, and
     descriptions slumlord_wb_desc_intro / slumlord_wb_desc_motel. The motel map pin is added once the
     Las Palapas marker exists in the world sector.
@@ -23,7 +23,7 @@ ONSCREENS = ROOT / "wolvenkit/source/raw/slumlord/localization/en-us.json.json"
 
 TEXTS = {
     "slumlord-fc-desc-intro": "A braindance director called Hideyoshi Oshima wants you out of Watson. Buy up the district anyway.",
-    "slumlord-wb-title": "Won't Bite",
+    "slumlord-wb-title": "Conversation Overtime",
     "slumlord-wb-desc-intro": "Quentin Finger, who owns the Las Palapas Motel, says Santo Domingo has one landlord: him. If you keep buying, he'll run you out of town. Buy up the district anyway.",
     "slumlord-wb-desc-motel": "Finger says he stole something of yours. He wants you at the Las Palapas Motel tonight. Alone.",
     "slumlord-wb-wait": "Wait until night",
@@ -96,7 +96,7 @@ def main():
         mdb["entries"].append(description(h, "slumlord_fc_desc_intro", "slumlord-fc-desc-intro"))
         changed = True
 
-    # Won't Bite.
+    # Conversation Overtime (working title Won't Bite: ids keep slumlord_wont_bite / slumlord_wb_).
     if not find(minor, "slumlord_wont_bite"):
         wb_phase_entries = [objective(h, f"slumlord_wb_buy_{n}", f"slumlord-wb-buy-{n}") for n in range(6)]
         wb_phase_entries += [objective(h, "slumlord_wb_wait", "slumlord-wb-wait"),

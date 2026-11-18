@@ -1,6 +1,6 @@
 // Boss phone calls (design doc 4.8, 4.9), one at a time, in this order when several are waiting:
 //   n"wat_oshima"  Oshima, after V's first Watson purchase (Million Dollar Baby starts when it ends)
-//   n"sd_threat"   Quentin Finger's threat, after V's first Santo Domingo purchase (Won't Bite starts)
+//   n"sd_threat"   Quentin Finger's threat, after V's first Santo Domingo purchase (Conversation Overtime starts)
 //   n"sd_goad"     Finger's goading call, once V owns all of Santo Domingo (Finger.reds asks for it)
 //
 // Built on the game's own phone. PhoneSystem rings V with a caller id that is not a phone contact
