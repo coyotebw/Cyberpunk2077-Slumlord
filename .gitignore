@@ -20,3 +20,14 @@ __pycache__/
 .venv/
 .DS_Store
 Thumbs.db
+
+# Vanilla V voice lines converted from game files: shipped by users' own extraction, not in the repo
+mod/r6/audioware/Slumlord/vo/slumlord_v_*.ogg
+
+# CET runtime files
+mod/bin/x64/plugins/cyber_engine_tweaks/mods/SlumlordDebug/*.sqlite3
+mod/bin/x64/plugins/cyber_engine_tweaks/mods/SlumlordDebug/*.log
+
+# Build output
+build/
+*.archive

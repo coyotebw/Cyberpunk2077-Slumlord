@@ -1,0 +1,14 @@
+    if Equals(id, n"wat_kabuki_court") { return new Vector4(-1149.37, 2077.63, 7.78, 1.0); } // yaw -24.4
+    if Equals(id, n"wat_littlechina_walk") { return new Vector4(-1495.08, 1147.58, 18.76, 1.0); } // yaw -141.8
+    if Equals(id, n"wat_jigjig_rooms") { return new Vector4(-1401.48, 1416.63, 18.19, 1.0); } // yaw 85.8
+    if Equals(id, n"wat_northside_lofts") { return new Vector4(-1073.04, 1583.93, 2.58, 1.0); } // yaw 6.0
+    if Equals(id, n"wat_waterfront_bunks") { return new Vector4(-2013.79, 2617.27, 18.13, 1.0); } // yaw 27.1
+SPOT knocker -2014.69 2619.38 18.36 yaw -13.3
+SPOT knocker -2015.19 2618.74 18.36 yaw 25.8
+SPOT knocker -2014.59 2619.14 18.36 yaw 28.7
+SPOT welder -2012.98 2619.79 18.36 yaw 100.9
+SPOT smoker -2013.84 2614.50 18.14 yaw 176.3
+SPOT smoker -2014.85 2613.56 18.15 yaw -106.2
+SPOT talker -2013.11 2614.17 18.15 yaw 130.1
+SPOT oshima -2014.41 2612.43 18.17 yaw -15.5
+SPOT light -2004.46 2614.87 18.38 yaw 60.9

@@ -1,0 +1,15 @@
+version: 1.0.0
+# Slumlord - Watson boss arc: Hideyoshi Oshima's call (Japanese, synthetic placeholder voice) and V's answer (vanilla V lines)
+sfx:
+  slumlord_oshima_call_01: ./vo/slumlord_oshima_call_01.ogg
+  slumlord_oshima_call_02: ./vo/slumlord_oshima_call_02.ogg
+  slumlord_oshima_call_03: ./vo/slumlord_oshima_call_03.ogg
+  slumlord_oshima_call_04: ./vo/slumlord_oshima_call_04.ogg
+  slumlord_v_call_01_f: ./vo/slumlord_v_call_01_f.ogg
+  slumlord_v_call_01_m: ./vo/slumlord_v_call_01_m.ogg
+  slumlord_oshima_fight_01: ./vo/slumlord_oshima_fight_01.ogg
+  slumlord_oshima_fight_02: ./vo/slumlord_oshima_fight_02.ogg
+  slumlord_oshima_fight_03: ./vo/slumlord_oshima_fight_03.ogg
+  slumlord_oshima_flee_01: ./vo/slumlord_oshima_flee_01.ogg
+  slumlord_v_fight_01_f: ./vo/slumlord_v_fight_01_f.ogg
+  slumlord_v_fight_01_m: ./vo/slumlord_v_fight_01_m.ogg
