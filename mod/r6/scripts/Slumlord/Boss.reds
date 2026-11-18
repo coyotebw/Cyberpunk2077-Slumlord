@@ -374,7 +374,8 @@ public abstract class SlumlordCallScripts {
       case 5: line.Set(n"", "Here's how it goes. Sell off what you bought, stay the fuck out of my neighborhood, and nobody gets hurt. You don't, and your tenants start havin' a real bad time. Then maybe you do, too.", 0.0, "Finger", 0.6); return true;
       // V: an insult, expletive or refusal; placeholder subtitle until a vanilla V clip is picked (it then matches the clip).
       case 6: line.Set(n"", "Go fuck yourself.", 0.0, "V", 0.6); return true;
-      case 7: line.Set(n"", "Folks say my bark's worse than my bite. Go on and find out, V.", 0.0, "Finger", 0.9); return true;
+      // Second sentence to someone in the background (record turned away from the mic).
+      case 7: line.Set(n"", "Alright, asshole. Be seein' ya. Paulie, get the jumper cables.", 0.0, "Finger", 0.9); return true;
       default: return false;
     }
   }
