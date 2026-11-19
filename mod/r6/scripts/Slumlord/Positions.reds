@@ -15,6 +15,7 @@ public abstract class SlumlordPositions {
     if Equals(id, n"wat_kabuki_waterfront") { return new Vector4(-1073.04, 1583.93, 2.58, 1.0); } // Kabuki Waterfront, yaw 6.0
     if Equals(id, n"wat_harbor_safehouse") { return new Vector4(-2013.79, 2617.27, 18.13, 1.0); } // Harbor Safehouse, yaw 27.1
     if Equals(id, n"sd_suburban_adu") { return new Vector4(168.25, -1836.09, -10.27, 1.0); } // Charming Suburban ADU, yaw -126.8
+    if Equals(id, n"sd_dam_bungalow") { return new Vector4(645.06, -2150.74, 39.22, 1.0); } // Dam Bungalow, yaw -124.9
 
     return new Vector4(0.0, 0.0, 0.0, 0.0);
   }
