@@ -30,6 +30,12 @@ sfx:
   slumlord_finger_truce_01: ./vo/slumlord_finger_truce_01.ogg
   slumlord_finger_truce_02: ./vo/slumlord_finger_truce_02.ogg
   slumlord_finger_truce_03: ./vo/slumlord_finger_truce_03.ogg
+  slumlord_v_motel_01_f: ./vo/slumlord_v_motel_01_f.ogg
+  slumlord_v_motel_01_m: ./vo/slumlord_v_motel_01_m.ogg
+  slumlord_v_motel_02_f: ./vo/slumlord_v_motel_02_f.ogg
+  slumlord_v_motel_02_m: ./vo/slumlord_v_motel_02_m.ogg
+  slumlord_v_truce_01_f: ./vo/slumlord_v_truce_01_f.ogg
+  slumlord_v_truce_01_m: ./vo/slumlord_v_truce_01_m.ogg
   slumlord_v_sdcall_01_f: ./vo/slumlord_v_sdcall_01_f.ogg
   slumlord_v_sdcall_01_m: ./vo/slumlord_v_sdcall_01_m.ogg
   slumlord_v_sdcall_02_f: ./vo/slumlord_v_sdcall_02_f.ogg
