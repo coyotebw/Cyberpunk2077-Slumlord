@@ -54,7 +54,7 @@ public abstract class SlumlordData {
     ArrayPush(list, SlumlordData.Property(n"sd_dam_bungalow",      n"santo_domingo", "Dam Bungalow",             1));   // placed 2026-11-19; price/rent: district rate for now
     ArrayPush(list, SlumlordData.Commercial(n"sd_chooh2_carnitas", n"santo_domingo", "Chooh2 Carnitas St", 6000, 500)); // placed 2026-11-19; price/rent placeholder (Watson shops scaled to Santo Domingo)
     ArrayPush(list, SlumlordData.Commercial(n"sd_manufactory_stall", n"santo_domingo", "Manufactory Food Stall", 4000, 350)); // placed 2026-11-19; price/rent placeholder (stall: below Chooh2 Carnitas)
-    ArrayPush(list, SlumlordData.Property(n"sd_freight_lofts",     n"santo_domingo", "Arroyo Freight Lofts",    14));
+    ArrayPush(list, SlumlordData.Property(n"sd_mission_garages",   n"santo_domingo", "Mission St Garages",       4));   // placed 2026-11-19; units and price/rent placeholder (district rate)
 
     // Pacifica: Coastview, West Wind Estate
     ArrayPush(list, SlumlordData.Property(n"pac_resort_ruins",     n"pacifica", "Coastview Resort Ruins",  30));
