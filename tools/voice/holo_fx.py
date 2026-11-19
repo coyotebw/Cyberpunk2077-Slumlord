@@ -5,6 +5,7 @@ Rebuilt 2026-11-19 from the spec in the design doc (4.8): the original was lost 
   python holo_fx.py in.wav out.ogg --preset holo        # phone/holocall lines (Oshima's and Finger's calls)
   python holo_fx.py in.wav out.ogg --preset dry          # in-person lines
   python holo_fx.py in.wav out.ogg --preset dry --lufs -21.4   # in-person lines that play positionally (+2.6 dB)
+  python holo_fx.py in.wav out.ogg --preset dry --no-gate      # vanilla V lines (decoded from .wem with vgmstream-cli)
 
 Chain:
   1. Trim leading/trailing silence (frames under -38 dBFS RMS: above the ~-46 dB hiss), keeping 0.2 s of padding.
@@ -109,11 +110,11 @@ def to_lufs(x, lufs):
     return y
 
 
-def master(src, dst, preset="holo", lufs=-24.0):
+def master(src, dst, preset="holo", lufs=-24.0, use_gate=True):
     x = trim(load(src))
     if preset == "holo":
         x = holo(x)        # the 420-3,100 Hz band already removes most hiss; a gate ate word endings
-    else:
+    elif use_gate:
         x = gate(x)
     x = to_lufs(x, lufs)
     dst = Path(dst)
@@ -132,8 +133,9 @@ def main():
     ap.add_argument("dst")
     ap.add_argument("--preset", choices=["holo", "dry"], default="holo")
     ap.add_argument("--lufs", type=float, default=-24.0)
+    ap.add_argument("--no-gate", action="store_true", help="dry preset without the gate (clean studio audio, e.g. vanilla V lines)")
     a = ap.parse_args()
-    secs, lufs, peak = master(a.src, a.dst, a.preset, a.lufs)
+    secs, lufs, peak = master(a.src, a.dst, a.preset, a.lufs, use_gate=not a.no_gate)
     print(f"{a.dst}: {secs:.2f} s, {lufs:.1f} LUFS, peak {peak:.1f} dBFS")
 
 

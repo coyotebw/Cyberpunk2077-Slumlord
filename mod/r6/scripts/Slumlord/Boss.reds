@@ -363,17 +363,16 @@ public abstract class SlumlordCallScripts {
     }
   }
 
-  // Finger: Andrew's recordings (threat call, 2026-11-19). V's lines: subtitle-only until vanilla V clips are picked.
+  // Finger: Andrew's recordings (threat call, 2026-11-19). V: vanilla V lines (q307, q110, mq306), both voices.
   public static func FingerThreat(n: Int32, male: Bool, line: ref<SlumlordCallLine>) -> Bool {
     switch n {
       case 0: line.Set(n"slumlord_finger_call_01", "This the new landlord? The one buyin' up Santo?", 3.43, "Finger", 0.6); return true;
-      case 1: line.Set(n"", "Who's this?", 0.0, "V", 0.6); return true;
+      case 1: line.Set(male ? n"slumlord_v_sdcall_01_m" : n"slumlord_v_sdcall_01_f", "And you are?", male ? 1.03 : 1.26, "V", 0.6); return true;
       case 2: line.Set(n"slumlord_finger_call_02", "Name's Quentin Finger. Owner of the Las Palapas? Been runnin' Arroyo since before your balls dropped, squirt.", 7.04, "Finger", 0.6); return true;
-      case 3: line.Set(n"", "Right.", 0.0, "V", 0.6); return true;
+      case 3: line.Set(male ? n"slumlord_v_sdcall_02_m" : n"slumlord_v_sdcall_02_f", "Right.", male ? 0.88 : 0.89, "V", 0.6); return true;
       case 4: line.Set(n"slumlord_finger_call_03", "Santo's got one landlord. Me. You wanna flip apartments, go do it in Watson with the rest of the gonks.", 7.42, "Finger", 0.6); return true;
       case 5: line.Set(n"slumlord_finger_call_04", "Here's how it goes. Sell off what you bought, stay the fuck out of my neighborhood, and nobody gets hurt. You don't, and your tenants start havin' a real bad time. Then maybe you do, too.", 12.17, "Finger", 0.6); return true;
-      // V: an insult, expletive or refusal; placeholder subtitle until a vanilla V clip is picked (it then matches the clip).
-      case 6: line.Set(n"", "Go fuck yourself.", 0.0, "V", 0.6); return true;
+      case 6: line.Set(male ? n"slumlord_v_sdcall_03_m" : n"slumlord_v_sdcall_03_f", "Fuck you and your offer.", male ? 1.65 : 1.61, "V", 0.6); return true;
       // Second sentence to someone in the background (record turned away from the mic).
       case 7: line.Set(n"slumlord_finger_call_05", "Alright, asshole. Be seein' ya. Hey, Paulie, get the jumper cables.", 5.65, "Finger", 0.9); return true;
       default: return false;

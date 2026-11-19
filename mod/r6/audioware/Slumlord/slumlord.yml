@@ -1,7 +1,8 @@
 version: 1.0.0
 # Slumlord - boss calls and scenes.
 # Watson: Hideyoshi Oshima's call and fight (Japanese, synthetic placeholder voice) and V's answers (vanilla V lines).
-# Santo Domingo: Quentin Finger's threat call (recorded by Andrew, holocall effect, tools/voice/holo_fx.py).
+# Santo Domingo: Quentin Finger's threat call (recorded by Andrew, holocall effect, tools/voice/holo_fx.py)
+# and V's answers (vanilla V lines: q307 "And you are?", q110 "Right.", mq306 "Fuck you and your offer.").
 sfx:
   slumlord_oshima_call_01: ./vo/slumlord_oshima_call_01.ogg
   slumlord_oshima_call_02: ./vo/slumlord_oshima_call_02.ogg
@@ -20,3 +21,9 @@ sfx:
   slumlord_finger_call_03: ./vo/slumlord_finger_call_03.ogg
   slumlord_finger_call_04: ./vo/slumlord_finger_call_04.ogg
   slumlord_finger_call_05: ./vo/slumlord_finger_call_05.ogg
+  slumlord_v_sdcall_01_f: ./vo/slumlord_v_sdcall_01_f.ogg
+  slumlord_v_sdcall_01_m: ./vo/slumlord_v_sdcall_01_m.ogg
+  slumlord_v_sdcall_02_f: ./vo/slumlord_v_sdcall_02_f.ogg
+  slumlord_v_sdcall_02_m: ./vo/slumlord_v_sdcall_02_m.ogg
+  slumlord_v_sdcall_03_f: ./vo/slumlord_v_sdcall_03_f.ogg
+  slumlord_v_sdcall_03_m: ./vo/slumlord_v_sdcall_03_m.ogg
