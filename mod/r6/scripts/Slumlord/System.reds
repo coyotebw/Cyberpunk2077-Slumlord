@@ -71,6 +71,15 @@ public class SlumlordSystem extends ScriptableSystem {
     if ArraySize(this.m_contractors) == 0 {
       this.m_contractors = SlumlordContractors.All();
     }
+    // Renamed ids: move saved state over to the current id.
+    for s in this.m_states {
+      let current = SlumlordData.CurrentId(s.id);
+      if NotEquals(current, s.id) && !IsDefined(this.GetState(current)) {
+        ModLog(n"Slumlord", "Renamed saved property " + NameToString(s.id) + " -> " + NameToString(current));
+        s.id = current;
+      }
+    }
+    this.m_alertProperty = SlumlordData.CurrentId(this.m_alertProperty);
     for def in this.m_properties {
       let existing = this.GetState(def.id);
       if IsDefined(existing) && existing.occupiedUnits > def.units {

@@ -43,18 +43,18 @@ public abstract class SlumlordData {
     let list: array<ref<SlumlordPropertyDef>>;
 
     // Watson: Little China, Kabuki, Northside, Arasaka Waterfront
-    ArrayPush(list, SlumlordData.Commercial(n"wat_kabuki_court",   n"watson", "Kabuki Shop Booth", 10000, 850)); // id kept: save data is keyed by it
+    ArrayPush(list, SlumlordData.Commercial(n"wat_kabuki_shop_booth",   n"watson", "Kabuki Shop Booth", 10000, 850));
     ArrayPush(list, SlumlordData.Commercial(n"wat_capitan_caliente", n"watson", "Capitan Caliente, Ellison St", 6350, 650));
     ArrayPush(list, SlumlordData.Priced(n"wat_bradbury_boreas",    n"watson", "Bradbury & Boreas",         4, 9275, 160));
     ArrayPush(list, SlumlordData.Priced(n"wat_kabuki_waterfront",  n"watson", "Kabuki Waterfront",         3, 3499, 110));
     ArrayPush(list, SlumlordData.Priced(n"wat_harbor_safehouse",   n"watson", "Harbor Safehouse",          6, 5150, 109, 1));
 
     // Santo Domingo: Arroyo, Rancho Coronado
-    ArrayPush(list, SlumlordData.Priced(n"sd_suburban_adu",        n"santo_domingo", "Charming Suburban ADU",     2, 1500, 60));
+    ArrayPush(list, SlumlordData.Priced(n"sd_charming_suburban_adu",        n"santo_domingo", "Charming Suburban ADU",     2, 1500, 60));
     ArrayPush(list, SlumlordData.Priced(n"sd_dam_bungalow",        n"santo_domingo", "Dam Bungalow",              4, 2500, 76, 2));
-    ArrayPush(list, SlumlordData.Commercial(n"sd_chooh2_carnitas", n"santo_domingo", "Chooh2 Carnitas St", 6435, 500));
-    ArrayPush(list, SlumlordData.Commercial(n"sd_manufactory_stall", n"santo_domingo", "Manufactory Food Stall", 4400, 350));
-    ArrayPush(list, SlumlordData.Priced(n"sd_mission_garages",     n"santo_domingo", "Mission St Garages",        3, 3400, 85));
+    ArrayPush(list, SlumlordData.Commercial(n"sd_chooh2_carnitas_st", n"santo_domingo", "Chooh2 Carnitas St", 6435, 500));
+    ArrayPush(list, SlumlordData.Commercial(n"sd_manufactory_food_stall", n"santo_domingo", "Manufactory Food Stall", 4400, 350));
+    ArrayPush(list, SlumlordData.Priced(n"sd_mission_st_garages",     n"santo_domingo", "Mission St Garages",        3, 3400, 85));
 
     // Pacifica: Coastview, West Wind Estate
     ArrayPush(list, SlumlordData.Property(n"pac_resort_ruins",     n"pacifica", "Coastview Resort Ruins",  30));
@@ -105,6 +105,17 @@ public abstract class SlumlordData {
     d.gangs = gangs;
     d.safety = Clamp(safety, 1, 5);
     return d;
+  }
+
+  // Ids renamed after saves were made: old id -> current id. Saved state, alerts and pending
+  // events are moved over on load (SlumlordSystem.EnsureLoaded, SlumlordFinger). Keep old entries.
+  public static func CurrentId(id: CName) -> CName {
+    if Equals(id, n"wat_kabuki_court") { return n"wat_kabuki_shop_booth"; }
+    if Equals(id, n"sd_suburban_adu") { return n"sd_charming_suburban_adu"; }
+    if Equals(id, n"sd_chooh2_carnitas") { return n"sd_chooh2_carnitas_st"; }
+    if Equals(id, n"sd_manufactory_stall") { return n"sd_manufactory_food_stall"; }
+    if Equals(id, n"sd_mission_garages") { return n"sd_mission_st_garages"; }
+    return id;
   }
 
   // A single shop or business space with its own price and weekly rent.

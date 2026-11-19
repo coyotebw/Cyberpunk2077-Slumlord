@@ -75,6 +75,11 @@ public class SlumlordFinger extends ScriptableSystem {
   }
 
   private func OnPlayerAttach(request: ref<PlayerAttachRequest>) -> Void {
+    let i = 0;
+    while i < ArraySize(this.m_eventProps) {
+      this.m_eventProps[i] = SlumlordData.CurrentId(this.m_eventProps[i]); // renamed ids
+      i += 1;
+    }
     if this.m_stage == 3 {
       this.UpdateNight();
     }
