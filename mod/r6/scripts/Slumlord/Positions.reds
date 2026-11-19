@@ -14,6 +14,7 @@ public abstract class SlumlordPositions {
     if Equals(id, n"wat_capitan_caliente") { return new Vector4(-1401.48, 1416.63, 18.19, 1.0); } // Capitan Caliente, Ellison St, yaw 85.8
     if Equals(id, n"wat_kabuki_waterfront") { return new Vector4(-1073.04, 1583.93, 2.58, 1.0); } // Kabuki Waterfront, yaw 6.0
     if Equals(id, n"wat_harbor_safehouse") { return new Vector4(-2013.79, 2617.27, 18.13, 1.0); } // Harbor Safehouse, yaw 27.1
+    if Equals(id, n"sd_suburban_adu") { return new Vector4(168.25, -1836.09, -10.27, 1.0); } // Charming Suburban ADU, yaw -126.8
 
     return new Vector4(0.0, 0.0, 0.0, 0.0);
   }

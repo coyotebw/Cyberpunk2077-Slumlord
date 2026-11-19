@@ -50,7 +50,7 @@ public abstract class SlumlordData {
     ArrayPush(list, SlumlordData.Priced(n"wat_harbor_safehouse",   n"watson", "Harbor Safehouse",          6, 5150, 109, 1));
 
     // Santo Domingo: Arroyo, Rancho Coronado
-    ArrayPush(list, SlumlordData.Property(n"sd_arroyo_dorms",      n"santo_domingo", "Arroyo Mill Dorms",       24));
+    ArrayPush(list, SlumlordData.Property(n"sd_suburban_adu",      n"santo_domingo", "Charming Suburban ADU",    1));   // placed 2026-11-19; price/rent: district rate for now
     ArrayPush(list, SlumlordData.Property(n"sd_coronado_duplex",   n"santo_domingo", "Coronado Duplexes",        8));
     ArrayPush(list, SlumlordData.Property(n"sd_arroyo_stacks",     n"santo_domingo", "Arroyo Stacks",           20));
     ArrayPush(list, SlumlordData.Property(n"sd_coronado_trailers", n"santo_domingo", "Coronado Trailer Court",  12));

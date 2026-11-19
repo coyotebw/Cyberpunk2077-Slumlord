@@ -88,6 +88,15 @@ public class SlumlordSystem extends ScriptableSystem {
         ArrayPush(this.m_states, state);
       }
     }
+    // Drop saved properties whose id no longer exists (renamed or removed), so they don't count as owned.
+    let i = ArraySize(this.m_states) - 1;
+    while i >= 0 {
+      if !IsDefined(this.GetPropertyDef(this.m_states[i].id)) {
+        ModLog(n"Slumlord", "Dropped saved state for unknown property " + NameToString(this.m_states[i].id));
+        ArrayErase(this.m_states, i);
+      }
+      i -= 1;
+    }
   }
 
   // ===================================================================== time
