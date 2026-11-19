@@ -24,6 +24,9 @@ public abstract class SlumlordConversationOvertime {
   public static func RewardXP() -> Int32 { return 1000; }
   // Yaiba Kusanagi CT-3X, player version (to confirm in game).
   public static func BikeRecord() -> String { return "Vehicle.v_sportbike1_yaiba_kusanagi_player"; }
+  // Las Palapas Motel entrance, captured in game 2026-11-19 (yaw 133.4). Quest pin; anchor for the motel scene.
+  public static func MotelEntrance() -> Vector4 { return new Vector4(-1057.27, -1498.45, 25.75, 1.0); }
+  public static func MotelEntranceYaw() -> Float { return 133.4; }
   // Motel scene, for when it is built: 6th Street records (to confirm in game).
   public static func Goons() -> array<TweakDBID> {
     return [t"Character.sixthstreet_hooligan_ranged1_saratoga_wa", t"Character.sixthstreet_hooligan_ranged1_nova_wa",
@@ -64,6 +67,8 @@ public class SlumlordFinger extends ScriptableSystem {
   private persistent let m_eventComplaint: array<Int32>;
   private persistent let m_muscleOwed: Bool;          // the goons' services, for when Muscle staff exist
   private persistent let m_bikeGiven: Bool;
+  private let m_motelPin: NewMappinID;                // quest pin at Las Palapas while stage 3 (re-registered on load)
+  private let m_motelPinOn: Bool;
 
   public static func GetInstance(game: GameInstance) -> ref<SlumlordFinger> {
     return GameInstance.GetScriptableSystemsContainer(game).Get(n"Slumlord.SlumlordFinger") as SlumlordFinger;
@@ -139,7 +144,26 @@ public class SlumlordFinger extends ScriptableSystem {
     SlumlordJournal.Set(game, SlumlordConversationOvertime.Phase() + "/slumlord_co_wait", "gameJournalQuestObjective", night ? gameJournalEntryState.Inactive : gameJournalEntryState.Active, false);
     SlumlordJournal.Set(game, SlumlordConversationOvertime.Phase() + "/slumlord_co_motel", "gameJournalQuestObjective", night ? gameJournalEntryState.Active : gameJournalEntryState.Inactive, false);
     SlumlordBuyUp.Track(game, SlumlordConversationOvertime.Phase() + (night ? "/slumlord_co_motel" : "/slumlord_co_wait"));
-    // TODO motel scene: map pin (marker node at Las Palapas), spawn Finger, goons and the bike at night.
+    this.SetMotelPin(true);
+    // TODO motel scene: spawn Finger, goons and the bike at night (positions still to capture).
+  }
+
+  // Quest pin on the Las Palapas entrance, shown day and night during stage 3 so V knows where to go.
+  private func SetMotelPin(on: Bool) -> Void {
+    let mappins = GameInstance.GetMappinSystem(this.GetGameInstance());
+    if this.m_motelPinOn {
+      mappins.UnregisterMappin(this.m_motelPin);
+      this.m_motelPinOn = false;
+    }
+    if !on { return; }
+    let data: MappinData;
+    data.mappinType = t"Mappins.QuestStaticMappinDefinition";
+    data.variant = gamedataMappinVariant.DefaultQuestVariant;
+    data.active = true;
+    data.debugCaption = "Slumlord Las Palapas Motel";
+    data.visibleThroughWalls = true;
+    this.m_motelPin = mappins.RegisterMappin(data, SlumlordConversationOvertime.MotelEntrance());
+    this.m_motelPinOn = true;
   }
 
   // ---- lease broken ----
@@ -216,6 +240,7 @@ public class SlumlordFinger extends ScriptableSystem {
     if this.m_stage == 5 { return; }
     let game = this.GetGameInstance();
     this.m_stage = 5;
+    this.SetMotelPin(false);
     ArrayClear(this.m_eventProps);
     ArrayClear(this.m_eventDue);
     ArrayClear(this.m_eventName);
@@ -269,6 +294,7 @@ public class SlumlordFinger extends ScriptableSystem {
   public func Debug_Reset() -> Void {
     let game = this.GetGameInstance();
     this.m_stage = 0;
+    this.SetMotelPin(false);
     this.m_muscleOwed = false;
     this.m_bikeGiven = false;
     ArrayClear(this.m_eventProps);
