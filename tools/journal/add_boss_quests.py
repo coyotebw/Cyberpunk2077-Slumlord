@@ -25,7 +25,7 @@ TEXTS = {
     "slumlord-fc-desc-intro": "A braindance director called Hideyoshi Oshima wants you out of Watson. Buy up the district anyway.",
     "slumlord-co-title": "Conversation Overtime",
     "slumlord-co-desc-intro": "Quentin Finger, who owns the Las Palapas Motel, says Santo Domingo has one landlord: him. If you keep buying, he'll run you out of town. Buy up the district anyway.",
-    "slumlord-co-desc-motel": "Finger says he stole something of yours. He wants you at the Las Palapas Motel tonight. Alone.",
+    "slumlord-co-desc-motel": "Finger says he's got something of yours. He wants you at the Las Palapas Motel tonight. Alone.",
     "slumlord-co-wait": "Wait until night",
     "slumlord-co-motel": "Meet Finger at the Las Palapas Motel",
     "slumlord-co-goons": "Deal with Finger's goons",
@@ -139,6 +139,11 @@ def main():
     entries = onscreens["Data"]["RootChunk"]["root"]["Data"]["entries"]
     have = {e["secondaryKey"] for e in entries}
     added = 0
+    for e in entries:  # update changed texts
+        key = e.get("secondaryKey")
+        if key in TEXTS and e.get("femaleVariant") != TEXTS[key]:
+            e["femaleVariant"] = TEXTS[key]
+            added += 1
     for key, text in TEXTS.items():
         if key not in have:
             entries.append({"$type": "localizationPersistenceOnScreenEntry", "femaleVariant": text,

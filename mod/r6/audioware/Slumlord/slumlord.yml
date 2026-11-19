@@ -21,6 +21,15 @@ sfx:
   slumlord_finger_call_03: ./vo/slumlord_finger_call_03.ogg
   slumlord_finger_call_04: ./vo/slumlord_finger_call_04.ogg
   slumlord_finger_call_05: ./vo/slumlord_finger_call_05.ogg
+  slumlord_finger_goad_01: ./vo/slumlord_finger_goad_01.ogg
+  slumlord_finger_goad_02: ./vo/slumlord_finger_goad_02.ogg
+  slumlord_finger_motel_01: ./vo/slumlord_finger_motel_01.ogg
+  slumlord_finger_motel_02: ./vo/slumlord_finger_motel_02.ogg
+  slumlord_finger_motel_03: ./vo/slumlord_finger_motel_03.ogg
+  slumlord_finger_motel_04: ./vo/slumlord_finger_motel_04.ogg
+  slumlord_finger_truce_01: ./vo/slumlord_finger_truce_01.ogg
+  slumlord_finger_truce_02: ./vo/slumlord_finger_truce_02.ogg
+  slumlord_finger_truce_03: ./vo/slumlord_finger_truce_03.ogg
   slumlord_v_sdcall_01_f: ./vo/slumlord_v_sdcall_01_f.ogg
   slumlord_v_sdcall_01_m: ./vo/slumlord_v_sdcall_01_m.ogg
   slumlord_v_sdcall_02_f: ./vo/slumlord_v_sdcall_02_f.ogg

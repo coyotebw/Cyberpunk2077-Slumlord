@@ -4,7 +4,7 @@
 //  2 Lease broken: from the call until the win, each rent day every owned Santo Domingo property with tenants
 //    has a 20% chance that Finger's people drive one out, at a random hour within the next week. Slumlord
 //    Realty texts at once (Tenants.reds draws the live text).
-//  3 All of Santo Domingo owned -> Finger's goading call ("I stole somethin' of yours").
+//  3 All of Santo Domingo owned -> Finger's goading call ("I got somethin' of yours").
 //  4 "Meet Finger at the Las Palapas Motel", at night only (20:00-05:00; "Wait until night" by day).
 //    The motel scene (Finger, 6th Street goons, a Yaiba Kusanagi that isn't V's) is NOT BUILT YET: it needs
 //    positions captured at Las Palapas and Andrew's recordings. Debug "Win" stands in for it.
@@ -56,6 +56,34 @@ public abstract class SlumlordConversationOvertime {
     let all = SlumlordConversationOvertime.Complaints();
     if index < 0 || index >= ArraySize(all) { return all[0]; }
     return all[index];
+  }
+}
+
+// The motel scene's dialogue, for when the scene is built (design doc 4.9). Finger's lines are
+// Andrew's recordings (in person: dry, -21.4 LUFS, positional). V's lines: vanilla clips still to pick.
+public abstract class SlumlordMotelScript {
+  // Before the fight. Returns false past the last line.
+  public static func Standoff(n: Int32, male: Bool, line: ref<SlumlordCallLine>) -> Bool {
+    switch n {
+      case 0: line.Set(n"slumlord_finger_motel_01", "Well, look who showed. Pretty ride, huh? Be a shame if somethin' happened to it.", 6.43, "Finger", 0.6); return true;
+      case 1: line.Set(n"", "That's not my bike.", 0.0, "V", 0.6); return true;   // TODO vanilla V clip
+      case 2: line.Set(n"slumlord_finger_motel_02", "Uh-huh. Here's the deal: you sign over Santo to me, and you ride outta here on your pretty little bike.", 6.75, "Finger", 0.6); return true;
+      case 3: line.Set(n"", "It's not mine.", 0.0, "V", 0.6); return true;          // TODO vanilla V clip
+      case 4: line.Set(n"slumlord_finger_motel_03", "Don't play dumb with me! My boys lifted it right outta your— ...Whose bike IS this?", 6.51, "Finger", 0.4); return true;
+      case 5: line.Set(n"slumlord_finger_motel_04", "Fuck it. Waste 'em!", 1.71, "Finger", 0.3); return true;
+      default: return false;
+    }
+  }
+
+  // After the last goon falls.
+  public static func Truce(n: Int32, male: Bool, line: ref<SlumlordCallLine>) -> Bool {
+    switch n {
+      case 0: line.Set(n"slumlord_finger_truce_01", "Okay, okay! Truce, truce!", 2.14, "Finger", 0.6); return true;
+      case 1: line.Set(n"slumlord_finger_truce_02", "Look, these boys, what's left of 'em, they're good muscle. They're yours. Just let me walk.", 6.01, "Finger", 0.6); return true;
+      case 2: line.Set(n"", "Deal.", 0.0, "V", 0.6); return true;                    // TODO vanilla V clip
+      case 3: line.Set(n"slumlord_finger_truce_03", "Pleasure doin' business, Mr. Landlord.", 3.76, "Finger", 0.6); return true;
+      default: return false;
+    }
   }
 }
 

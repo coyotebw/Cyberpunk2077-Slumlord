@@ -381,8 +381,8 @@ public abstract class SlumlordCallScripts {
 
   public static func FingerGoad(n: Int32, male: Bool, line: ref<SlumlordCallLine>) -> Bool {
     switch n {
-      case 0: line.Set(n"", "Hey, shithead. I stole somethin' of yours.", 0.0, "Finger", 0.6); return true;
-      case 1: line.Set(n"", "Want it back? Las Palapas. Tonight. Come alone.", 0.0, "Finger", 0.9); return true;
+      case 0: line.Set(n"slumlord_finger_goad_01", "Hey, shithead. I got somethin' of yours.", 3.62, "Finger", 0.6); return true;
+      case 1: line.Set(n"slumlord_finger_goad_02", "Want it back? Las Palapas. Tonight. Come alone.", 4.71, "Finger", 0.9); return true;
       default: return false;
     }
   }

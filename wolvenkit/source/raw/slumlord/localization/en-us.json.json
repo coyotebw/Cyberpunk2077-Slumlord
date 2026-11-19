@@ -153,7 +153,7 @@
             },
             {
               "$type": "localizationPersistenceOnScreenEntry",
-              "femaleVariant": "Finger says he stole something of yours. He wants you at the Las Palapas Motel tonight. Alone.",
+              "femaleVariant": "Finger says he's got something of yours. He wants you at the Las Palapas Motel tonight. Alone.",
               "maleVariant": "",
               "primaryKey": "0",
               "secondaryKey": "slumlord-co-desc-motel"
