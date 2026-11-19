@@ -1,5 +1,7 @@
 version: 1.0.0
-# Slumlord - Watson boss arc: Hideyoshi Oshima's call (Japanese, synthetic placeholder voice) and V's answer (vanilla V lines)
+# Slumlord - boss calls and scenes.
+# Watson: Hideyoshi Oshima's call and fight (Japanese, synthetic placeholder voice) and V's answers (vanilla V lines).
+# Santo Domingo: Quentin Finger's threat call (recorded by Andrew, holocall effect, tools/voice/holo_fx.py).
 sfx:
   slumlord_oshima_call_01: ./vo/slumlord_oshima_call_01.ogg
   slumlord_oshima_call_02: ./vo/slumlord_oshima_call_02.ogg
@@ -13,3 +15,8 @@ sfx:
   slumlord_oshima_flee_01: ./vo/slumlord_oshima_flee_01.ogg
   slumlord_v_fight_01_f: ./vo/slumlord_v_fight_01_f.ogg
   slumlord_v_fight_01_m: ./vo/slumlord_v_fight_01_m.ogg
+  slumlord_finger_call_01: ./vo/slumlord_finger_call_01.ogg
+  slumlord_finger_call_02: ./vo/slumlord_finger_call_02.ogg
+  slumlord_finger_call_03: ./vo/slumlord_finger_call_03.ogg
+  slumlord_finger_call_04: ./vo/slumlord_finger_call_04.ogg
+  slumlord_finger_call_05: ./vo/slumlord_finger_call_05.ogg
