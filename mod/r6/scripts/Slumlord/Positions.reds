@@ -17,6 +17,7 @@ public abstract class SlumlordPositions {
     if Equals(id, n"sd_suburban_adu") { return new Vector4(168.25, -1836.09, -10.27, 1.0); } // Charming Suburban ADU, yaw -126.8
     if Equals(id, n"sd_dam_bungalow") { return new Vector4(645.06, -2150.74, 39.22, 1.0); } // Dam Bungalow, yaw -124.9
     if Equals(id, n"sd_chooh2_carnitas") { return new Vector4(-137.61, -1972.82, 5.87, 1.0); } // Chooh2 Carnitas St, yaw 20.2
+    if Equals(id, n"sd_manufactory_stall") { return new Vector4(-1024.70, -1569.34, 25.70, 1.0); } // Manufactory Food Stall, yaw -123.6
 
     return new Vector4(0.0, 0.0, 0.0, 0.0);
   }
