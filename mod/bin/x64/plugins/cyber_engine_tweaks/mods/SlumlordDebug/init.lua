@@ -101,7 +101,9 @@ end
 
 -- Scene spots for Million Dollar Baby: stand where an actor or prop should be, facing the way it
 -- should face, pick the spot, press "Capture spot". Lines go to captured_positions.txt.
-local SPOTS = { "knocker", "welder", "smoker", "talker", "oshima", "light" }
+-- Conversation Overtime (Las Palapas): the motel_ spots.
+local SPOTS = { "knocker", "welder", "smoker", "talker", "oshima", "light",
+                "motel_finger", "motel_goon_1", "motel_goon_2", "motel_goon_3", "motel_bike", "motel_finger_hide" }
 Debug.spot = 0
 
 local function captureSpot()
