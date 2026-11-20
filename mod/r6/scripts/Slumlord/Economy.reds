@@ -98,6 +98,10 @@ public abstract class SlumlordTuning {
   // ---- Contractors and rank bars (design doc 4.4). Stars 1..5; fit 0 poor .. 3 great.
 
   public static func ContractorFee(stars: Int32) -> Int32 {
+    return RoundF(Cast<Float>(SlumlordTuning.BaseContractorFee(stars)) * SlumlordSettings.Get().contractorFeeMultiplier);
+  }
+
+  public static func BaseContractorFee(stars: Int32) -> Int32 {
     switch stars {
       case 1: return 500;
       case 2: return 1500;
@@ -151,7 +155,13 @@ public abstract class SlumlordTuning {
 
 public abstract class SlumlordEconomy {
 
+  // What V pays: the base price times the "Property prices" setting.
   public static func Price(def: ref<SlumlordPropertyDef>, district: ref<SlumlordDistrictDef>) -> Int32 {
+    return RoundF(Cast<Float>(SlumlordEconomy.BasePrice(def, district)) * SlumlordSettings.Get().priceMultiplier);
+  }
+
+  // The designed price; rank bars are sized from this, so the price setting doesn't change renovation effort.
+  public static func BasePrice(def: ref<SlumlordPropertyDef>, district: ref<SlumlordDistrictDef>) -> Int32 {
     if !IsDefined(def) || !IsDefined(district) { return 0; }
     if def.fixedPrice > 0 { return def.fixedPrice; }
     return def.units * SlumlordTuning.PricePerUnit(district.wealthTier);
@@ -160,13 +170,13 @@ public abstract class SlumlordEconomy {
   public static func WeeklyRent(def: ref<SlumlordPropertyDef>, district: ref<SlumlordDistrictDef>, state: ref<SlumlordPropertyState>) -> Int32 {
     if !IsDefined(def) || !IsDefined(district) || !IsDefined(state) || !state.owned { return 0; }
     let base = state.occupiedUnits * SlumlordEconomy.RentPerUnit(def, district);
-    return RoundF(Cast<Float>(base) * SlumlordTuning.RankMultiplier(state.rank));
+    return RoundF(Cast<Float>(base) * SlumlordTuning.RankMultiplier(state.rank) * SlumlordSettings.Get().rentMultiplier);
   }
 
   // What a listing should earn per week right after purchase (rank D, starting occupancy).
   public static func EstimatedWeeklyRent(def: ref<SlumlordPropertyDef>, district: ref<SlumlordDistrictDef>) -> Int32 {
     if !IsDefined(def) || !IsDefined(district) { return 0; }
-    return SlumlordEconomy.StartingOccupiedUnits(def) * SlumlordEconomy.RentPerUnit(def, district);
+    return RoundF(Cast<Float>(SlumlordEconomy.StartingOccupiedUnits(def) * SlumlordEconomy.RentPerUnit(def, district)) * SlumlordSettings.Get().rentMultiplier);
   }
 
   // Weekly rent per occupied unit at rank D: the property's own figure if it has one, else the district's.

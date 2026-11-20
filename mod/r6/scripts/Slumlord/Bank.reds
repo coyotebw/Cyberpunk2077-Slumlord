@@ -67,6 +67,7 @@ public abstract class SlumlordBank {
 
   // Wallet plus Marmur savings when Overdraft Protection would cover a shortfall, else the wallet.
   public static func SpendingPower(game: GameInstance, wallet: Int32) -> Int32 {
+    if !SlumlordSettings.Get().marmurOverdraft { return wallet; }
     let sys = SlumlordBank.System(game);
     if !IsDefined(sys) { return wallet; }
     let ok: Bool;
@@ -104,6 +105,7 @@ public abstract class SlumlordBank {
 
   // Call right before Slumlord changes V's wallet; Marmur then knows the change is Slumlord's.
   public static func Begin(game: GameInstance) -> ref<SlumlordBankEntry> {
+    if !SlumlordSettings.Get().marmurLedger { return null; }
     let sys = SlumlordBank.System(game);
     if !IsDefined(sys) { return null; }
     let cls = SlumlordBank.SystemClass();

@@ -26,17 +26,18 @@ public abstract class SlumlordTenants {
   }
 
   public static func MoveOutChance(def: ref<SlumlordPropertyDef>, district: ref<SlumlordDistrictDef>, rank: Int32) -> Float {
+    let setting = SlumlordSettings.Get().moveOutMultiplier;
     if def.commercial {
-      return SlumlordTuning.CommercialMoveOutChance(rank);
+      return SlumlordTuning.CommercialMoveOutChance(rank) * setting;
     }
-    return SlumlordTuning.MoveOutChance(rank) * SlumlordTuning.SafetyMoveOutMultiplier(district.safety);
+    return SlumlordTuning.MoveOutChance(rank) * SlumlordTuning.SafetyMoveOutMultiplier(district.safety) * setting;
   }
 
   // Expected new tenants per week; negative = fill every empty unit (rank S).
   public static func ArrivalRate(district: ref<SlumlordDistrictDef>, rank: Int32) -> Float {
     let base = SlumlordTuning.ArrivalsPerWeek(rank);
     if base < 0.0 { return base; }
-    return base * SlumlordTuning.SafetyArrivalMultiplier(district.safety);
+    return base * SlumlordTuning.SafetyArrivalMultiplier(district.safety) * SlumlordSettings.Get().arrivalMultiplier;
   }
 
   // One week of tenant changes for one owned property. Adds to the state's report counters.

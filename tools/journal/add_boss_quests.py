@@ -25,9 +25,9 @@ TEXTS = {
     "slumlord-fc-desc-intro": "A braindance director called Hideyoshi Oshima wants you out of Watson. Buy up the district anyway.",
     "slumlord-co-title": "Conversation Overtime",
     "slumlord-co-desc-intro": "Quentin Finger, who owns the Las Palapas Motel, says Santo Domingo has one landlord: him. If you keep buying, he'll run you out of town. Buy up the district anyway.",
-    "slumlord-co-desc-motel": "Finger says he's got something of yours. He wants you at the Las Palapas Motel tonight. Alone.",
-    "slumlord-co-wait": "Wait until night",
-    "slumlord-co-motel": "Meet Finger at the Las Palapas Motel",
+    "slumlord-co-desc-motel": "Finger says he's got something of yours. He wants you at the Las Palapas Motel tonight, alone. He'll be out front between 20:00 and 05:00.",
+    "slumlord-co-wait": "Wait until 20:00",
+    "slumlord-co-motel": "Meet Finger at the Las Palapas Motel (20:00–05:00)",
     "slumlord-co-goons": "Deal with Finger's goons",
     "slumlord-realty-alert": "TENANT MOVED OUT - LEASE BROKEN!",
 }

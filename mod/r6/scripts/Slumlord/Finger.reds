@@ -15,7 +15,7 @@ public abstract class SlumlordConversationOvertime {
   public static func Quest() -> String { return "quests/minor_quest/slumlord_conversation_overtime"; }
   public static func Phase() -> String { return SlumlordConversationOvertime.Quest() + "/slumlord_co_phase"; }
   public static func District() -> CName { return n"santo_domingo"; }
-  public static func HarassChance() -> Float { return 0.20; }
+  public static func HarassChance() -> Float { return Cast<Float>(SlumlordSettings.Get().fingerHarassPercent) / 100.0; }   // setting, designed at 20%
   public static func NightStartHour() -> Int32 { return 20; }
   public static func NightEndHour() -> Int32 { return 5; }
   public static func GoadDelaySeconds() -> Float { return 30.0; }

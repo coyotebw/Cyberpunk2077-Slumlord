@@ -153,21 +153,21 @@
             },
             {
               "$type": "localizationPersistenceOnScreenEntry",
-              "femaleVariant": "Finger says he's got something of yours. He wants you at the Las Palapas Motel tonight. Alone.",
+              "femaleVariant": "Finger says he's got something of yours. He wants you at the Las Palapas Motel tonight, alone. He'll be out front between 20:00 and 05:00.",
               "maleVariant": "",
               "primaryKey": "0",
               "secondaryKey": "slumlord-co-desc-motel"
             },
             {
               "$type": "localizationPersistenceOnScreenEntry",
-              "femaleVariant": "Wait until night",
+              "femaleVariant": "Wait until 20:00",
               "maleVariant": "",
               "primaryKey": "0",
               "secondaryKey": "slumlord-co-wait"
             },
             {
               "$type": "localizationPersistenceOnScreenEntry",
-              "femaleVariant": "Meet Finger at the Las Palapas Motel",
+              "femaleVariant": "Meet Finger at the Las Palapas Motel (20:00–05:00)",
               "maleVariant": "",
               "primaryKey": "0",
               "secondaryKey": "slumlord-co-motel"

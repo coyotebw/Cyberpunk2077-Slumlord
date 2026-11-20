@@ -157,7 +157,7 @@ public class SlumlordSystem extends ScriptableSystem {
 
     if this.GetOwnedCount() > 0 {
       this.RefreshPins();   // owned pins turn into rent-ready pins
-      SlumlordTenantReport.Send(this.GetGameInstance());
+      if SlumlordSettings.Get().weeklyReport { SlumlordTenantReport.Send(this.GetGameInstance()); }
     }
     if accrued > 0 {
       this.ShowMessage("Rent is due. " + SlumlordEconomy.FormatMoney(this.GetUncollectedTotal()) + " waiting to be collected.");
@@ -533,6 +533,7 @@ public class SlumlordSystem extends ScriptableSystem {
       mappins.UnregisterMappin(pinId);
     }
     ArrayClear(this.m_pinIds);
+    if !SlumlordSettings.Get().showPins { return; }
     for def in this.m_properties {
       if SlumlordPositions.Has(def.id) && this.IsDistrictUnlocked(def.districtId) {
         let data: MappinData;
@@ -581,7 +582,7 @@ public class SlumlordSystem extends ScriptableSystem {
     let def = this.GetPropertyDef(id);
     let state = this.GetState(id);
     if !IsDefined(def) || !IsDefined(state) || state.rank >= SlumlordTuning.MaxRank() { return 0; }
-    let price = Cast<Float>(SlumlordEconomy.Price(def, this.GetDistrictDef(def.districtId)));
+    let price = Cast<Float>(SlumlordEconomy.BasePrice(def, this.GetDistrictDef(def.districtId)));
     return Max(1, RoundF(price * SlumlordTuning.RankBarShare(state.rank)));
   }
 
