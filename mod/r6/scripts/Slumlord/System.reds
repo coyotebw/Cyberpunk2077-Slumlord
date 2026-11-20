@@ -257,12 +257,12 @@ public class SlumlordSystem extends ScriptableSystem {
     return GameInstance.GetTransactionSystem(this.GetGameInstance()).GetItemQuantity(player, MarketSystem.Money());
   }
 
-  // What V can spend here: the wallet, plus Marmur checking when Marmur Bank is linked and would cover it (Bank.reds).
+  // What V can spend here: the wallet, plus Marmur savings when Marmur's Overdraft Protection would cover it (Bank.reds).
   public func GetSpendingPower() -> Int32 {
     return SlumlordBank.SpendingPower(this.GetGameInstance(), this.GetPlayerMoney());
   }
 
-  // A payment out of V's wallet, topped up from Marmur checking if needed, posted to Marmur's ledger by name.
+  // A payment out of V's wallet, topped up from Marmur savings if needed, posted to Marmur's ledger by name.
   private func Spend(amount: Int32, label: String, detail: String) -> Bool {
     let game = this.GetGameInstance();
     let auth = SlumlordBank.Authorize(game, amount, this.GetPlayerMoney());

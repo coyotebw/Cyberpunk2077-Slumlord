@@ -2,8 +2,9 @@
 // the same without it. With it, and with a Marmur account open:
 //  1 Rent, purchases and contractor fees post to Marmur's ledger as named Real Estate entries
 //    ("Slumlord Realty" / the crew's name, with the property in the detail), the way Marmur labels Delamain fares.
-//  2 Purchases and contractor fees can draw on Marmur checking when V's wallet is short, if Marmur's own
-//    overdraft setting is on. Marmur moves the shortfall into the wallet and refunds anything left over.
+//  2 Purchases and contractor fees can draw on Marmur savings when V's wallet is short, if Marmur's own
+//    "Overdraft Protection" setting is on. (Marmur treats V's wallet as checking.) Marmur moves the shortfall
+//    into the wallet, records it as Overdraft Protection, and returns anything left over.
 // Marmur is reached only through Codeware reflection, so Slumlord compiles and runs without it (redscript can't
 // import a module that may not exist). Functions used, all public on NightCityBank.NCBankSystem / NCBankAPI:
 //   NCBankAPI.IsBankingSuppressed / IsRuntimeReady / IsAccountOpen,
@@ -62,9 +63,9 @@ public abstract class SlumlordBank {
 
   public static func Linked(game: GameInstance) -> Bool { return IsDefined(SlumlordBank.System(game)); }
 
-  // ---- 2: spending power and checking cover ----
+  // ---- 2: spending power and Overdraft Protection ----
 
-  // Wallet plus Marmur checking when Marmur would cover a shortfall (its overdraft setting on), else the wallet.
+  // Wallet plus Marmur savings when Overdraft Protection would cover a shortfall, else the wallet.
   public static func SpendingPower(game: GameInstance, wallet: Int32) -> Int32 {
     let sys = SlumlordBank.System(game);
     if !IsDefined(sys) { return wallet; }
@@ -74,7 +75,7 @@ public abstract class SlumlordBank {
     return Max(wallet, power);
   }
 
-  // Before a payment: if the wallet is short, ask Marmur to move the shortfall in from checking.
+  // Before a payment: if the wallet is short, ask Marmur to move the shortfall in from savings.
   // Returns null when no bank help is needed or possible (then just try the wallet).
   public static func Authorize(game: GameInstance, amount: Int32, wallet: Int32) -> ref<SlumlordBankAuth> {
     if wallet >= amount { return null; }
@@ -89,7 +90,7 @@ public abstract class SlumlordBank {
     return auth;
   }
 
-  // After the payment: Marmur records what it covered and returns anything unspent to checking.
+  // After the payment: Marmur records what it covered and returns anything unspent to savings.
   public static func Settle(game: GameInstance, auth: ref<SlumlordBankAuth>, succeeded: Bool) -> Void {
     if !IsDefined(auth) || !auth.used { return; }
     let sys = GameInstance.GetScriptableSystemsContainer(game).Get(n"NightCityBank.NCBankSystem");
@@ -138,7 +139,7 @@ public abstract class SlumlordBank {
     if !SlumlordBank.Linked(game) { return "Marmur Bank: installed, link idle (no account open, suppressed, or not ready)"; }
     let player = GetPlayer(game);
     let wallet = IsDefined(player) ? GameInstance.GetTransactionSystem(game).GetItemQuantity(player, MarketSystem.Money()) : 0;
-    return "Marmur Bank: linked. Wallet " + SlumlordEconomy.FormatMoney(wallet) + ", spending power with checking "
+    return "Marmur Bank: linked. Wallet " + SlumlordEconomy.FormatMoney(wallet) + ", spending power with Overdraft Protection "
       + SlumlordEconomy.FormatMoney(SlumlordBank.SpendingPower(game, wallet));
   }
 
