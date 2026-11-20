@@ -19,6 +19,8 @@ public class SlumlordMotelScene extends ScriptableSystem {
   private let m_finger: EntityID;
   private let m_goons: array<EntityID>;
   private let m_goonSeen: array<Bool>;        // configured at least once (spawns finish asynchronously)
+  private let m_goonHealth: array<Float>;     // health when first configured: below it = V hurt them
+  private let m_hostileWhy: String;           // what started the fight, for the state readout
   private let m_bike: EntityID;
   private let m_fingerReady: Bool;
   private let m_line: Int32;
@@ -118,8 +120,8 @@ public class SlumlordMotelScene extends ScriptableSystem {
         this.m_ticks += 1;
         this.Configure(player);
         this.ClearLocals(player);
-        if (this.m_phase == 1 || this.m_phase == 2) && (player.IsInCombat() || this.AnyGoonHurt()) {
-          this.GoHostile();     // V opened fire first: skip the talk
+        if (this.m_phase == 1 || this.m_phase == 2) && this.AnyGoonHurt() {
+          this.GoHostile("V hurt a goon");     // V opened fire first: skip the talk
         } else if this.m_phase == 1 && this.m_fingerReady && dist < SlumlordMotelScene.TalkDistance() {
           this.StartTalk();
         } else if this.m_phase == 3 {
@@ -136,6 +138,8 @@ public class SlumlordMotelScene extends ScriptableSystem {
     let des = GameInstance.GetDynamicEntitySystem();
     ArrayClear(this.m_goons);
     ArrayClear(this.m_goonSeen);
+    ArrayClear(this.m_goonHealth);
+    this.m_hostileWhy = "";
     ArrayClear(this.m_clearIds);
     // All three at the one goon spot, a step apart across the way they face.
     let across = SlumlordMotelScene.Across(SlumlordMotelScene.GoonYaw());
@@ -145,6 +149,7 @@ public class SlumlordMotelScene extends ScriptableSystem {
       let offset = Cast<Float>(i - 1) * SlumlordMotelScene.GoonSpacing();
       ArrayPush(this.m_goons, this.SpawnRecord(records[i], SlumlordMotelScene.GoonPos() + across * offset, SlumlordMotelScene.GoonYaw(), SlumlordMotelScene.Tag()));
       ArrayPush(this.m_goonSeen, false);
+      ArrayPush(this.m_goonHealth, -1.0);
       i += 1;
     }
     this.m_finger = this.SpawnRecord(SlumlordMotelScene.FingerRecord(), SlumlordConversationOvertime.FingerSpot(), SlumlordConversationOvertime.FingerSpotYaw(), SlumlordMotelScene.Tag());
@@ -220,12 +225,8 @@ public class SlumlordMotelScene extends ScriptableSystem {
       while i < ArraySize(this.m_goons) {
         let npc = this.Npc(this.m_goons[i]);
         if IsDefined(npc) {
-          if !this.m_goonSeen[i] {
-            let agent = npc.GetAttitudeAgent();
-            if IsDefined(agent) { agent.SetAttitudeGroup(n"neutral"); }
-            this.m_goonSeen[i] = true;
-          }
-          this.Attitude(npc, player, EAIAttitude.AIA_Neutral);
+          this.Calm(npc, player, !this.m_goonSeen[i]);
+          this.m_goonSeen[i] = true;
         }
         i += 1;
       }
@@ -237,12 +238,11 @@ public class SlumlordMotelScene extends ScriptableSystem {
         // The status effect alone didn't stop damage (2026-11-20 test); god mode does.
         GameInstance.GetGodModeSystem(this.GetGameInstance()).AddGodMode(finger.GetEntityID(), gameGodModeType.Invulnerable, SlumlordMotelScene.GodSource());
         SlumlordVoiceReady(this.GetGameInstance(), finger);
-        let agent = finger.GetAttitudeAgent();
-        if IsDefined(agent) { agent.SetAttitudeGroup(n"neutral"); }
+        this.Calm(finger, player, true);
         if this.m_phase == 1 { this.EnterSpot(finger); }
         this.m_fingerReady = true;
       }
-      this.Attitude(finger, player, EAIAttitude.AIA_Neutral);
+      this.Calm(finger, player, false);   // Finger never fights, in any phase
     }
   }
 
@@ -275,17 +275,41 @@ public class SlumlordMotelScene extends ScriptableSystem {
     pa.SetAttitudeTowards(agent, attitude);
   }
 
+  // A goon lost health since he was set up (or died). Compared with his own starting health, and only once his
+  // health pool exists: a spawned NPC can read 0 before it's initialised, which looked like damage.
   private func AnyGoonHurt() -> Bool {
-    let pools = GameInstance.GetStatPoolsSystem(this.GetGameInstance());
-    for id in this.m_goons {
-      let npc = this.Npc(id);
-      if IsDefined(npc) {
-        if npc.IsDead() || pools.GetStatPoolValue(Cast<StatsObjectID>(npc.GetEntityID()), gamedataStatPoolType.Health, true) < 99.0 {
-          return true;
-        }
+    let i = 0;
+    while i < ArraySize(this.m_goons) {
+      let npc = this.Npc(this.m_goons[i]);
+      if IsDefined(npc) && this.m_goonSeen[i] {
+        if npc.IsDead() || ScriptedPuppet.IsDefeated(npc) { return true; }
+        let now = this.Health(npc);
+        if now >= 0.0 && this.m_goonHealth[i] < 0.0 { this.m_goonHealth[i] = now; }
+        if now >= 0.0 && this.m_goonHealth[i] > 0.0 && now < this.m_goonHealth[i] - 1.0 { return true; }
       }
+      i += 1;
     }
     return false;
+  }
+
+  private func Health(npc: ref<NPCPuppet>) -> Float {
+    let pools = GameInstance.GetStatPoolsSystem(this.GetGameInstance());
+    let id = Cast<StatsObjectID>(npc.GetEntityID());
+    if !pools.IsStatPoolAdded(id, gamedataStatPoolType.Health) { return -1.0; }
+    return pools.GetStatPoolValue(id, gamedataStatPoolType.Health, true);
+  }
+
+  // Before the fight: out of every squad (so the area's own 6th Street, hostile to V here, can't share V with them
+  // as a threat), neutral to V both ways, and any threat they picked up dropped.
+  private func Calm(npc: ref<NPCPuppet>, player: ref<PlayerPuppet>, first: Bool) -> Void {
+    if first {
+      let agent = npc.GetAttitudeAgent();
+      if IsDefined(agent) { agent.SetAttitudeGroup(n"neutral"); }
+      AISquadHelper.LeaveAllSquads(npc);
+    }
+    this.Attitude(npc, player, EAIAttitude.AIA_Neutral);
+    let tracker = npc.GetTargetTrackerComponent();
+    if IsDefined(tracker) { tracker.ClearThreats(); }
   }
 
   // ---- talk ----
@@ -326,7 +350,7 @@ public class SlumlordMotelScene extends ScriptableSystem {
     let line = new SlumlordCallLine();
     let more = this.m_phase == 2 ? SlumlordMotelScript.Standoff(this.m_line, male, line) : SlumlordMotelScript.Truce(this.m_line, male, line);
     if !more {
-      if this.m_phase == 2 { this.GoHostile(); } else { this.Finish(); }
+      if this.m_phase == 2 { this.GoHostile("Waste 'em"); } else { this.Finish(); }
       return;
     }
     let isV = Equals(line.speaker, "V");
@@ -416,10 +440,11 @@ public class SlumlordMotelScene extends ScriptableSystem {
 
   // ---- fight ----
 
-  private func GoHostile() -> Void {
+  private func GoHostile(why: String) -> Void {
     let game = this.GetGameInstance();
     let player = GetPlayer(game);
     if !IsDefined(player) || this.m_phase >= 3 { return; }
+    this.m_hostileWhy = why;
     this.m_phase = 3;
     this.m_ticks = 0;
     SlumlordJournal.Set(game, SlumlordConversationOvertime.Phase() + "/slumlord_co_wait", "gameJournalQuestObjective", gameJournalEntryState.Inactive, false);
@@ -444,7 +469,7 @@ public class SlumlordMotelScene extends ScriptableSystem {
       this.LeaveSpot(finger);
       this.MoveTo(finger, SlumlordMotelScene.HidePos(), 0.5, moveMovementType.Sprint);
     }
-    SlumlordUi.Log("Conversation Overtime: fight on");
+    SlumlordUi.Log("Conversation Overtime: fight on (" + why + ")");
   }
 
   private func FightTick() -> Void {
@@ -638,7 +663,9 @@ public class SlumlordMotelScene extends ScriptableSystem {
     return "motel phase=" + IntToString(this.m_phase) + " spawned=" + (this.m_spawned ? "yes" : "no")
       + " any time=" + (this.m_anyTime ? "yes" : "no") + " dist=" + FloatToStringPrec(dist, 0) + "m"
       + " goons up=" + IntToString(alive) + "/" + IntToString(ArraySize(this.m_goons))
-      + " cleared NPCs=" + IntToString(ArraySize(this.m_clearIds)) + " | " + SlumlordMotelScene.RecordReport();
+      + " cleared NPCs=" + IntToString(ArraySize(this.m_clearIds))
+      + (Equals(this.m_hostileWhy, "") ? "" : " fight started by: " + this.m_hostileWhy)
+      + " | " + SlumlordMotelScene.RecordReport();
   }
 }
 
