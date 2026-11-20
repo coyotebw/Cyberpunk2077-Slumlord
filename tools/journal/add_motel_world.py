@@ -30,7 +30,7 @@ BASE = "$/slumlord/conversation_overtime/#"
 # name: (x, y, z, yaw, template node index: 0 marker, 5 arms-crossed AI spot), captured in game 2026-11-19
 NODES = {
     "slumlord_co_marker": (-1057.27, -1498.45, 25.75, 133.4, 0),
-    "slumlord_co_spot_finger": (-1085.81, -1530.47, 25.78, -36.9, 5),
+    "slumlord_co_spot_finger": (-1082.31, -1525.95, 25.78, -42.8, 5),   # beside the bike (moved 2026-11-20)
 }
 PINS = {"slumlord_co_wait": "slumlord_co_pin_wait", "slumlord_co_motel": "slumlord_co_pin_motel"}
 REC = 144
@@ -54,7 +54,18 @@ def sector():
     changed = False
     for name, (x, y, z, yaw, tpl) in NODES.items():
         ref = BASE + name
-        if ref in refs:
+        if ref in refs:   # already there: move it if its position changed
+            idx = refs.index(ref)
+            rec = bytearray(data[idx * REC:(idx + 1) * REC])
+            half = math.radians(yaw) / 2
+            new = bytearray(rec)
+            struct.pack_into("<3f", new, 0, x, y, z)
+            struct.pack_into("<4f", new, 16, 0.0, 0.0, math.sin(half), math.cos(half))
+            for off in (44, 56, 68):
+                struct.pack_into("<3f", new, off, x, y, z)
+            if new != rec:
+                data[idx * REC:(idx + 1) * REC] = new
+                changed = True
             continue
         index = len(refs)
         rec = bytearray(data[tpl * REC:(tpl + 1) * REC])

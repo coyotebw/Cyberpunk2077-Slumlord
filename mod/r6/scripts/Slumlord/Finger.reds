@@ -27,8 +27,10 @@ public abstract class SlumlordConversationOvertime {
   public static func MotelEntrance() -> Vector4 { return new Vector4(-1057.27, -1498.45, 25.75, 1.0); }
   public static func MotelEntranceYaw() -> Float { return 133.4; }
   // Scene spots, captured in game ("Capture spot", motel_* names). Yaw = facing, degrees.
-  public static func FingerSpot() -> Vector4 { return new Vector4(-1085.81, -1530.47, 25.78, 1.0); } // 2026-11-19
-  public static func FingerSpotYaw() -> Float { return -36.9; }
+  // Finger stands at the bike's right side, facing the way it faces (toward the motel entrance), 1.4 m off its
+  // captured spot (-1083.34, -1525.00, 25.78, yaw -42.8). Moved 2026-11-20 from his own capture (-1085.81, -1530.47).
+  public static func FingerSpot() -> Vector4 { return new Vector4(-1082.31, -1525.95, 25.78, 1.0); }
+  public static func FingerSpotYaw() -> Float { return -42.8; }
   // Motel scene, for when it is built: 6th Street records (to confirm in game).
   public static func Goons() -> array<TweakDBID> {
     return [t"Character.sixthstreet_hooligan_ranged1_saratoga_wa", t"Character.sixthstreet_hooligan_ranged1_nova_wa",

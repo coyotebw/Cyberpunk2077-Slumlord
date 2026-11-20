@@ -1,8 +1,9 @@
 // Conversation Overtime's motel scene (design doc 4.9), at Las Palapas, at night, once V owns all of Santo Domingo.
 //
 //  1 Waiting: V comes within 150 m at night (stage 3) -> Finger (arms crossed, at his spot), three 6th Street goons
-//    (all at the one goon spot, a step apart) and a Yaiba Kusanagi that isn't V's are spawned. Every vanilla NPC
-//    within 40 m of Finger's spot is removed, every second, until Finger walks off (the area is dense).
+//    (all at the one goon spot, a step apart) and a Yaiba Kusanagi that isn't V's are spawned; Finger stands at the
+//    bike. Every vanilla NPC within 45 m of Finger is removed every second, and any that streams in there is removed
+//    as it appears, until Finger walks off (the area is dense).
 //  2 Standoff: V within 12 m of Finger -> SlumlordMotelScript.Standoff, ending with "Fuck it. Waste 'em!".
 //    V opening fire or hurting a goon skips straight to the fight.
 //  3 Fight: the goons turn hostile; Finger (invulnerable, never hostile) runs to his hiding place.
@@ -25,6 +26,7 @@ public class SlumlordMotelScene extends ScriptableSystem {
   private let m_lookAt: ref<LookAtAddEvent>;
   private let m_spotCommand: ref<AIUseWorkspotCommand>;
   private let m_clearIds: array<EntityID>;
+  private let m_seen: array<EntityID>;        // vanilla NPCs that attached near Las Palapas (Entity/Attach)
   private let m_anyTime: Bool;                // debug: spawn by day too
 
   public static func GetInstance(game: GameInstance) -> ref<SlumlordMotelScene> {
@@ -35,7 +37,7 @@ public class SlumlordMotelScene extends ScriptableSystem {
   public static func BikeTag() -> CName { return n"SlumlordConversationOvertimeBike"; }
   public static func SpawnDistance() -> Float { return 150.0; }
   public static func TalkDistance() -> Float { return 12.0; }
-  public static func ClearRadius() -> Float { return 40.0; }
+  public static func ClearRadius() -> Float { return 45.0; }
   public static func LeaveDistance() -> Float { return 230.0; }
   public static func GoonSpacing() -> Float { return 1.3; }
   public static func FingerSpotRef() -> String { return "$/slumlord/conversation_overtime/#slumlord_co_spot_finger"; }
@@ -48,6 +50,35 @@ public class SlumlordMotelScene extends ScriptableSystem {
   public static func HidePos() -> Vector4 { return new Vector4(-1098.00, -1537.78, 25.76, 1.0); }
 
   public func IsBusy() -> Bool { return this.m_phase >= 2 && this.m_phase <= 4; }
+  public static func GodSource() -> CName { return n"SlumlordMotel"; }
+
+  // Every NPC that streams in is noted if it's near the motel; while the scene is up, one that appears inside the
+  // clear radius is removed at once. The targeting query used before only sees NPCs the player could target, so
+  // most of the crowd at Las Palapas was never found (2026-11-20).
+  private func OnAttach() -> Void {
+    GameInstance.GetCallbackSystem().RegisterCallback(n"Entity/Attach", this, n"OnEntityAttach").AddTarget(EntityTarget.Type(n"NPCPuppet"));
+    GameInstance.GetCallbackSystem().RegisterCallback(n"Entity/Detach", this, n"OnEntityDetach").AddTarget(EntityTarget.Type(n"NPCPuppet"));
+  }
+
+  private func OnDetach() -> Void {
+    GameInstance.GetCallbackSystem().UnregisterCallback(n"Entity/Attach", this, n"OnEntityAttach");
+    GameInstance.GetCallbackSystem().UnregisterCallback(n"Entity/Detach", this, n"OnEntityDetach");
+  }
+
+  private cb func OnEntityAttach(event: ref<EntityLifecycleEvent>) {
+    let npc = event.GetEntity() as NPCPuppet;
+    if !IsDefined(npc) { return; }
+    if Vector4.Distance(npc.GetWorldPosition(), SlumlordConversationOvertime.FingerSpot()) > SlumlordMotelScene.SeenRadius() { return; }
+    if !ArrayContains(this.m_seen, npc.GetEntityID()) { ArrayPush(this.m_seen, npc.GetEntityID()); }
+    if this.m_spawned && this.m_phase < 5 { this.Queue(n"clear", 0.1); }   // let it finish attaching, then remove
+  }
+
+  private cb func OnEntityDetach(event: ref<EntityLifecycleEvent>) {
+    let entity = event.GetEntity();
+    if IsDefined(entity) { ArrayRemove(this.m_seen, entity.GetEntityID()); }
+  }
+
+  public static func SeenRadius() -> Float { return 120.0; }
 
   private func OnPlayerAttach(request: ref<PlayerAttachRequest>) -> Void {
     this.m_spawned = false;
@@ -203,6 +234,9 @@ public class SlumlordMotelScene extends ScriptableSystem {
     if IsDefined(finger) {
       if !this.m_fingerReady {
         StatusEffectHelper.ApplyStatusEffect(finger, t"BaseStatusEffect.Invulnerable");
+        // The status effect alone didn't stop damage (2026-11-20 test); god mode does.
+        GameInstance.GetGodModeSystem(this.GetGameInstance()).AddGodMode(finger.GetEntityID(), gameGodModeType.Invulnerable, SlumlordMotelScene.GodSource());
+        SlumlordVoiceReady(this.GetGameInstance(), finger);
         let agent = finger.GetAttitudeAgent();
         if IsDefined(agent) { agent.SetAttitudeGroup(n"neutral"); }
         if this.m_phase == 1 { this.EnterSpot(finger); }
@@ -420,7 +454,13 @@ public class SlumlordMotelScene extends ScriptableSystem {
       let npc = this.Npc(this.m_goons[i]);
       if IsDefined(npc) {
         this.m_goonSeen[i] = true;
-        if npc.IsDead() || ScriptedPuppet.IsDefeated(npc) { down += 1; }
+        if npc.IsDead() || !ScriptedPuppet.IsAlive(npc) {
+          down += 1;
+        } else if ScriptedPuppet.IsDefeated(npc) || ScriptedPuppet.IsUnconscious(npc) || npc.IsIncapacitated() {
+          // Downed but alive stays hostile on the radar (2026-11-20 test): finish them.
+          npc.Kill(GetPlayer(this.GetGameInstance()));
+          down += 1;
+        }
       } else if this.m_goonSeen[i] || this.m_ticks > 15 {
         down += 1;   // gone after being seen (or never spawned at all)
       }
@@ -489,6 +529,18 @@ public class SlumlordMotelScene extends ScriptableSystem {
 
   private func ClearLocals(player: ref<PlayerPuppet>) -> Void {
     let center = SlumlordConversationOvertime.FingerSpot();
+    // Everyone seen streaming in near the motel.
+    let i = ArraySize(this.m_seen) - 1;
+    while i >= 0 {
+      let seen = GameInstance.FindEntityByID(this.GetGameInstance(), this.m_seen[i]) as NPCPuppet;
+      if !IsDefined(seen) {
+        ArrayErase(this.m_seen, i);
+      } else {
+        this.MaybeRemove(seen, center);
+      }
+      i -= 1;
+    }
+    // Plus anything the targeting system sees (NPCs that were already there before this system attached).
     let query = TSQ_NPC();
     query.testedSet = TargetingSet.Complete;
     query.maxDistance = SlumlordMotelScene.SpawnDistance() + 30.0;
@@ -500,13 +552,16 @@ public class SlumlordMotelScene extends ScriptableSystem {
       let npc = IsDefined(comp) ? comp.GetEntity() as NPCPuppet : null;
       if IsDefined(npc) && !ArrayContains(done, npc.GetEntityID()) {
         ArrayPush(done, npc.GetEntityID());
-        if !this.IsOurs(npc.GetEntityID()) && !npc.IsPlayerCompanion()
-            && Vector4.Distance(npc.GetWorldPosition(), center) < SlumlordMotelScene.ClearRadius() {
-          if !ArrayContains(this.m_clearIds, npc.GetEntityID()) { ArrayPush(this.m_clearIds, npc.GetEntityID()); }
-          EntityGameInterface.Destroy(npc.GetEntity());
-        }
+        this.MaybeRemove(npc, center);
       }
     }
+  }
+
+  private func MaybeRemove(npc: ref<NPCPuppet>, center: Vector4) -> Void {
+    if this.IsOurs(npc.GetEntityID()) || npc.IsPlayerCompanion() { return; }
+    if Vector4.Distance(npc.GetWorldPosition(), center) >= SlumlordMotelScene.ClearRadius() { return; }
+    if !ArrayContains(this.m_clearIds, npc.GetEntityID()) { ArrayPush(this.m_clearIds, npc.GetEntityID()); }
+    EntityGameInterface.Destroy(npc.GetEntity());
   }
 
   // ---- cleanup ----
@@ -527,6 +582,7 @@ public class SlumlordMotelScene extends ScriptableSystem {
   }
 
   private func DeleteScene() -> Void {
+    GameInstance.GetGodModeSystem(this.GetGameInstance()).RemoveGodMode(this.m_finger, gameGodModeType.Invulnerable, SlumlordMotelScene.GodSource());
     SlumlordForgetVoice(this.GetGameInstance(), this.m_finger);
     this.m_lookAt = null;
     this.m_spotCommand = null;
@@ -556,6 +612,9 @@ public class SlumlordMotelScene extends ScriptableSystem {
       this.Approach();
     } else if Equals(action, n"truce") {
       this.StartTruce();
+    } else if Equals(action, n"clear") {
+      let player = GetPlayer(this.GetGameInstance());
+      if IsDefined(player) && this.m_spawned && this.m_phase < 5 { this.ClearLocals(player); }
     }
   }
 

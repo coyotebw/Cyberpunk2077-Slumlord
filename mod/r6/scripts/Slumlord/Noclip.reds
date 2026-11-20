@@ -9,6 +9,7 @@ module Slumlord
 
 public class SlumlordNoclip extends ScriptableSystem {
   private let m_on: Bool;
+  private let m_god: Bool;            // our god mode is on: added once, removed once (a second add leaked it, 2026-11-20)
   private let m_pos: Vector4;
   private let m_x: Float;
   private let m_y: Float;
@@ -34,6 +35,25 @@ public class SlumlordNoclip extends ScriptableSystem {
   private func OnPlayerAttach(request: ref<PlayerAttachRequest>) -> Void {
     this.m_on = false;
     this.m_listening = false;
+    this.m_god = true;
+    this.SetGod(false);   // clear anything left from before
+  }
+
+  private func SetGod(on: Bool) -> Void {
+    let player = GetPlayer(this.GetGameInstance());
+    if !IsDefined(player) || Equals(on, this.m_god) { return; }
+    let gods = GameInstance.GetGodModeSystem(this.GetGameInstance());
+    if on {
+      gods.AddGodMode(player.GetEntityID(), gameGodModeType.Invulnerable, SlumlordNoclip.Source());
+    } else {
+      // Remove every entry with our source (older builds could add it twice).
+      let n = 0;
+      while n < 8 {
+        gods.RemoveGodMode(player.GetEntityID(), gameGodModeType.Invulnerable, SlumlordNoclip.Source());
+        n += 1;
+      }
+    }
+    this.m_god = on;
   }
 
   public func IsOn() -> Bool {
@@ -57,7 +77,7 @@ public class SlumlordNoclip extends ScriptableSystem {
       this.m_rightBtn = 0.0;
       this.m_frames = 0;
       this.m_lastAction = n"";
-      GameInstance.GetGodModeSystem(game).AddGodMode(player.GetEntityID(), gameGodModeType.Invulnerable, SlumlordNoclip.Source());
+      this.SetGod(true);
       if !this.m_listening {
         player.RegisterInputListener(this, n"MoveX");
         player.RegisterInputListener(this, n"MoveY");
@@ -159,10 +179,7 @@ public class SlumlordNoclip extends ScriptableSystem {
 
   public func OnGraceOver(generation: Int32) -> Void {
     if this.m_on || generation != this.m_generation { return; }
-    let player = GetPlayer(this.GetGameInstance());
-    if IsDefined(player) {
-      GameInstance.GetGodModeSystem(this.GetGameInstance()).RemoveGodMode(player.GetEntityID(), gameGodModeType.Invulnerable, SlumlordNoclip.Source());
-    }
+    this.SetGod(false);
   }
 }
 

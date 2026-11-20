@@ -376,6 +376,8 @@ public class SlumlordFight extends ScriptableSystem {
       let oshima = this.Npc(this.m_oshima);
       if IsDefined(oshima) {
         StatusEffectHelper.ApplyStatusEffect(oshima, t"BaseStatusEffect.Invulnerable");
+        // The status effect alone didn't stop damage on Finger (2026-11-20); god mode does.
+        GameInstance.GetGodModeSystem(this.GetGameInstance()).AddGodMode(oshima.GetEntityID(), gameGodModeType.Invulnerable, n"SlumlordFight");
         this.Attitude(oshima, player, EAIAttitude.AIA_Neutral);
         if this.m_phase == 1 {
           this.EnterSpot(oshima, 4);
@@ -728,6 +730,7 @@ public class SlumlordFight extends ScriptableSystem {
   }
 
   private func DeleteScene() -> Void {
+    GameInstance.GetGodModeSystem(this.GetGameInstance()).RemoveGodMode(this.m_oshima, gameGodModeType.Invulnerable, n"SlumlordFight");
     SlumlordForgetVoice(this.GetGameInstance(), this.m_oshima);
     this.m_lookAt = null;
     GameInstance.GetDynamicEntitySystem().DeleteTagged(SlumlordFight.Tag());
