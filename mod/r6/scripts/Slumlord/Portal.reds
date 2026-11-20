@@ -190,6 +190,10 @@ public class SlumlordSite extends IScriptable {
 
     let waiting = sys.GetUncollectedTotal();
     SlumlordUi.Stat("Balance", SlumlordEconomy.FormatMoney(sys.GetPlayerMoney()), SlumlordColors.Gold()).Reparent(row);
+    let power = sys.GetSpendingPower();
+    if power > sys.GetPlayerMoney() {
+      SlumlordUi.Stat("With Marmur", SlumlordEconomy.FormatMoney(power), SlumlordColors.Gold()).Reparent(row);
+    }
     SlumlordUi.Stat("Rent waiting", SlumlordEconomy.FormatMoney(waiting), waiting > 0 ? SlumlordColors.Gold() : SlumlordColors.InkMuted()).Reparent(row);
     let allProperties = sys.GetProperties();
     SlumlordUi.Stat("Properties", IntToString(sys.GetOwnedCount()) + " / " + IntToString(ArraySize(allProperties)), SlumlordColors.Ink()).Reparent(row);
@@ -295,7 +299,7 @@ public class SlumlordSite extends IScriptable {
     this.BuildChips(parent, sys, district, false);
 
     let cards: array<ref<inkWidget>>;
-    let money = sys.GetPlayerMoney();
+    let money = sys.GetSpendingPower();
     for p in sys.GetProperties() {
       let s = sys.GetState(p.id);
       if Equals(p.districtId, district) && IsDefined(s) && !s.owned {

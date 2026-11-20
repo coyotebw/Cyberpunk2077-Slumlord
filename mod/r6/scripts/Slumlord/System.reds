@@ -257,6 +257,34 @@ public class SlumlordSystem extends ScriptableSystem {
     return GameInstance.GetTransactionSystem(this.GetGameInstance()).GetItemQuantity(player, MarketSystem.Money());
   }
 
+  // What V can spend here: the wallet, plus Marmur checking when Marmur Bank is linked and would cover it (Bank.reds).
+  public func GetSpendingPower() -> Int32 {
+    return SlumlordBank.SpendingPower(this.GetGameInstance(), this.GetPlayerMoney());
+  }
+
+  // A payment out of V's wallet, topped up from Marmur checking if needed, posted to Marmur's ledger by name.
+  private func Spend(amount: Int32, label: String, detail: String) -> Bool {
+    let game = this.GetGameInstance();
+    let auth = SlumlordBank.Authorize(game, amount, this.GetPlayerMoney());
+    if this.GetPlayerMoney() < amount {
+      SlumlordBank.Settle(game, auth, false);
+      return false;
+    }
+    let entry = SlumlordBank.Begin(game);
+    let ok = this.TakeMoney(amount);
+    SlumlordBank.End(game, entry, label, detail);
+    SlumlordBank.Settle(game, auth, ok);
+    return ok;
+  }
+
+  // Money into V's wallet, posted to Marmur's ledger by name.
+  private func Earn(amount: Int32, label: String, detail: String) -> Void {
+    let game = this.GetGameInstance();
+    let entry = SlumlordBank.Begin(game);
+    this.GiveMoney(amount);
+    SlumlordBank.End(game, entry, label, detail);
+  }
+
   private func GiveMoney(amount: Int32) -> Void {
     let player = this.GetPlayer();
     if IsDefined(player) && amount > 0 {
@@ -399,14 +427,15 @@ public class SlumlordSystem extends ScriptableSystem {
     if state.owned { return SlumlordBuyResult.AlreadyOwned; }
     if !IsDefined(this.GetPlayer()) { return SlumlordBuyResult.NoPlayer; }
     if !this.IsDistrictUnlocked(def.districtId) { return SlumlordBuyResult.DistrictLocked; }
-    if this.GetPlayerMoney() < this.GetPrice(id) { return SlumlordBuyResult.NotEnoughMoney; }
+    if this.GetSpendingPower() < this.GetPrice(id) { return SlumlordBuyResult.NotEnoughMoney; }
     return SlumlordBuyResult.Ok;
   }
 
   public func Buy(id: CName) -> SlumlordBuyResult {
     let result = this.CanBuy(id);
     if !Equals(result, SlumlordBuyResult.Ok) { return result; }
-    if !this.TakeMoney(this.GetPrice(id)) { return SlumlordBuyResult.NotEnoughMoney; }
+    let def = this.GetPropertyDef(id);
+    if !this.Spend(this.GetPrice(id), "Slumlord Realty", "Property purchase: " + def.displayName) { return SlumlordBuyResult.NotEnoughMoney; }
     this.TakeOwnership(id);
     return SlumlordBuyResult.Ok;
   }
@@ -416,11 +445,13 @@ public class SlumlordSystem extends ScriptableSystem {
     this.Refresh();
     let total = this.GetUncollectedTotal();
     if total <= 0 { return 0; }
+    let paying = 0;
     for s in this.m_states {
+      if s.uncollected > 0 { paying += 1; }
       s.uncollected = 0;
       s.weeksUncollected = 0;
     }
-    this.GiveMoney(total);
+    this.Earn(total, "Slumlord Realty", "Rent collected: " + IntToString(paying) + (paying == 1 ? " property" : " properties"));
     this.m_lifetimeCollected += total;
     this.RefreshPins();
     return total;
@@ -571,7 +602,7 @@ public class SlumlordSystem extends ScriptableSystem {
     if state.jobsThisWeek >= SlumlordTuning.JobsPerRentDay() { return SlumlordHireResult.JobLimit; }
     if !this.IsContractorAvailable(c) { return SlumlordHireResult.ContractorLocked; }
     if !IsDefined(this.GetPlayer()) { return SlumlordHireResult.NoPlayer; }
-    if this.GetPlayerMoney() < SlumlordTuning.ContractorFee(c.stars) { return SlumlordHireResult.NotEnoughMoney; }
+    if this.GetSpendingPower() < SlumlordTuning.ContractorFee(c.stars) { return SlumlordHireResult.NotEnoughMoney; }
     return SlumlordHireResult.Progress;
   }
 
@@ -582,7 +613,7 @@ public class SlumlordSystem extends ScriptableSystem {
     let def = this.GetPropertyDef(propertyId);
     let state = this.GetState(propertyId);
     let c = this.GetContractorDef(contractorId);
-    if !this.TakeMoney(SlumlordTuning.ContractorFee(c.stars)) { return SlumlordHireResult.NotEnoughMoney; }
+    if !this.Spend(SlumlordTuning.ContractorFee(c.stars), c.crew, "Renovation: " + def.displayName) { return SlumlordHireResult.NotEnoughMoney; }
     let needed = this.GetRankPointsNeeded(propertyId);
     state.jobsThisWeek += 1;
     state.rankPoints += SlumlordContractors.JobPoints(c, def);
@@ -676,7 +707,8 @@ public class SlumlordSystem extends ScriptableSystem {
       + "  street cred " + IntToString(this.GetStreetCred())
       + "  owned " + IntToString(this.GetOwnedCount()) + "/" + IntToString(ArraySize(this.m_properties))
       + "  uncollected " + SlumlordEconomy.FormatMoney(this.GetUncollectedTotal())
-      + "  lifetime " + SlumlordEconomy.FormatMoney(this.m_lifetimeCollected);
+      + "  lifetime " + SlumlordEconomy.FormatMoney(this.m_lifetimeCollected)
+      + "\n" + SlumlordBank.Describe(this.GetGameInstance());
     for d in this.m_districts {
       out = out + "\n" + d.displayName
         + (this.IsDistrictUnlocked(d.id) ? "" : " [LOCKED: cred " + IntToString(d.streetCredRequired) + "]")
