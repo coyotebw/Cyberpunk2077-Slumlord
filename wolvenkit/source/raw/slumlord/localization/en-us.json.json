@@ -269,6 +269,13 @@
               "maleVariant": "",
               "primaryKey": "0",
               "secondaryKey": "slumlord-co-buy-5"
+            },
+            {
+              "$type": "localizationPersistenceOnScreenEntry",
+              "femaleVariant": "Las Palapas Motel",
+              "maleVariant": "",
+              "primaryKey": "0",
+              "secondaryKey": "slumlord-co-pin"
             }
           ]
         }

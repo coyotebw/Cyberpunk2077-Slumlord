@@ -18,7 +18,7 @@
       "version": 68,
       "nodeData": {
         "Flags": 7471104,
-        "Bytes": "SLn7xFKUI0U9CpFBAAAAAAAAAAAAAAAAAAAAAAAAgD8AAIA/AACAPwAAgD9IufvEUpQjRT0KkUFIufvEUpQjRT0KkUFIufvEUpQjRT0KkUEAAAAAAAAAANxPDVdiWd41AAAAAAAAAAAAAAAAAAAAAAAAEAAAAQAA//9/f///f3//////AAAAAAAAAAAAAAAA4dL7xD2yI0VI4ZJBAAAAAAAAAAAAAAAA9sp9PkQDeD8AAIA/AACAPwAAgD/h0vvEPbIjRUjhkkHh0vvEPbIjRUjhkkHh0vvEPbIjRUjhkkEAAAAAAAAAAI54vmxgszGdAAAAAAAAAAAAAAAAAAAAAAEAEAAAAQAA//9/f///f3//////AAAAAAAAAAAAAAAAXJ/7xKS8I0VI4ZJBAAAAAAAAAAAAAAAAy2RFPyMCIz8AAIA/AACAPwAAgD9cn/vEpLwjRUjhkkFcn/vEpLwjRUjhkkFcn/vEpLwjRUjhkkEAAAAAAAAAAAhprAkD8zQVAAAAAAAAAAAAAAAAAAAAAAIAEAAAAQAA//9/f///f3//////AAAAAAAAAAAAAAAAM9v7xPZYI0UzM5FBAAAAAAAAAAAAAAAAIrhMvyS1GT8AAIA/AACAPwAAgD8z2/vE9lgjRTMzkUEz2/vE9lgjRTMzkUEz2/vE9lgjRTMzkUEAAAAAAAAAAIqZq/IeNLLKAAAAAAAAAAAAAAAAAAAAAAMAEAAAAQAA//9/f///f3//////AAAAAAAAAAAAAAAAhaP7xLhiI0UzM5FBAAAAAAAAAAAAAAAA7xtoP7z51z4AAIA/AACAPwAAgD+Fo/vEuGIjRTMzkUGFo/vEuGIjRTMzkUGFo/vEuGIjRTMzkUEAAAAAAAAAAHI2a6bD8DS8AAAAAAAAAAAAAAAAAAAAAAQAEAAAAQAA//9/f///f3//////AAAAAAAAAAAAAAAAH837xOFGI0UpXJFBAAAAAAAAAAAAAAAAXRYKvmOpfT8AAIA/AACAPwAAgD8fzfvE4UYjRSlckUEfzfvE4UYjRSlckUEfzfvE4UYjRSlckUEAAAAAAAAAACTH6hciRt4mAAAAAAAAAAAAAAAAAAAAAAUAEAAAAQAA//9/f///f3//////AAAAAAAAAAAAAAAA"
+        "Bytes": "SLn7xFKUI0U9CpFBAAAAAAAAAAAAAAAAAAAAAAAAgD8AAIA/AACAPwAAgD9IufvEUpQjRT0KkUFIufvEUpQjRT0KkUFIufvEUpQjRT0KkUEAAAAAAAAAANxPDVdiWd41AAAAAAAAAAAAAAAAAAAAAAAAEAAAAQAA//9/f///f3//////AAAAAAAAAAAAAAAA4dL7xD2yI0VI4ZJBAAAAAAAAAAAAAAAA9sp9PkQDeD8AAIA/AACAPwAAgD/h0vvEPbIjRUjhkkHh0vvEPbIjRUjhkkHh0vvEPbIjRUjhkkEAAAAAAAAAAI54vmxgszGdAAAAAAAAAAAAAAAAAAAAAAEAEAAAAQAA//9/f///f3//////AAAAAAAAAAAAAAAAXJ/7xKS8I0VI4ZJBAAAAAAAAAAAAAAAAy2RFPyMCIz8AAIA/AACAPwAAgD9cn/vEpLwjRUjhkkFcn/vEpLwjRUjhkkFcn/vEpLwjRUjhkkEAAAAAAAAAAAhprAkD8zQVAAAAAAAAAAAAAAAAAAAAAAIAEAAAAQAA//9/f///f3//////AAAAAAAAAAAAAAAAM9v7xPZYI0UzM5FBAAAAAAAAAAAAAAAAIrhMvyS1GT8AAIA/AACAPwAAgD8z2/vE9lgjRTMzkUEz2/vE9lgjRTMzkUEz2/vE9lgjRTMzkUEAAAAAAAAAAIqZq/IeNLLKAAAAAAAAAAAAAAAAAAAAAAMAEAAAAQAA//9/f///f3//////AAAAAAAAAAAAAAAAhaP7xLhiI0UzM5FBAAAAAAAAAAAAAAAA7xtoP7z51z4AAIA/AACAPwAAgD+Fo/vEuGIjRTMzkUGFo/vEuGIjRTMzkUGFo/vEuGIjRTMzkUEAAAAAAAAAAHI2a6bD8DS8AAAAAAAAAAAAAAAAAAAAAAQAEAAAAQAA//9/f///f3//////AAAAAAAAAAAAAAAAH837xOFGI0UpXJFBAAAAAAAAAAAAAAAAXRYKvmOpfT8AAIA/AACAPwAAgD8fzfvE4UYjRSlckUEfzfvE4UYjRSlckUEfzfvE4UYjRSlckUEAAAAAAAAAACTH6hciRt4mAAAAAAAAAAAAAAAAAAAAAAUAEAAAAQAA//9/f///f3//////AAAAAAAAAAAAAAAApCiExGZOu8QAAM5BAAAAAAAAAAAAAAAATR9rP/GEyj4AAIA/AACAPwAAgD+kKITEZk67xAAAzkGkKITEZk67xAAAzkGkKITEZk67xAAAzkEAAAAAAAAAADMmoKhEQf6FAAAAAAAAAAAAAAAAAAAAAAYAEAAAAQAA//9/f///f3//////AAAAAAAAAAAAAAAA7LmHxApPv8RxPc5BAAAAAAAAAAAAAAAARQmivnbXcj8AAIA/AACAPwAAgD/suYfECk+/xHE9zkHsuYfECk+/xHE9zkHsuYfECk+/xHE9zkEAAAAAAAAAAKuN4vGeqDnpAAAAAAAAAAAAAAAAAAAAAAcAEAAAAQAA//9/f///f3//////AAAAAAAAAAAAAAAA"
       },
       "nodes": [
         {
@@ -177,6 +177,51 @@
             "isWorkspotInfinite": 1,
             "disableBumps": 1
           }
+        },
+        {
+          "HandleId": "12",
+          "Data": {
+            "$type": "worldStaticMarkerNode",
+            "debugName": {
+              "$type": "CName",
+              "$storage": "string",
+              "$value": "[Static Marker] slumlord_co_marker"
+            },
+            "data": {
+              "HandleId": "13",
+              "Data": {
+                "$type": "worldQuestMarker"
+              }
+            }
+          }
+        },
+        {
+          "HandleId": "14",
+          "Data": {
+            "$type": "worldAISpotNode",
+            "debugName": {
+              "$type": "CName",
+              "$storage": "string",
+              "$value": "[AI Spot] slumlord_co_spot_finger"
+            },
+            "spot": {
+              "HandleId": "15",
+              "Data": {
+                "$type": "AIActionSpot",
+                "resource": {
+                  "DepotPath": {
+                    "$type": "ResourcePath",
+                    "$storage": "string",
+                    "$value": "base\\workspots\\main_characters\\ripperdoc\\ground\\ripperdoc__stand_ground_arms_crossed__talk__01.workspot"
+                  },
+                  "Flags": "Default"
+                },
+                "snapToGround": 1
+              }
+            },
+            "isWorkspotInfinite": 1,
+            "disableBumps": 1
+          }
         }
       ],
       "nodeRefs": [
@@ -209,6 +254,16 @@
           "$type": "NodeRef",
           "$storage": "string",
           "$value": "$/slumlord/final_cut/#slumlord_fc_spot_oshima"
+        },
+        {
+          "$type": "NodeRef",
+          "$storage": "string",
+          "$value": "$/slumlord/conversation_overtime/#slumlord_co_marker"
+        },
+        {
+          "$type": "NodeRef",
+          "$storage": "string",
+          "$value": "$/slumlord/conversation_overtime/#slumlord_co_spot_finger"
         }
       ],
       "variantIndices": [

@@ -41,6 +41,10 @@ local function finger()
   return Game.GetScriptableSystemsContainer():Get(CName.new("Slumlord.SlumlordFinger"))
 end
 
+local function motel()
+  return Game.GetScriptableSystemsContainer():Get(CName.new("Slumlord.SlumlordMotelScene"))
+end
+
 local function setStatus(text)
   Debug.status = text
   print("[Slumlord] " .. text)
@@ -335,7 +339,7 @@ registerForEvent("onDraw", function()
       guarded("Lease broken", function() setStatus("Conversation Overtime: " .. finger():Debug_HarassNow()) end)
     end
     ImGui.SameLine()
-    if ImGui.Button("Win (stand-in)") then
+    if ImGui.Button("Win (skip scene)") then
       guarded("Win", function()
         finger():Debug_Win()
         setStatus("Conversation Overtime: " .. finger():Debug_State())
@@ -351,6 +355,23 @@ registerForEvent("onDraw", function()
     ImGui.SameLine()
     if ImGui.Button("Conversation Overtime state") then
       guarded("Conversation Overtime state", function() setStatus("Conversation Overtime: " .. finger():Debug_State()) end)
+    end
+    if ImGui.Button("Motel scene by day too") then
+      guarded("Motel any time", function()
+        local on = motel():Debug_ToggleAnyTime()
+        setStatus("Motel scene spawns by day: " .. tostring(on) .. " (needs the quest at the motel stage: Ring goad)")
+      end)
+    end
+    ImGui.SameLine()
+    if ImGui.Button("Clear motel scene") then
+      guarded("Clear motel scene", function()
+        motel():Debug_Clear()
+        setStatus(motel():Debug_State())
+      end)
+    end
+    ImGui.SameLine()
+    if ImGui.Button("Motel state / records") then
+      guarded("Motel state", function() setStatus(motel():Debug_State()) end)
     end
 
     ImGui.Separator()

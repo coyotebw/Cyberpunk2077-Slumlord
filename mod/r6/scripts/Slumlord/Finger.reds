@@ -5,9 +5,8 @@
 //    has a 20% chance that Finger's people drive one out, at a random hour within the next week. Slumlord
 //    Realty texts at once (Tenants.reds draws the live text).
 //  3 All of Santo Domingo owned -> Finger's goading call ("I got somethin' of yours").
-//  4 "Meet Finger at the Las Palapas Motel", at night only (20:00-05:00; "Wait until night" by day).
-//    The motel scene (Finger, 6th Street goons, a Yaiba Kusanagi that isn't V's) is NOT BUILT YET: it needs
-//    positions captured at Las Palapas and Andrew's recordings. Debug "Win" stands in for it.
+//  4 "Meet Finger at the Las Palapas Motel", at night only (20:00-05:00; "Wait until night" by day), with a
+//    journal map pin and GPS on the motel entrance. The scene itself is Motel.reds (SlumlordMotelScene).
 //  5 Win: Santo Domingo dominated, lease-broken events stop, the Kusanagi goes into V's garage, and the
 //    goons' services are owed to V as Muscle (staff, Phase 2).
 module Slumlord
@@ -117,6 +116,9 @@ public class SlumlordFinger extends ScriptableSystem {
   }
 
   public func IsWon() -> Bool { return this.m_stage == 5; }
+  public func GetStage() -> Int32 { return this.m_stage; }
+  public func IsNightNow() -> Bool { return this.IsNight(); }
+  public func RefreshObjectives() -> Void { this.UpdateNight(); }
   public func IsMuscleOwed() -> Bool { return this.m_muscleOwed; }
   private func HarassActive() -> Bool { return this.m_stage >= 1 && this.m_stage <= 3; }
 
@@ -176,30 +178,28 @@ public class SlumlordFinger extends ScriptableSystem {
   private func UpdateNight() -> Void {
     if this.m_stage != 3 { return; }
     let game = this.GetGameInstance();
+    let scene = SlumlordMotelScene.GetInstance(game);
+    if IsDefined(scene) && scene.IsBusy() { return; }   // the scene owns the objectives from the talk on
     let night = this.IsNight();
     SlumlordJournal.Set(game, SlumlordConversationOvertime.Phase() + "/slumlord_co_wait", "gameJournalQuestObjective", night ? gameJournalEntryState.Inactive : gameJournalEntryState.Active, false);
     SlumlordJournal.Set(game, SlumlordConversationOvertime.Phase() + "/slumlord_co_motel", "gameJournalQuestObjective", night ? gameJournalEntryState.Active : gameJournalEntryState.Inactive, false);
     SlumlordBuyUp.Track(game, SlumlordConversationOvertime.Phase() + (night ? "/slumlord_co_motel" : "/slumlord_co_wait"));
     this.SetMotelPin(true);
-    // TODO motel scene: spawn Finger, goons and the bike at night (positions still to capture).
   }
 
-  // Quest pin on the Las Palapas entrance, shown day and night during stage 3 so V knows where to go.
+  // Quest pins on the Las Palapas entrance: journal map pins under "Wait until night" and "Meet Finger" on the
+  // world marker $/slumlord/conversation_overtime/#slumlord_co_marker (tools/journal/add_motel_world.py), so the
+  // game draws them and routes GPS while the objective is tracked. Script-registered pins don't render (Fight.reds);
+  // the old one is only unregistered here.
   private func SetMotelPin(on: Bool) -> Void {
-    let mappins = GameInstance.GetMappinSystem(this.GetGameInstance());
+    let game = this.GetGameInstance();
     if this.m_motelPinOn {
-      mappins.UnregisterMappin(this.m_motelPin);
+      GameInstance.GetMappinSystem(game).UnregisterMappin(this.m_motelPin);
       this.m_motelPinOn = false;
     }
-    if !on { return; }
-    let data: MappinData;
-    data.mappinType = t"Mappins.QuestStaticMappinDefinition";
-    data.variant = gamedataMappinVariant.DefaultQuestVariant;
-    data.active = true;
-    data.debugCaption = "Slumlord Las Palapas Motel";
-    data.visibleThroughWalls = true;
-    this.m_motelPin = mappins.RegisterMappin(data, SlumlordConversationOvertime.MotelEntrance());
-    this.m_motelPinOn = true;
+    let state = on ? gameJournalEntryState.Active : gameJournalEntryState.Inactive;
+    SlumlordJournal.Set(game, SlumlordConversationOvertime.Phase() + "/slumlord_co_wait/slumlord_co_pin_wait", "gameJournalQuestMapPin", state, false);
+    SlumlordJournal.Set(game, SlumlordConversationOvertime.Phase() + "/slumlord_co_motel/slumlord_co_pin_motel", "gameJournalQuestMapPin", state, false);
   }
 
   // ---- lease broken ----
@@ -270,7 +270,7 @@ public class SlumlordFinger extends ScriptableSystem {
     SlumlordUi.Log("Conversation Overtime: lease broken at " + NameToString(id));
   }
 
-  // ---- stage 5: the win (stand-in until the motel scene exists) ----
+  // ---- stage 5: the win (the motel scene's truce, or the debug button) ----
 
   public func Win() -> Void {
     if this.m_stage == 5 { return; }
