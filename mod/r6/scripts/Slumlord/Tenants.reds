@@ -87,30 +87,32 @@ public abstract class SlumlordTenantReport {
   public static func AlertId() -> String { return "slumlord_realty_alert"; }
   public static func Alert() -> String { return SlumlordTenantReport.Thread() + "/" + SlumlordTenantReport.AlertId(); }
 
-  // Re-sends the report message: inactive, then active with a notification.
-  // Does nothing when Slumlord.archive (with the contact) is not installed.
+  // Re-sends the report message. Does nothing when Slumlord.archive (with the contact) is not installed.
   public static func Send(game: GameInstance) -> Void {
-    let jm = GameInstance.GetJournalManager(game);
-    if !IsDefined(jm.GetEntryByString(SlumlordTenantReport.Thread(), "gameJournalPhoneConversation")) {
-      ModLog(n"Slumlord", "Tenant report: contact missing (Slumlord.archive not installed or outdated).");
-      return;
-    }
-    SlumlordJournal.Set(game, SlumlordTenantReport.Contact(), "gameJournalContact", gameJournalEntryState.Active, false);
-    SlumlordJournal.Set(game, SlumlordTenantReport.Thread(), "gameJournalPhoneConversation", gameJournalEntryState.Active, false);
-    SlumlordJournal.Set(game, SlumlordTenantReport.Message(), "gameJournalPhoneMessage", gameJournalEntryState.Inactive, false);
-    SlumlordJournal.Set(game, SlumlordTenantReport.Message(), "gameJournalPhoneMessage", gameJournalEntryState.Active, true);
+    SlumlordTenantReport.Resend(game, SlumlordTenantReport.Message(), "Tenant report");
   }
 
   public static func SendAlert(game: GameInstance) -> Void {
+    SlumlordTenantReport.Resend(game, SlumlordTenantReport.Alert(), "Alert");
+  }
+
+  // Our reports and alerts reuse one journal message each. Inactive then active gives it a new timestamp and a
+  // notification, but the journal keeps its "visited" flag from the last time V read it, so the phone counted it
+  // as read: no unread dot, and the thread wasn't lifted to the top of Messages (the list sorts unread first).
+  // Clearing the flag makes each re-send a new, unread text.
+  private static func Resend(game: GameInstance, path: String, what: String) -> Void {
     let jm = GameInstance.GetJournalManager(game);
-    if !IsDefined(jm.GetEntryByString(SlumlordTenantReport.Alert(), "gameJournalPhoneMessage")) {
-      ModLog(n"Slumlord", "Alert: message missing (Slumlord.archive not installed or outdated).");
+    let message = jm.GetEntryByString(path, "gameJournalPhoneMessage");
+    if !IsDefined(message) {
+      ModLog(n"Slumlord", what + ": message missing (Slumlord.archive not installed or outdated).");
       return;
     }
     SlumlordJournal.Set(game, SlumlordTenantReport.Contact(), "gameJournalContact", gameJournalEntryState.Active, false);
     SlumlordJournal.Set(game, SlumlordTenantReport.Thread(), "gameJournalPhoneConversation", gameJournalEntryState.Active, false);
-    SlumlordJournal.Set(game, SlumlordTenantReport.Alert(), "gameJournalPhoneMessage", gameJournalEntryState.Inactive, false);
-    SlumlordJournal.Set(game, SlumlordTenantReport.Alert(), "gameJournalPhoneMessage", gameJournalEntryState.Active, true);
+    SlumlordJournal.Set(game, path, "gameJournalPhoneMessage", gameJournalEntryState.Inactive, false);
+    jm.SetEntryVisited(message, false);
+    SlumlordJournal.Set(game, path, "gameJournalPhoneMessage", gameJournalEntryState.Active, true);
+    jm.SetEntryVisited(message, false);
   }
 
   // Live text for our messages; "" for any other entry.
