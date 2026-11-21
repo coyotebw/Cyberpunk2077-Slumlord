@@ -101,6 +101,7 @@ public class SlumlordSite extends IScriptable {
     if Equals(page, n"holdings") { this.BuildHoldings(body, sys, this.DistrictOf(address)); }
     if Equals(page, n"districts") { this.BuildDistricts(body, sys); }
     if Equals(page, n"collect") { this.BuildCollect(body, sys); }
+    if Equals(page, n"financials") { this.BuildFinancials(body, sys); }
     if Equals(page, n"renovate") { this.BuildRenovate(body, sys, this.PropertyOf(address)); }
     this.ApplyScroll();
 
@@ -115,6 +116,7 @@ public class SlumlordSite extends IScriptable {
     if StrContains(address, "/holdings") { return n"holdings"; }
     if StrContains(address, "/districts") { return n"districts"; }
     if StrContains(address, "/collect") { return n"collect"; }
+    if StrContains(address, "/financials") { return n"financials"; }
     if StrContains(address, "/renovate") { return n"renovate"; }
     return n"home";
   }
@@ -210,6 +212,7 @@ public class SlumlordSite extends IScriptable {
     this.AddTab(row, "Districts", n"districts", active);
     let collectLabel = sys.GetUncollectedTotal() > 0 && SlumlordUi.GlyphsEnabled() ? "Collect ◆" : "Collect";
     this.AddTab(row, collectLabel, n"collect", active);
+    this.AddTab(row, "Financials", n"financials", active);
     let hint = SlumlordUi.Caption("Scroll");
     hint.SetVAlign(inkEVerticalAlign.Center);
     hint.SetMargin(new inkMargin(SlumlordUi.Px(16.0), 0.0, 0.0, 0.0));
@@ -662,6 +665,205 @@ public class SlumlordSite extends IScriptable {
       stamp.SetRotation(-8.0);
       SlumlordUi.Place(stamp, rightX + SlumlordUi.Px(290.0), h - pad - SlumlordUi.Px(40.0), panel);
       this.m_lastCollected = 0;
+    }
+  }
+
+  // ================================================================== financials
+  // Summary, rent per rent day (last 8 actual, next 8 projected), renovations, then one line per property.
+
+  public static func ChartPast() -> Int32 { return 8; }
+  public static func ChartAhead() -> Int32 { return 8; }
+
+  private func BuildFinancials(parent: ref<inkVerticalPanel>, sys: ref<SlumlordSystem>) -> Void {
+    let owned = sys.GetOwnedStates();
+    let rentNow = 0;
+    let rentFull = 0;
+    let rentPlain = 0;
+    for s in owned {
+      rentNow += sys.GetWeeklyRentOf(s);
+      rentFull += sys.GetFullRentOf(s);
+      rentPlain += sys.GetRankDRentOf(s);
+    }
+    let collected = sys.GetLifetimeCollected();
+    let invested = sys.GetSpentProperties() + sys.GetSpentRenovations();
+    let net = collected - invested;
+    let pad = SlumlordUi.Px(20.0);
+    let w = SlumlordUi.Px(1000.0);
+
+    // ---- summary
+    let summary = SlumlordUi.Panel(w, SlumlordUi.Px(110.0), SlumlordColors.Panel(), SlumlordColors.LineStrong(), 18.0);
+    this.AddRow(parent, summary);
+    let col = SlumlordUi.Column(8.0);
+    SlumlordUi.Place(col, pad, pad, summary);
+    SlumlordUi.Title("Financials").Reparent(col);
+    let stats = SlumlordUi.Row(44.0);
+    stats.Reparent(col);
+    SlumlordUi.Stat("Rent per week", SlumlordEconomy.FormatMoney(rentNow), SlumlordColors.Gold()).Reparent(stats);
+    SlumlordUi.Stat("At full occupancy", SlumlordEconomy.FormatMoney(rentFull), SlumlordColors.Ink()).Reparent(stats);
+    SlumlordUi.Stat("Collected", SlumlordEconomy.FormatMoney(collected), SlumlordColors.Gold()).Reparent(stats);
+    SlumlordUi.Stat("Invested", SlumlordEconomy.FormatMoney(invested), SlumlordColors.Ink()).Reparent(stats);
+    SlumlordUi.Stat("Net", (net < 0 ? "−" : "") + SlumlordEconomy.FormatMoney(Abs(net)), net < 0 ? SlumlordColors.Trouble() : SlumlordColors.Gold()).Reparent(stats);
+    SlumlordUi.Stat("Paid back", invested > 0 ? IntToString(RoundF(100.0 * Cast<Float>(collected) / Cast<Float>(invested))) + "%" : "—", SlumlordColors.Ink()).Reparent(stats);
+
+    this.BuildRentChart(parent, sys);
+    this.BuildRenovationSummary(parent, sys, owned, rentNow - rentPlain);
+    this.BuildPropertyLedger(parent, sys, owned);
+  }
+
+  private func BuildRentChart(parent: ref<inkVerticalPanel>, sys: ref<SlumlordSystem>) -> Void {
+    let pad = SlumlordUi.Px(20.0);
+    let w = SlumlordUi.Px(1000.0);
+    let h = SlumlordUi.Px(300.0);
+    let panel = SlumlordUi.Panel(w, h, SlumlordColors.Panel(), SlumlordColors.LineStrong(), 18.0);
+    this.AddRow(parent, panel);
+    let head = SlumlordUi.Column(4.0);
+    SlumlordUi.Place(head, pad, pad, panel);
+    SlumlordUi.Title("Rent per rent day").Reparent(head);
+
+    let history = sys.GetRentHistory();
+    let past: array<Int32>;
+    let first = Max(0, ArraySize(history) - SlumlordSite.ChartPast());
+    let i = first;
+    while i < ArraySize(history) {
+      ArrayPush(past, history[i]);
+      i += 1;
+    }
+    let ahead = sys.ProjectRent(SlumlordSite.ChartAhead());
+    let aheadTotal = 0;
+    for v in ahead { aheadTotal += v; }
+    SlumlordUi.Caption(ArraySize(past) > 0
+      ? "Last " + IntToString(ArraySize(past)) + " rent days, then the next " + IntToString(ArraySize(ahead)) + " (projected: " + SlumlordEconomy.FormatMoney(aheadTotal) + ")"
+      : "No rent days yet. Next " + IntToString(ArraySize(ahead)) + " projected: " + SlumlordEconomy.FormatMoney(aheadTotal)).Reparent(head);
+
+    let top = 1;
+    for v in past { top = Max(top, v); }
+    for v in ahead { top = Max(top, v); }
+
+    let slots = SlumlordSite.ChartPast() + SlumlordSite.ChartAhead();
+    let areaX = pad;
+    let areaW = w - 2.0 * pad;
+    let slotW = areaW / Cast<Float>(slots);
+    let barW = slotW * 0.62;
+    let baseY = h - SlumlordUi.Px(34.0);
+    let maxH = SlumlordUi.Px(150.0);
+    // Past bars sit right-aligned against the divider, projected bars start after it.
+    let pastStart = SlumlordSite.ChartPast() - ArraySize(past);
+    let n = 0;
+    while n < ArraySize(past) {
+      this.ChartBar(panel, areaX + slotW * Cast<Float>(pastStart + n), slotW, barW, baseY, maxH, past[n], top, SlumlordColors.Gold(),
+        n == ArraySize(past) - 1 ? "Last" : "−" + IntToString(ArraySize(past) - 1 - n));
+      n += 1;
+    }
+    n = 0;
+    while n < ArraySize(ahead) {
+      this.ChartBar(panel, areaX + slotW * Cast<Float>(SlumlordSite.ChartPast() + n), slotW, barW, baseY, maxH, ahead[n], top,
+        SlumlordUi.WithAlpha(SlumlordColors.Gold(), 0.35), "+" + IntToString(n + 1));
+      n += 1;
+    }
+    let divider = SlumlordUi.Rect(SlumlordUi.Px(2.0), maxH + SlumlordUi.Px(40.0), SlumlordColors.ChromeDim());
+    SlumlordUi.Place(divider, areaX + slotW * Cast<Float>(SlumlordSite.ChartPast()) - SlumlordUi.Px(1.0), baseY - maxH - SlumlordUi.Px(30.0), panel);
+    let axis = SlumlordUi.Rect(areaW, SlumlordUi.Px(1.0), SlumlordColors.Line());
+    SlumlordUi.Place(axis, areaX, baseY, panel);
+  }
+
+  private func ChartBar(panel: ref<inkCanvas>, x: Float, slotW: Float, barW: Float, baseY: Float, maxH: Float, value: Int32, top: Int32, color: HDRColor, label: String) -> Void {
+    let barH = MaxF(SlumlordUi.Px(2.0), maxH * Cast<Float>(value) / Cast<Float>(top));
+    let bar = SlumlordUi.Rect(barW, barH, color);
+    SlumlordUi.Place(bar, x + (slotW - barW) / 2.0, baseY - barH, panel);
+    let amount = SlumlordUi.Caption(SlumlordSite.Short(value));
+    SlumlordUi.Place(amount, x + SlumlordUi.Px(2.0), baseY - barH - SlumlordUi.Px(20.0), panel);
+    let tick = SlumlordUi.Caption(label);
+    SlumlordUi.Place(tick, x + (slotW - barW) / 2.0, baseY + SlumlordUi.Px(6.0), panel);
+  }
+
+  // Bar labels: €$ 850, €$ 1.2k, €$ 15k.
+  public static func Short(v: Int32) -> String {
+    if v < 1000 { return SlumlordEconomy.FormatMoney(v); }
+    if v < 10000 { return "€$ " + FloatToStringPrec(Cast<Float>(v) / 1000.0, 1) + "k"; }
+    return "€$ " + IntToString(RoundF(Cast<Float>(v) / 1000.0)) + "k";
+  }
+
+  private func BuildRenovationSummary(parent: ref<inkVerticalPanel>, sys: ref<SlumlordSystem>, owned: array<ref<SlumlordPropertyState>>, uplift: Int32) -> Void {
+    let pad = SlumlordUi.Px(20.0);
+    let panel = SlumlordUi.Panel(SlumlordUi.Px(1000.0), SlumlordUi.Px(150.0), SlumlordColors.Panel(), SlumlordColors.LineStrong(), 18.0);
+    this.AddRow(parent, panel);
+    let col = SlumlordUi.Column(8.0);
+    SlumlordUi.Place(col, pad, pad, panel);
+    SlumlordUi.Title("Renovations").Reparent(col);
+    let spent = sys.GetSpentRenovations();
+    let stats = SlumlordUi.Row(44.0);
+    stats.Reparent(col);
+    SlumlordUi.Stat("Spent", SlumlordEconomy.FormatMoney(spent), SlumlordColors.Ink()).Reparent(stats);
+    SlumlordUi.Stat("Jobs", IntToString(sys.GetJobsTotal()), SlumlordColors.Ink()).Reparent(stats);
+    SlumlordUi.Stat("Rank-ups", IntToString(sys.GetRankUps()), SlumlordColors.Ink()).Reparent(stats);
+    SlumlordUi.Stat("Rent added per week", SlumlordEconomy.FormatMoney(uplift), uplift > 0 ? SlumlordColors.Gold() : SlumlordColors.InkMuted()).Reparent(stats);
+    let payback = spent <= 0 ? "—" : (uplift <= 0 ? "Not yet" : IntToString(CeilF(Cast<Float>(spent) / Cast<Float>(uplift))) + " weeks");
+    SlumlordUi.Stat("Pays for itself in", payback, SlumlordColors.Ink()).Reparent(stats);
+    // Rank mix: a badge per rank with the count of owned properties at it.
+    let mix = SlumlordUi.Row(14.0);
+    mix.Reparent(col);
+    let rank = 0;
+    while rank <= 4 {
+      let count = 0;
+      for s in owned {
+        if s.rank == rank { count += 1; }
+      }
+      let cell = SlumlordUi.Row(6.0);
+      cell.Reparent(mix);
+      SlumlordUi.RankBadge(rank).Reparent(cell);
+      let n = SlumlordUi.Data("× " + IntToString(count), count > 0 ? SlumlordColors.Ink() : SlumlordColors.InkMuted());
+      n.SetVAlign(inkEVerticalAlign.Center);
+      n.Reparent(cell);
+      rank += 1;
+    }
+  }
+
+  // One line per owned property: rank, tenants, rent now and full, money in and out.
+  private func BuildPropertyLedger(parent: ref<inkVerticalPanel>, sys: ref<SlumlordSystem>, owned: array<ref<SlumlordPropertyState>>) -> Void {
+    if ArraySize(owned) == 0 {
+      let empty = SlumlordUi.Panel(SlumlordUi.Px(1000.0), SlumlordUi.Px(60.0), SlumlordColors.Panel(), SlumlordColors.Line(), 12.0);
+      this.AddRow(parent, empty);
+      SlumlordUi.Place(SlumlordUi.Body("No properties yet. Buy one under Listings.", SlumlordColors.InkMuted()), SlumlordUi.Px(20.0), SlumlordUi.Px(18.0), empty);
+      return;
+    }
+    let header = SlumlordUi.Panel(SlumlordUi.Px(1000.0), SlumlordUi.Px(34.0), SlumlordColors.PanelRaised(), SlumlordColors.Line(), 8.0);
+    this.AddRow(parent, header);
+    let titles = ["Property", "Rank", "Tenants", "Rent / wk", "Full", "Invested", "Collected", "Paid back"];
+    let i = 0;
+    while i < ArraySize(titles) {
+      SlumlordUi.Place(SlumlordUi.Caption(titles[i]), SlumlordSite.LedgerX(i), SlumlordUi.Px(10.0), header);
+      i += 1;
+    }
+    for s in owned {
+      let def = sys.GetPropertyDef(s.id);
+      if IsDefined(def) {
+        let line = SlumlordUi.Panel(SlumlordUi.Px(1000.0), SlumlordUi.Px(40.0), SlumlordColors.Panel(), SlumlordColors.Line(), 8.0);
+        this.AddRow(parent, line);
+        let invested = s.pricePaid + s.renovationSpent;
+        let y = SlumlordUi.Px(11.0);
+        SlumlordUi.Place(SlumlordUi.Data(def.displayName, SlumlordColors.Ink()), SlumlordSite.LedgerX(0), y, line);
+        SlumlordUi.Place(SlumlordUi.Data(SlumlordEconomy.RankLetter(s.rank), SlumlordColors.ForRank(s.rank)), SlumlordSite.LedgerX(1), y, line);
+        SlumlordUi.Place(SlumlordUi.Data(def.commercial ? (s.occupiedUnits > 0 ? "Let" : "Empty") : IntToString(s.occupiedUnits) + " / " + IntToString(def.units), SlumlordColors.Ink()), SlumlordSite.LedgerX(2), y, line);
+        SlumlordUi.Place(SlumlordUi.Data(SlumlordEconomy.FormatMoney(sys.GetWeeklyRentOf(s)), SlumlordColors.Gold()), SlumlordSite.LedgerX(3), y, line);
+        SlumlordUi.Place(SlumlordUi.Data(SlumlordEconomy.FormatMoney(sys.GetFullRentOf(s)), SlumlordColors.InkMuted()), SlumlordSite.LedgerX(4), y, line);
+        SlumlordUi.Place(SlumlordUi.Data(SlumlordEconomy.FormatMoney(invested), SlumlordColors.Ink()), SlumlordSite.LedgerX(5), y, line);
+        SlumlordUi.Place(SlumlordUi.Data(SlumlordEconomy.FormatMoney(s.collectedTotal), SlumlordColors.Gold()), SlumlordSite.LedgerX(6), y, line);
+        let pct = invested > 0 ? RoundF(100.0 * Cast<Float>(s.collectedTotal) / Cast<Float>(invested)) : 0;
+        SlumlordUi.Place(SlumlordUi.Data(IntToString(pct) + "%", pct >= 100 ? SlumlordColors.Gold() : SlumlordColors.Ink()), SlumlordSite.LedgerX(7), y, line);
+      }
+    }
+  }
+
+  public static func LedgerX(column: Int32) -> Float {
+    switch column {
+      case 0: return SlumlordUi.Px(16.0);
+      case 1: return SlumlordUi.Px(300.0);
+      case 2: return SlumlordUi.Px(360.0);
+      case 3: return SlumlordUi.Px(450.0);
+      case 4: return SlumlordUi.Px(560.0);
+      case 5: return SlumlordUi.Px(670.0);
+      case 6: return SlumlordUi.Px(780.0);
+      default: return SlumlordUi.Px(890.0);
     }
   }
 

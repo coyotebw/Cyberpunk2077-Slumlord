@@ -13,6 +13,12 @@ public class SlumlordSystem extends ScriptableSystem {
   private persistent let m_reportWeeks: Int32;   // rent days covered by the latest tenant report
   private persistent let m_rentDays: Int32;      // rent days processed on this save: seeds tenant rolls
   private persistent let m_unlockedContractors: array<CName>; // quest/fixer Contractors unlocked on this save
+  // Financials, tracked from 2026-11-21.
+  private persistent let m_historyRent: array<Int32>;   // rent accrued on each of the last rent days, oldest first
+  private persistent let m_spentProperties: Int32;
+  private persistent let m_spentRenovations: Int32;
+  private persistent let m_jobsTotal: Int32;
+  private persistent let m_rankUps: Int32;
   // Latest alert text (Slumlord Realty's alert message, drawn by Tenants.reds). Strings can't be saved:
   // kind 1 = lease broken (Finger.reds); property id, name index (Names.reds), complaint index.
   private persistent let m_alertKind: Int32;
@@ -95,6 +101,16 @@ public class SlumlordSystem extends ScriptableSystem {
         state.uncollected = 0;
         state.weeksUncollected = 0;
         ArrayPush(this.m_states, state);
+      }
+    }
+    // Saves from before the Financials tab: what was paid is the base price (closest record there is).
+    for s in this.m_states {
+      if s.owned && s.pricePaid == 0 {
+        let def = this.GetPropertyDef(s.id);
+        if IsDefined(def) {
+          s.pricePaid = SlumlordEconomy.BasePrice(def, this.GetDistrictDef(def.districtId));
+          this.m_spentProperties += s.pricePaid;
+        }
       }
     }
     // Drop saved properties whose id no longer exists (renamed or removed), so they don't count as owned.
@@ -180,13 +196,94 @@ public class SlumlordSystem extends ScriptableSystem {
             let amount = SlumlordEconomy.WeeklyRent(def, district, state);
             state.uncollected += amount;
             state.weeksUncollected += 1;
+            state.earnedTotal += amount;
             total += amount;
           }
           SlumlordTenants.StepWeek(def, district, state, rentDay);
         }
       }
     }
+    ArrayPush(this.m_historyRent, total);
+    while ArraySize(this.m_historyRent) > SlumlordSystem.HistoryWeeks() { ArrayErase(this.m_historyRent, 0); }
     return total;
+  }
+
+  // ================================================================ financials
+
+  public static func HistoryWeeks() -> Int32 { return 12; }
+
+  public func GetRentHistory() -> array<Int32> { return this.m_historyRent; }
+
+  public func GetOwnedStates() -> array<ref<SlumlordPropertyState>> {
+    let out: array<ref<SlumlordPropertyState>>;
+    for s in this.m_states {
+      if s.owned { ArrayPush(out, s); }
+    }
+    return out;
+  }
+  public func GetLifetimeCollected() -> Int32 { return this.m_lifetimeCollected; }
+  public func GetSpentProperties() -> Int32 { return this.m_spentProperties; }
+  public func GetSpentRenovations() -> Int32 { return this.m_spentRenovations; }
+  public func GetJobsTotal() -> Int32 { return this.m_jobsTotal; }
+  public func GetRankUps() -> Int32 { return this.m_rankUps; }
+
+  // Rent this property would make this week at its current occupancy and rank.
+  public func GetWeeklyRentOf(s: ref<SlumlordPropertyState>) -> Int32 {
+    let def = this.GetPropertyDef(s.id);
+    if !IsDefined(def) || !s.owned { return 0; }
+    return SlumlordEconomy.WeeklyRent(def, this.GetDistrictDef(def.districtId), s);
+  }
+
+  // The same, with every unit let.
+  public func GetFullRentOf(s: ref<SlumlordPropertyState>) -> Int32 {
+    let def = this.GetPropertyDef(s.id);
+    if !IsDefined(def) || !s.owned { return 0; }
+    let full = new SlumlordPropertyState();
+    full.rank = s.rank;
+    full.occupiedUnits = def.units;
+    return SlumlordEconomy.WeeklyRent(def, this.GetDistrictDef(def.districtId), full);
+  }
+
+  // The same at rank D: what renovations add is GetWeeklyRentOf minus this.
+  public func GetRankDRentOf(s: ref<SlumlordPropertyState>) -> Int32 {
+    let def = this.GetPropertyDef(s.id);
+    if !IsDefined(def) || !s.owned { return 0; }
+    let plain = new SlumlordPropertyState();
+    plain.rank = 0;
+    plain.occupiedUnits = s.occupiedUnits;
+    return SlumlordEconomy.WeeklyRent(def, this.GetDistrictDef(def.districtId), plain);
+  }
+
+  // Expected rent for each of the next `weeks` rent days for everything owned now, at current ranks: the
+  // tenant model's expected values (move-outs at their chance, arrivals at their rate, rank S fills).
+  // No lease-broken events, purchases or renovations; the uncollected-rent cap is ignored (assumes V collects).
+  public func ProjectRent(weeks: Int32) -> array<Int32> {
+    let out: array<Int32>;
+    let occ: array<Float>;
+    for s in this.m_states { ArrayPush(occ, Cast<Float>(s.occupiedUnits)); }
+    let w = 0;
+    while w < weeks {
+      let total = 0.0;
+      let i = 0;
+      while i < ArraySize(this.m_states) {
+        let s = this.m_states[i];
+        let def = this.GetPropertyDef(s.id);
+        if s.owned && IsDefined(def) {
+          let district = this.GetDistrictDef(def.districtId);
+          let perUnit = Cast<Float>(SlumlordEconomy.RentPerUnit(def, district)) * SlumlordTuning.RankMultiplier(s.rank) * SlumlordSettings.Get().rentMultiplier;
+          total += occ[i] * perUnit;
+          // then the week's tenant changes, in expectation
+          let units = Cast<Float>(def.units);
+          let stay = occ[i] * (1.0 - SlumlordTenants.MoveOutChance(def, district, s.rank));
+          let rate = SlumlordTenants.ArrivalRate(district, s.rank);
+          occ[i] = rate < 0.0 ? units : MinF(units, stay + MinF(rate, units - stay));
+        }
+        i += 1;
+      }
+      ArrayPush(out, RoundF(total));
+      w += 1;
+    }
+    return out;
   }
 
   // Text of the latest tenant report (shown in Slumlord Realty's message).
@@ -435,8 +532,12 @@ public class SlumlordSystem extends ScriptableSystem {
     let result = this.CanBuy(id);
     if !Equals(result, SlumlordBuyResult.Ok) { return result; }
     let def = this.GetPropertyDef(id);
-    if !this.Spend(this.GetPrice(id), "Slumlord Realty", "Property purchase: " + def.displayName) { return SlumlordBuyResult.NotEnoughMoney; }
+    let price = this.GetPrice(id);
+    if !this.Spend(price, "Slumlord Realty", "Property purchase: " + def.displayName) { return SlumlordBuyResult.NotEnoughMoney; }
     this.TakeOwnership(id);
+    let bought = this.GetState(id);
+    if IsDefined(bought) { bought.pricePaid = price; }
+    this.m_spentProperties += price;
     return SlumlordBuyResult.Ok;
   }
 
@@ -448,6 +549,7 @@ public class SlumlordSystem extends ScriptableSystem {
     let paying = 0;
     for s in this.m_states {
       if s.uncollected > 0 { paying += 1; }
+      s.collectedTotal += s.uncollected;
       s.uncollected = 0;
       s.weeksUncollected = 0;
     }
@@ -614,13 +716,19 @@ public class SlumlordSystem extends ScriptableSystem {
     let def = this.GetPropertyDef(propertyId);
     let state = this.GetState(propertyId);
     let c = this.GetContractorDef(contractorId);
-    if !this.Spend(SlumlordTuning.ContractorFee(c.stars), c.crew, "Renovation: " + def.displayName) { return SlumlordHireResult.NotEnoughMoney; }
+    let fee = SlumlordTuning.ContractorFee(c.stars);
+    if !this.Spend(fee, c.crew, "Renovation: " + def.displayName) { return SlumlordHireResult.NotEnoughMoney; }
+    state.renovationSpent += fee;
+    state.jobsDone += 1;
+    this.m_spentRenovations += fee;
+    this.m_jobsTotal += 1;
     let needed = this.GetRankPointsNeeded(propertyId);
     state.jobsThisWeek += 1;
     state.rankPoints += SlumlordContractors.JobPoints(c, def);
     if state.rankPoints >= needed {
       state.rank += 1;
       state.rankPoints = 0;
+      this.m_rankUps += 1;
       ModLog(n"Slumlord", def.displayName + " renovated by " + c.crew + ": rank " + SlumlordEconomy.RankLetter(state.rank));
       this.RefreshPins();
       return SlumlordHireResult.RankedUp;
