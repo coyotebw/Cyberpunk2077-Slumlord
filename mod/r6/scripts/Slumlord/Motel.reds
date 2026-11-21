@@ -21,6 +21,7 @@ public class SlumlordMotelScene extends ScriptableSystem {
   private let m_goonSeen: array<Bool>;        // configured at least once (spawns finish asynchronously)
   private let m_goonHealth: array<Float>;     // health when first configured: below it = V hurt them
   private let m_hostileWhy: String;           // what started the fight, for the state readout
+  private let m_move: ref<AIMoveToCommand>;   // Finger's current move, cancelled before the next one
   private let m_bike: EntityID;
   private let m_fingerReady: Bool;
   private let m_line: Int32;
@@ -72,7 +73,7 @@ public class SlumlordMotelScene extends ScriptableSystem {
     if !IsDefined(npc) { return; }
     if Vector4.Distance(npc.GetWorldPosition(), SlumlordConversationOvertime.FingerSpot()) > SlumlordMotelScene.SeenRadius() { return; }
     if !ArrayContains(this.m_seen, npc.GetEntityID()) { ArrayPush(this.m_seen, npc.GetEntityID()); }
-    if this.m_spawned && this.m_phase < 5 { this.Queue(n"clear", 0.1); }   // let it finish attaching, then remove
+    if this.m_spawned && this.m_phase <= 2 { this.Queue(n"clear", 0.1); }   // let it finish attaching, then remove
   }
 
   private cb func OnEntityDetach(event: ref<EntityLifecycleEvent>) {
@@ -111,15 +112,19 @@ public class SlumlordMotelScene extends ScriptableSystem {
         this.Abandon(stage3 ? "V left" : "quest no longer at the motel stage");
       } else if this.m_phase == 5 {
         this.m_ticks += 1;
-        if this.m_ticks == 12 || dist > SlumlordMotelScene.LeaveDistance() {
-          this.DeleteScene();   // Finger has walked off; the bike stays
+        let finger = this.Npc(this.m_finger);
+        if IsDefined(finger) { this.Calm(finger, player, false); }
+        let gone = !IsDefined(finger) || Vector4.Distance(finger.GetWorldPosition(), player.GetWorldPosition()) > 50.0;
+        // Removed once he's walked 50 m off (out of V's way, and calm for several seconds), or V leaves, or 3 minutes.
+        if (gone && this.m_ticks >= 8) || dist > SlumlordMotelScene.LeaveDistance() || this.m_ticks >= 180 {
+          this.DeleteScene();   // the bike stays
           this.m_spawned = false;
           this.m_phase = 0;
         }
       } else {
         this.m_ticks += 1;
         this.Configure(player);
-        this.ClearLocals(player);
+        if this.m_phase <= 2 { this.ClearLocals(player); }   // never mid-fight (see MaybeRemove)
         if (this.m_phase == 1 || this.m_phase == 2) && this.AnyGoonHurt() {
           this.GoHostile("V hurt a goon");     // V opened fire first: skip the talk
         } else if this.m_phase == 1 && this.m_fingerReady && dist < SlumlordMotelScene.TalkDistance() {
@@ -435,7 +440,11 @@ public class SlumlordMotelScene extends ScriptableSystem {
     command.finishWhenDestinationReached = true;
     command.ignoreInCombat = true;
     let ai = npc.GetAIControllerComponent();
-    if IsDefined(ai) { ai.SendCommand(command); }
+    if !IsDefined(ai) { return; }
+    // A move that still faces V would otherwise carry on into the next one: Finger walked away backwards (2026-11-21).
+    if IsDefined(this.m_move) { ai.CancelCommand(this.m_move); }
+    ai.SendCommand(command);
+    this.m_move = command;
   }
 
   // ---- fight ----
@@ -531,8 +540,10 @@ public class SlumlordMotelScene extends ScriptableSystem {
     if IsDefined(finger) { finger.Win(); }
     // Finger walks back toward the motel entrance and on past it.
     let npc = this.Npc(this.m_finger);
+    let player = GetPlayer(game);
     if IsDefined(npc) {
       this.StopLookAt();
+      if IsDefined(player) { this.Calm(npc, player, false); }
       let away = SlumlordConversationOvertime.MotelEntrance() - npc.GetWorldPosition();
       away.Z = 0.0;
       this.MoveTo(npc, npc.GetWorldPosition() + Vector4.Normalize(away) * 60.0, 2.0, moveMovementType.Walk);
@@ -582,8 +593,13 @@ public class SlumlordMotelScene extends ScriptableSystem {
     }
   }
 
+  // Destroying an NPC that is in combat or hostile to V leaves V stuck in combat (the game never hears that it
+  // stopped tracking V, 2026-11-21 test), so those are left alone; clearing also stops once the fight starts.
   private func MaybeRemove(npc: ref<NPCPuppet>, center: Vector4) -> Void {
     if this.IsOurs(npc.GetEntityID()) || npc.IsPlayerCompanion() { return; }
+    if NPCPuppet.IsInCombat(npc) || npc.IsDead() { return; }
+    let player = GetPlayer(this.GetGameInstance());
+    if IsDefined(player) && Equals(GameObject.GetAttitudeBetween(npc, player), EAIAttitude.AIA_Hostile) { return; }
     if Vector4.Distance(npc.GetWorldPosition(), center) >= SlumlordMotelScene.ClearRadius() { return; }
     if !ArrayContains(this.m_clearIds, npc.GetEntityID()) { ArrayPush(this.m_clearIds, npc.GetEntityID()); }
     EntityGameInterface.Destroy(npc.GetEntity());
@@ -607,6 +623,7 @@ public class SlumlordMotelScene extends ScriptableSystem {
   }
 
   private func DeleteScene() -> Void {
+    this.m_move = null;
     GameInstance.GetGodModeSystem(this.GetGameInstance()).RemoveGodMode(this.m_finger, gameGodModeType.Invulnerable, SlumlordMotelScene.GodSource());
     SlumlordForgetVoice(this.GetGameInstance(), this.m_finger);
     this.m_lookAt = null;
@@ -639,7 +656,7 @@ public class SlumlordMotelScene extends ScriptableSystem {
       this.StartTruce();
     } else if Equals(action, n"clear") {
       let player = GetPlayer(this.GetGameInstance());
-      if IsDefined(player) && this.m_spawned && this.m_phase < 5 { this.ClearLocals(player); }
+      if IsDefined(player) && this.m_spawned && this.m_phase <= 2 { this.ClearLocals(player); }
     }
   }
 
