@@ -14,7 +14,10 @@ public class SlumlordBrowserExtensionListener extends BrowserEventsListener {
     super.Init(logic);
     this.m_siteData.address = SlumlordSite.BaseAddress();
     this.m_siteData.shortName = SlumlordSite.ShortName();
-    // Icon: the framework's default until the Slumlord icon atlas exists.
+    // Our seal from Slumlord.archive (the same icon as the plain home page and the InkGUI tile). Left unset,
+    // the framework drew its default, Zetatech's logo (2026-11-21).
+    this.m_siteData.iconAtlasPath = SlumlordSite.IconAtlas();
+    this.m_siteData.iconTexturePart = SlumlordSite.IconPart();
   }
 
   public func GetWebPage(address: String) -> ref<inkCompoundWidget> {
