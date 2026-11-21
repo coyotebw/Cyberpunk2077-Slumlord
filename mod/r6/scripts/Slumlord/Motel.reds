@@ -55,6 +55,13 @@ public class SlumlordMotelScene extends ScriptableSystem {
   public func IsBusy() -> Bool { return this.m_phase >= 2 && this.m_phase <= 4; }
   public static func GodSource() -> CName { return n"SlumlordMotel"; }
 
+  // Reaction preset swap: "NoReaction" = reacts to nothing (vanilla's scripted bystanders); "Base" = the saved one.
+  public static func Preset(npc: ref<NPCPuppet>, mapping: String) -> Void {
+    let evt = new SwapPresetEvent();
+    evt.mappingName = mapping;
+    npc.QueueEvent(evt);
+  }
+
   // Every NPC that streams in is noted if it's near the motel; while the scene is up, one that appears inside the
   // clear radius is removed at once. The targeting query used before only sees NPCs the player could target, so
   // most of the crowd at Las Palapas was never found (2026-11-20).
@@ -230,6 +237,7 @@ public class SlumlordMotelScene extends ScriptableSystem {
       while i < ArraySize(this.m_goons) {
         let npc = this.Npc(this.m_goons[i]);
         if IsDefined(npc) {
+          if !this.m_goonSeen[i] { SlumlordMotelScene.Preset(npc, "NoReaction"); }   // blind to V until the fight
           this.Calm(npc, player, !this.m_goonSeen[i]);
           this.m_goonSeen[i] = true;
         }
@@ -244,6 +252,9 @@ public class SlumlordMotelScene extends ScriptableSystem {
         GameInstance.GetGodModeSystem(this.GetGameInstance()).AddGodMode(finger.GetEntityID(), gameGodModeType.Invulnerable, SlumlordMotelScene.GodSource());
         SlumlordVoiceReady(this.GetGameInstance(), finger);
         this.Calm(finger, player, true);
+        // Finger is a non-combatant: the "NoReaction" preset (what vanilla uses for scripted bystanders) means he
+        // reacts to nothing, so he can't spot V, draw on V or pull V into combat before the fight (2026-11-21 test).
+        SlumlordMotelScene.Preset(finger, "NoReaction");
         if this.m_phase == 1 { this.EnterSpot(finger); }
         this.m_fingerReady = true;
       }
@@ -467,6 +478,10 @@ public class SlumlordMotelScene extends ScriptableSystem {
         if IsDefined(agent) {
           agent.SetAttitudeGroup(TweakDBInterface.GetCharacterRecord(npc.GetRecordID()).BaseAttitudeGroup());
         }
+        // Back to their own reaction preset (saved ID first: "Base" restores whatever ID is saved).
+        let base = TweakDBInterface.GetCharacterRecord(npc.GetRecordID()).ReactionPreset();
+        if IsDefined(base) { npc.SetReactionPresetID(base.GetID()); }
+        SlumlordMotelScene.Preset(npc, "Base");
         this.Attitude(npc, player, EAIAttitude.AIA_Hostile);
         TargetTrackingExtension.InjectThreat(npc, player);
       }
