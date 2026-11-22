@@ -247,10 +247,17 @@ public class SlumlordMotelScene extends ScriptableSystem {
     this.m_bikeUp = false;
   }
 
-  // Facts back to their start (with Reset Conversation Overtime).
+  // The script-owned facts back to their start (Reset Conversation Overtime, Reset all, and when the quest reaches
+  // the motel stage). A running encounter is ended through the abort fact; the quest phase then resets its own
+  // facts (scene, fight, abort) and waits again. "ready" is set again by the next tick from the quest stage.
   public func Debug_ResetFacts() -> Void {
     this.SetFact(n"slumlord_co_motel_won", 0);
+    this.SetFact(n"slumlord_co_ready", 0);
     this.SetFact(n"slumlord_co_abort", this.Fact(n"slumlord_co_scene") == 1 ? 1 : 0);
+    if this.m_bikeUp {
+      GameInstance.GetDynamicEntitySystem().DeleteTagged(SlumlordMotelScene.BikeTag());
+      this.m_bikeUp = false;
+    }
   }
 
   public func Debug_State() -> String {

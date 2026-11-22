@@ -211,7 +211,7 @@ registerForEvent("onDraw", function()
     ImGui.SameLine()
     if ImGui.Button("Reset all") then
       guarded("Reset", function() system():Debug_ResetAll() end)
-      setStatus("All Slumlord state reset on this save.")
+      setStatus("All Slumlord state reset on this save: properties, counters, contractors, both boss quests and their quest facts.")
     end
 
     ImGui.Separator()

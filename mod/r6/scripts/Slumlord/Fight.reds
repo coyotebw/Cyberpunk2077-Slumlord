@@ -259,6 +259,7 @@ public class SlumlordFight extends ScriptableSystem {
     }
     // last text: the quest
     this.m_stage = 2;
+    this.SetFact(n"slumlord_fc_won", 0);   // a win fact left from an earlier run must not count
     SlumlordJournal.Set(game, SlumlordJournal.Quest(), "gameJournalQuest", gameJournalEntryState.Active, true);
     SlumlordJournal.Set(game, SlumlordJournal.Quest() + "/slumlord_fc_desc_intro", "gameJournalQuestDescription", gameJournalEntryState.Inactive, false);
     SlumlordJournal.Set(game, SlumlordJournal.Quest() + "/slumlord_fc_desc", "gameJournalQuestDescription", gameJournalEntryState.Active, false);
@@ -581,6 +582,8 @@ public class SlumlordFight extends ScriptableSystem {
     this.AbortEncounter();
     this.m_stage = 0;
     this.SetFact(n"slumlord_fc_ready", 0);
+    this.SetFact(n"slumlord_fc_won", 0);
+    GameInstance.GetQuestsSystem(this.GetGameInstance()).SetFactStr(SlumlordFight.DoneFact(), 0);
     this.BeginTexts(2.0);
   }
 

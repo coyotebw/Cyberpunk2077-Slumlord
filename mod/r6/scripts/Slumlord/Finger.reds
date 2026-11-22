@@ -146,6 +146,8 @@ public class SlumlordFinger extends ScriptableSystem {
     if this.m_stage != 2 { return; }
     let game = this.GetGameInstance();
     this.m_stage = 3;
+    let motel = SlumlordMotelScene.GetInstance(game);
+    if IsDefined(motel) { motel.Debug_ResetFacts(); }   // a win fact left from an earlier run must not count
     SlumlordJournal.Set(game, SlumlordConversationOvertime.Quest() + "/slumlord_co_desc_intro", "gameJournalQuestDescription", gameJournalEntryState.Inactive, false);
     SlumlordJournal.Set(game, SlumlordConversationOvertime.Quest() + "/slumlord_co_desc_motel", "gameJournalQuestDescription", gameJournalEntryState.Active, true);
     this.UpdateNight();

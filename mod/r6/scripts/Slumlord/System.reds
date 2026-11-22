@@ -814,12 +814,34 @@ public class SlumlordSystem extends ScriptableSystem {
     }
   }
 
+  // Everything Slumlord keeps on this save: properties, money counters, unlocked contractors, the latest alert,
+  // and the three boss arcs (Oshima's call and Million Dollar Baby, Conversation Overtime with Finger's calls),
+  // including their quest facts; a running encounter is ended through its abort fact.
   public func Debug_ResetAll() -> Void {
+    let game = this.GetGameInstance();
     ArrayClear(this.m_states);
     this.m_lifetimeCollected = 0;
     this.m_empireComplete = false;
     this.m_initialized = true;
     this.m_lastRentWeek = this.CurrentWeek();
+    this.m_reportWeeks = 0;
+    this.m_rentDays = 0;
+    ArrayClear(this.m_unlockedContractors);
+    ArrayClear(this.m_historyRent);
+    this.m_spentProperties = 0;
+    this.m_spentRenovations = 0;
+    this.m_jobsTotal = 0;
+    this.m_rankUps = 0;
+    this.m_alertKind = 0;
+    this.m_alertProperty = n"";
+    this.m_alertName = 0;
+    this.m_alertComplaint = 0;
+    let fight = SlumlordFight.GetInstance(game);
+    if IsDefined(fight) { fight.Debug_Reset(); }
+    let finger = SlumlordFinger.GetInstance(game);
+    if IsDefined(finger) { finger.Debug_Reset(); }     // also Finger's calls and the motel facts
+    let boss = SlumlordBoss.GetInstance(game);
+    if IsDefined(boss) { boss.Debug_Reset(); }          // Oshima's call
     this.EnsureLoaded();
     this.RefreshPins();
   }
