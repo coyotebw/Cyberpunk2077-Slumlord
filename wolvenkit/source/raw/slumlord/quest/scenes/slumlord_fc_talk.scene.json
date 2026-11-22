@@ -1,0 +1,1128 @@
+{
+ "Header": {
+  "WolvenKitVersion": "10.0.0-beta.1",
+  "WKitJsonVersion": "0.0.9",
+  "GameVersion": 2500,
+  "ExportedDateTime": "2026-11-22T00:00:00Z",
+  "DataType": "CR2W",
+  "ArchiveFileName": ""
+ },
+ "Data": {
+  "Version": 195,
+  "BuildVersion": 0,
+  "RootChunk": {
+   "$type": "scnSceneResource",
+   "cookingPlatform": "PLATFORM_PC",
+   "actors": [
+    {
+     "$type": "scnActorDef",
+     "acquisitionPlan": "community",
+     "actorId": {
+      "$type": "scnActorId",
+      "id": 0
+     },
+     "actorName": "oshima",
+     "animSets": [],
+     "bodyCinematicAnimSets": [],
+     "communityParams": {
+      "$type": "scnCommunityParams",
+      "entryName": {
+       "$type": "CName",
+       "$storage": "string",
+       "$value": "oshima"
+      },
+      "forceMaxVisibility": 0,
+      "reference": {
+       "$type": "NodeRef",
+       "$storage": "string",
+       "$value": "$/slumlord/harbor/#slumlord_fc_com_oshima"
+      }
+     },
+     "cyberwareAnimSets": [],
+     "cyberwareCinematicAnimSets": [],
+     "deformationAnimSets": [],
+     "dynamicAnimSets": [],
+     "facialAnimSets": [],
+     "facialCinematicAnimSets": [],
+     "lipsyncAnimSet": {
+      "$type": "scnLipsyncAnimSetSRRefId",
+      "id": 4294967295
+     },
+     "specAppearance": {
+      "$type": "CName",
+      "$storage": "string",
+      "$value": "default"
+     },
+     "specCharacterRecordId": {
+      "$type": "TweakDBID",
+      "$storage": "uint64",
+      "$value": "0"
+     },
+     "voicetagId": {
+      "$type": "scnVoicetagId",
+      "id": "0"
+     }
+    }
+   ],
+   "playerActors": [
+    {
+     "$type": "scnPlayerActorDef",
+     "acquisitionPlan": "findInContext",
+     "actorId": {
+      "$type": "scnActorId",
+      "id": 1
+     },
+     "animSets": [],
+     "bodyCinematicAnimSets": [],
+     "cyberwareAnimSets": [],
+     "cyberwareCinematicAnimSets": [],
+     "deformationAnimSets": [],
+     "dynamicAnimSets": [],
+     "facialAnimSets": [],
+     "facialCinematicAnimSets": [],
+     "findActorInContextParams": {
+      "$type": "scnFindEntityInContextParams",
+      "contextActorName": {
+       "$type": "CName",
+       "$storage": "string",
+       "$value": "None"
+      },
+      "contextualName": "Player",
+      "forceMaxVisibility": 0,
+      "specRecordId": {
+       "$type": "TweakDBID",
+       "$storage": "string",
+       "$value": "Character.Player_Puppet_Base"
+      },
+      "voiceVagId": {
+       "$type": "scnVoicetagId",
+       "id": "0"
+      }
+     },
+     "findNetworkPlayerParams": {
+      "$type": "scnFindNetworkPlayerParams",
+      "networkId": 0
+     },
+     "lipsyncAnimSet": {
+      "$type": "scnLipsyncAnimSetSRRefId",
+      "id": 4294967295
+     },
+     "playerName": "V",
+     "specAppearance": {
+      "$type": "CName",
+      "$storage": "string",
+      "$value": "default"
+     },
+     "specCharacterRecordId": {
+      "$type": "TweakDBID",
+      "$storage": "string",
+      "$value": "Character.Player_Puppet_Base"
+     },
+     "specTemplate": {
+      "$type": "CName",
+      "$storage": "string",
+      "$value": "(None)"
+     },
+     "voicetagId": {
+      "$type": "scnVoicetagId",
+      "id": "1103967280742240864"
+     }
+    }
+   ],
+   "debugSymbols": {
+    "$type": "scnDebugSymbols",
+    "performersDebugSymbols": [
+     {
+      "$type": "scnPerformerSymbol",
+      "editorPerformerId": "0",
+      "entityRef": {
+       "$type": "gameEntityReference",
+       "dynamicEntityUniqueName": {
+        "$type": "CName",
+        "$storage": "string",
+        "$value": "None"
+       },
+       "names": [
+        {
+         "$type": "CName",
+         "$storage": "string",
+         "$value": "oshima"
+        }
+       ],
+       "reference": {
+        "$type": "NodeRef",
+        "$storage": "string",
+        "$value": "$/slumlord/harbor/#slumlord_fc_com_oshima"
+       },
+       "sceneActorContextName": {
+        "$type": "CName",
+        "$storage": "string",
+        "$value": "None"
+       },
+       "slotName": {
+        "$type": "CName",
+        "$storage": "string",
+        "$value": "None"
+       },
+       "type": "EntityRef"
+      },
+      "performerId": {
+       "$type": "scnPerformerId",
+       "id": 1
+      }
+     },
+     {
+      "$type": "scnPerformerSymbol",
+      "editorPerformerId": "0",
+      "entityRef": {
+       "$type": "gameEntityReference",
+       "dynamicEntityUniqueName": {
+        "$type": "CName",
+        "$storage": "string",
+        "$value": "None"
+       },
+       "names": [],
+       "reference": {
+        "$type": "NodeRef",
+        "$storage": "string",
+        "$value": "#player"
+       },
+       "sceneActorContextName": {
+        "$type": "CName",
+        "$storage": "string",
+        "$value": "None"
+       },
+       "slotName": {
+        "$type": "CName",
+        "$storage": "string",
+        "$value": "None"
+       },
+       "type": "EntityRef"
+      },
+      "performerId": {
+       "$type": "scnPerformerId",
+       "id": 257
+      }
+     }
+    ],
+    "sceneEventsDebugSymbols": [],
+    "sceneNodesDebugSymbols": [],
+    "workspotsDebugSymbols": []
+   },
+   "effectDefinitions": [],
+   "effectInstances": [],
+   "entryPoints": [
+    {
+     "$type": "scnEntryPoint",
+     "name": {
+      "$type": "CName",
+      "$storage": "string",
+      "$value": "start"
+     },
+     "nodeId": {
+      "$type": "scnNodeId",
+      "id": 1
+     }
+    }
+   ],
+   "executionTagEntries": [],
+   "executionTags": [],
+   "exitPoints": [
+    {
+     "$type": "scnExitPoint",
+     "name": {
+      "$type": "CName",
+      "$storage": "string",
+      "$value": "end"
+     },
+     "nodeId": {
+      "$type": "scnNodeId",
+      "id": 2
+     }
+    }
+   ],
+   "interruptionScenarios": [
+    {
+     "$type": "scnInterruptionScenario",
+     "enabled": 1,
+     "forcePlayReturnLine": 0,
+     "id": {
+      "$type": "scnInterruptionScenarioId",
+      "id": 0
+     },
+     "interruptConditions": [
+      {
+       "HandleId": "0",
+       "Data": {
+        "$type": "scnCheckSpeakersDistanceInterruptCondition",
+        "params": {
+         "$type": "scnCheckSpeakersDistanceInterruptConditionParams",
+         "comparisonType": "Greater",
+         "distance": 20
+        }
+       }
+      }
+     ],
+     "interruptionSpammingSafeguard": 0,
+     "name": {
+      "$type": "CName",
+      "$storage": "string",
+      "$value": "Default"
+     },
+     "playingLinesBehavior": "Default",
+     "playInterruptLine": 0,
+     "postInterruptSignalFactCondition": null,
+     "postInterruptSignalTimeDelay": 0,
+     "postReturnSignalFactCondition": null,
+     "postReturnSignalTimeDelay": 0,
+     "queueName": {
+      "$type": "CName",
+      "$storage": "string",
+      "$value": "None"
+     },
+     "returnConditions": [
+      {
+       "HandleId": "1",
+       "Data": {
+        "$type": "scnCheckSpeakersDistanceReturnCondition",
+        "params": {
+         "$type": "scnCheckSpeakersDistanceReturnConditionParams",
+         "comparisonType": "Less",
+         "distance": 15
+        }
+       }
+      }
+     ],
+     "talkOnReturn": 1
+    }
+   ],
+   "localMarkers": [],
+   "locStore": {
+    "$type": "scnlocLocStoreEmbedded",
+    "vdEntries": [
+     {
+      "$type": "scnlocLocStoreEmbeddedVariantDescriptorEntry",
+      "localeId": "db_db",
+      "locstringId": {
+       "$type": "scnlocLocstringId",
+       "ruid": "9166329559545131686"
+      },
+      "signature": {
+       "$type": "scnlocSignature",
+       "val": "3"
+      },
+      "variantId": {
+       "$type": "scnlocVariantId",
+       "ruid": "9166329559545131690"
+      },
+      "vpeIndex": 0
+     },
+     {
+      "$type": "scnlocLocStoreEmbeddedVariantDescriptorEntry",
+      "localeId": "db_db",
+      "locstringId": {
+       "$type": "scnlocLocstringId",
+       "ruid": "9166328460033503475"
+      },
+      "signature": {
+       "$type": "scnlocSignature",
+       "val": "3"
+      },
+      "variantId": {
+       "$type": "scnlocVariantId",
+       "ruid": "9166328460033503479"
+      },
+      "vpeIndex": 1
+     },
+     {
+      "$type": "scnlocLocStoreEmbeddedVariantDescriptorEntry",
+      "localeId": "db_db",
+      "locstringId": {
+       "$type": "scnlocLocstringId",
+       "ruid": "9166327360521875264"
+      },
+      "signature": {
+       "$type": "scnlocSignature",
+       "val": "3"
+      },
+      "variantId": {
+       "$type": "scnlocVariantId",
+       "ruid": "9166327360521875268"
+      },
+      "vpeIndex": 2
+     },
+     {
+      "$type": "scnlocLocStoreEmbeddedVariantDescriptorEntry",
+      "localeId": "db_db",
+      "locstringId": {
+       "$type": "scnlocLocstringId",
+       "ruid": "9166335057103272741"
+      },
+      "signature": {
+       "$type": "scnlocSignature",
+       "val": "3"
+      },
+      "variantId": {
+       "$type": "scnlocVariantId",
+       "ruid": "9166335057103272745"
+      },
+      "vpeIndex": 3
+     }
+    ],
+    "vpEntries": [
+     {
+      "$type": "scnlocLocStoreEmbeddedVariantPayloadEntry",
+      "content": "V. I told you we'd be seeing each other again.",
+      "variantId": {
+       "$type": "scnlocVariantId",
+       "ruid": "9166329559545131690"
+      }
+     },
+     {
+      "$type": "scnlocLocStoreEmbeddedVariantPayloadEntry",
+      "content": "What the fuck…?",
+      "variantId": {
+       "$type": "scnlocVariantId",
+       "ruid": "9166328460033503479"
+      }
+     },
+     {
+      "$type": "scnlocLocStoreEmbeddedVariantPayloadEntry",
+      "content": "I need this place to film a scene for Death Stranding 12. Now get lost, you're ruining the shot.",
+      "variantId": {
+       "$type": "scnlocVariantId",
+       "ruid": "9166327360521875268"
+      }
+     },
+     {
+      "$type": "scnlocLocStoreEmbeddedVariantPayloadEntry",
+      "content": "Kill him!",
+      "variantId": {
+       "$type": "scnlocVariantId",
+       "ruid": "9166335057103272745"
+      }
+     }
+    ]
+   },
+   "notablePoints": [],
+   "props": [],
+   "referencePoints": [],
+   "resouresReferences": {
+    "$type": "scnSRRefCollection"
+   },
+   "ridResources": [],
+   "sceneCategoryTag": "minorQuests",
+   "sceneGraph": {
+    "HandleId": "2",
+    "Data": {
+     "$type": "scnSceneGraph",
+     "endNodes": [],
+     "graph": [
+      {
+       "HandleId": "3",
+       "Data": {
+        "$type": "scnStartNode",
+        "ffStrategy": "automatic",
+        "nodeId": {
+         "$type": "scnNodeId",
+         "id": 1
+        },
+        "outputSockets": [
+         {
+          "$type": "scnOutputSocket",
+          "destinations": [
+           {
+            "$type": "scnInputSocketId",
+            "isockStamp": {
+             "$type": "scnInputSocketStamp",
+             "name": 0,
+             "ordinal": 0
+            },
+            "nodeId": {
+             "$type": "scnNodeId",
+             "id": 3
+            }
+           },
+           {
+            "$type": "scnInputSocketId",
+            "isockStamp": {
+             "$type": "scnInputSocketStamp",
+             "name": 0,
+             "ordinal": 1
+            },
+            "nodeId": {
+             "$type": "scnNodeId",
+             "id": 4
+            }
+           }
+          ],
+          "stamp": {
+           "$type": "scnOutputSocketStamp",
+           "name": 0,
+           "ordinal": 0
+          }
+         }
+        ]
+       }
+      },
+      {
+       "HandleId": "4",
+       "Data": {
+        "$type": "scnEndNode",
+        "ffStrategy": "automatic",
+        "nodeId": {
+         "$type": "scnNodeId",
+         "id": 2
+        },
+        "outputSockets": [
+         {
+          "$type": "scnOutputSocket",
+          "destinations": [],
+          "stamp": {
+           "$type": "scnOutputSocketStamp",
+           "name": 0,
+           "ordinal": 0
+          }
+         }
+        ],
+        "type": "Terminating"
+       }
+      },
+      {
+       "HandleId": "5",
+       "Data": {
+        "$type": "scnSectionNode",
+        "actorBehaviors": [
+         {
+          "$type": "scnSectionInternalsActorBehavior",
+          "actorId": {
+           "$type": "scnActorId",
+           "id": 0
+          },
+          "behaviorMode": "OnlyIfAlive"
+         },
+         {
+          "$type": "scnSectionInternalsActorBehavior",
+          "actorId": {
+           "$type": "scnActorId",
+           "id": 1
+          },
+          "behaviorMode": "OnlyIfAlive"
+         }
+        ],
+        "events": [
+         {
+          "HandleId": "6",
+          "Data": {
+           "$type": "scnDialogLineEvent",
+           "additionalSpeakers": {
+            "$type": "scnAdditionalSpeakers",
+            "executionTag": 0,
+            "role": "Full",
+            "speakers": []
+           },
+           "duration": 2300,
+           "executionTagFlags": 0,
+           "id": {
+            "$type": "scnSceneEventId",
+            "id": "18446744073709551615"
+           },
+           "scalingData": null,
+           "screenplayLineId": {
+            "$type": "scnscreenplayItemId",
+            "id": 0
+           },
+           "startTime": 0,
+           "type": "0",
+           "visualStyle": "regular",
+           "voParams": {
+            "$type": "scnDialogLineVoParams",
+            "alwaysUseBrainGender": 0,
+            "customVoEvent": {
+             "$type": "CName",
+             "$storage": "string",
+             "$value": "None"
+            },
+            "disableHeadMovement": 0,
+            "ignoreSpeakerIncapacitation": 0,
+            "isHolocallSpeaker": 0,
+            "voContext": "Vo_Context_Quest",
+            "voExpression": "Vo_Expression_Spoken"
+           }
+          }
+         },
+         {
+          "HandleId": "7",
+          "Data": {
+           "$type": "scnDialogLineEvent",
+           "additionalSpeakers": {
+            "$type": "scnAdditionalSpeakers",
+            "executionTag": 0,
+            "role": "Full",
+            "speakers": []
+           },
+           "duration": 1890,
+           "executionTagFlags": 0,
+           "id": {
+            "$type": "scnSceneEventId",
+            "id": "18446744073709551615"
+           },
+           "scalingData": null,
+           "screenplayLineId": {
+            "$type": "scnscreenplayItemId",
+            "id": 256
+           },
+           "startTime": 2750,
+           "type": "0",
+           "visualStyle": "regular",
+           "voParams": {
+            "$type": "scnDialogLineVoParams",
+            "alwaysUseBrainGender": 0,
+            "customVoEvent": {
+             "$type": "CName",
+             "$storage": "string",
+             "$value": "None"
+            },
+            "disableHeadMovement": 0,
+            "ignoreSpeakerIncapacitation": 0,
+            "isHolocallSpeaker": 0,
+            "voContext": "Vo_Context_Quest",
+            "voExpression": "Vo_Expression_Spoken"
+           }
+          }
+         },
+         {
+          "HandleId": "8",
+          "Data": {
+           "$type": "scnDialogLineEvent",
+           "additionalSpeakers": {
+            "$type": "scnAdditionalSpeakers",
+            "executionTag": 0,
+            "role": "Full",
+            "speakers": []
+           },
+           "duration": 8400,
+           "executionTagFlags": 0,
+           "id": {
+            "$type": "scnSceneEventId",
+            "id": "18446744073709551615"
+           },
+           "scalingData": null,
+           "screenplayLineId": {
+            "$type": "scnscreenplayItemId",
+            "id": 512
+           },
+           "startTime": 5090,
+           "type": "0",
+           "visualStyle": "regular",
+           "voParams": {
+            "$type": "scnDialogLineVoParams",
+            "alwaysUseBrainGender": 0,
+            "customVoEvent": {
+             "$type": "CName",
+             "$storage": "string",
+             "$value": "None"
+            },
+            "disableHeadMovement": 0,
+            "ignoreSpeakerIncapacitation": 0,
+            "isHolocallSpeaker": 0,
+            "voContext": "Vo_Context_Quest",
+            "voExpression": "Vo_Expression_Spoken"
+           }
+          }
+         },
+         {
+          "HandleId": "9",
+          "Data": {
+           "$type": "scnDialogLineEvent",
+           "additionalSpeakers": {
+            "$type": "scnAdditionalSpeakers",
+            "executionTag": 0,
+            "role": "Full",
+            "speakers": []
+           },
+           "duration": 1280,
+           "executionTagFlags": 0,
+           "id": {
+            "$type": "scnSceneEventId",
+            "id": "18446744073709551615"
+           },
+           "scalingData": null,
+           "screenplayLineId": {
+            "$type": "scnscreenplayItemId",
+            "id": 768
+           },
+           "startTime": 13940,
+           "type": "0",
+           "visualStyle": "regular",
+           "voParams": {
+            "$type": "scnDialogLineVoParams",
+            "alwaysUseBrainGender": 0,
+            "customVoEvent": {
+             "$type": "CName",
+             "$storage": "string",
+             "$value": "None"
+            },
+            "disableHeadMovement": 0,
+            "ignoreSpeakerIncapacitation": 0,
+            "isHolocallSpeaker": 0,
+            "voContext": "Vo_Context_Quest",
+            "voExpression": "Vo_Expression_Spoken"
+           }
+          }
+         }
+        ],
+        "ffStrategy": "automatic",
+        "isFocusClue": 0,
+        "nodeId": {
+         "$type": "scnNodeId",
+         "id": 3
+        },
+        "outputSockets": [
+         {
+          "$type": "scnOutputSocket",
+          "destinations": [
+           {
+            "$type": "scnInputSocketId",
+            "isockStamp": {
+             "$type": "scnInputSocketStamp",
+             "name": 0,
+             "ordinal": 0
+            },
+            "nodeId": {
+             "$type": "scnNodeId",
+             "id": 2
+            }
+           }
+          ],
+          "stamp": {
+           "$type": "scnOutputSocketStamp",
+           "name": 0,
+           "ordinal": 0
+          }
+         },
+         {
+          "$type": "scnOutputSocket",
+          "destinations": [],
+          "stamp": {
+           "$type": "scnOutputSocketStamp",
+           "name": 1,
+           "ordinal": 0
+          }
+         }
+        ],
+        "sectionDuration": {
+         "$type": "scnSceneTime",
+         "stu": 15970
+        }
+       }
+      },
+      {
+       "HandleId": "10",
+       "Data": {
+        "$type": "scnQuestNode",
+        "ffStrategy": "automatic",
+        "isockMappings": [
+         {
+          "$type": "CName",
+          "$storage": "string",
+          "$value": "Cancel"
+         },
+         {
+          "$type": "CName",
+          "$storage": "string",
+          "$value": "In"
+         }
+        ],
+        "nodeId": {
+         "$type": "scnNodeId",
+         "id": 4
+        },
+        "osockMappings": [
+         {
+          "$type": "CName",
+          "$storage": "string",
+          "$value": "Out"
+         }
+        ],
+        "outputSockets": [
+         {
+          "$type": "scnOutputSocket",
+          "destinations": [
+           {
+            "$type": "scnInputSocketId",
+            "isockStamp": {
+             "$type": "scnInputSocketStamp",
+             "name": 0,
+             "ordinal": 0
+            },
+            "nodeId": {
+             "$type": "scnNodeId",
+             "id": 2
+            }
+           }
+          ],
+          "stamp": {
+           "$type": "scnOutputSocketStamp",
+           "name": 0,
+           "ordinal": 0
+          }
+         }
+        ],
+        "questNode": {
+         "HandleId": "11",
+         "Data": {
+          "$type": "questPauseConditionNodeDefinition",
+          "condition": {
+           "HandleId": "12",
+           "Data": {
+            "$type": "questLogicalCondition",
+            "conditions": [
+             {
+              "HandleId": "13",
+              "Data": {
+               "$type": "questCharacterCondition",
+               "type": {
+                "HandleId": "14",
+                "Data": {
+                 "$type": "questCharacterAttack_ConditionType",
+                 "attackerRef": {
+                  "$type": "gameEntityReference",
+                  "dynamicEntityUniqueName": {
+                   "$type": "CName",
+                   "$storage": "string",
+                   "$value": "None"
+                  },
+                  "names": [],
+                  "reference": {
+                   "$type": "NodeRef",
+                   "$storage": "string",
+                   "$value": "#player"
+                  },
+                  "sceneActorContextName": {
+                   "$type": "CName",
+                   "$storage": "string",
+                   "$value": "None"
+                  },
+                  "slotName": {
+                   "$type": "CName",
+                   "$storage": "string",
+                   "$value": "None"
+                  },
+                  "type": "EntityRef"
+                 },
+                 "targetRef": {
+                  "$type": "gameEntityReference",
+                  "dynamicEntityUniqueName": {
+                   "$type": "CName",
+                   "$storage": "string",
+                   "$value": "None"
+                  },
+                  "names": [],
+                  "reference": {
+                   "$type": "NodeRef",
+                   "$storage": "string",
+                   "$value": "$/slumlord/harbor/#slumlord_fc_com_gang"
+                  },
+                  "sceneActorContextName": {
+                   "$type": "CName",
+                   "$storage": "string",
+                   "$value": "None"
+                  },
+                  "slotName": {
+                   "$type": "CName",
+                   "$storage": "string",
+                   "$value": "None"
+                  },
+                  "type": "EntityRef"
+                 }
+                }
+               }
+              }
+             },
+             {
+              "HandleId": "15",
+              "Data": {
+               "$type": "questCharacterCondition",
+               "type": {
+                "HandleId": "16",
+                "Data": {
+                 "$type": "questCharacterAttack_ConditionType",
+                 "attackerRef": {
+                  "$type": "gameEntityReference",
+                  "dynamicEntityUniqueName": {
+                   "$type": "CName",
+                   "$storage": "string",
+                   "$value": "None"
+                  },
+                  "names": [],
+                  "reference": {
+                   "$type": "NodeRef",
+                   "$storage": "string",
+                   "$value": "#player"
+                  },
+                  "sceneActorContextName": {
+                   "$type": "CName",
+                   "$storage": "string",
+                   "$value": "None"
+                  },
+                  "slotName": {
+                   "$type": "CName",
+                   "$storage": "string",
+                   "$value": "None"
+                  },
+                  "type": "EntityRef"
+                 },
+                 "targetRef": {
+                  "$type": "gameEntityReference",
+                  "dynamicEntityUniqueName": {
+                   "$type": "CName",
+                   "$storage": "string",
+                   "$value": "None"
+                  },
+                  "names": [],
+                  "reference": {
+                   "$type": "NodeRef",
+                   "$storage": "string",
+                   "$value": "$/slumlord/harbor/#slumlord_fc_com_oshima"
+                  },
+                  "sceneActorContextName": {
+                   "$type": "CName",
+                   "$storage": "string",
+                   "$value": "None"
+                  },
+                  "slotName": {
+                   "$type": "CName",
+                   "$storage": "string",
+                   "$value": "None"
+                  },
+                  "type": "EntityRef"
+                 }
+                }
+               }
+              }
+             },
+             {
+              "HandleId": "17",
+              "Data": {
+               "$type": "questCharacterCondition",
+               "type": {
+                "HandleId": "18",
+                "Data": {
+                 "$type": "questCharacterCombat_ConditionType",
+                 "inverted": 0
+                }
+               }
+              }
+             }
+            ],
+            "operation": "OR"
+           }
+          },
+          "id": 4,
+          "sockets": [
+           {
+            "HandleId": "19",
+            "Data": {
+             "$type": "questSocketDefinition",
+             "connections": [],
+             "name": {
+              "$type": "CName",
+              "$storage": "string",
+              "$value": "Cancel"
+             },
+             "type": "CutDestination"
+            }
+           },
+           {
+            "HandleId": "20",
+            "Data": {
+             "$type": "questSocketDefinition",
+             "connections": [],
+             "name": {
+              "$type": "CName",
+              "$storage": "string",
+              "$value": "In"
+             },
+             "type": "Input"
+            }
+           },
+           {
+            "HandleId": "21",
+            "Data": {
+             "$type": "questSocketDefinition",
+             "connections": [],
+             "name": {
+              "$type": "CName",
+              "$storage": "string",
+              "$value": "Out"
+             },
+             "type": "Output"
+            }
+           }
+          ]
+         }
+        }
+       }
+      }
+     ],
+     "startNodes": []
+    }
+   },
+   "screenplayStore": {
+    "$type": "scnscreenplayStore",
+    "lines": [
+     {
+      "$type": "scnscreenplayDialogLine",
+      "addressee": {
+       "$type": "scnActorId",
+       "id": 1
+      },
+      "femaleLipsyncAnimationName": {
+       "$type": "CName",
+       "$storage": "string",
+       "$value": "None"
+      },
+      "itemId": {
+       "$type": "scnscreenplayItemId",
+       "id": 0
+      },
+      "locstringId": {
+       "$type": "scnlocLocstringId",
+       "ruid": "9166329559545131686"
+      },
+      "maleLipsyncAnimationName": {
+       "$type": "CName",
+       "$storage": "string",
+       "$value": "None"
+      },
+      "speaker": {
+       "$type": "scnActorId",
+       "id": 0
+      },
+      "usage": {
+       "$type": "scnscreenplayLineUsage",
+       "playerGenderMask": {
+        "$type": "scnGenderMask",
+        "mask": 3
+       }
+      }
+     },
+     {
+      "$type": "scnscreenplayDialogLine",
+      "addressee": {
+       "$type": "scnActorId",
+       "id": 0
+      },
+      "femaleLipsyncAnimationName": {
+       "$type": "CName",
+       "$storage": "string",
+       "$value": "None"
+      },
+      "itemId": {
+       "$type": "scnscreenplayItemId",
+       "id": 256
+      },
+      "locstringId": {
+       "$type": "scnlocLocstringId",
+       "ruid": "9166328460033503475"
+      },
+      "maleLipsyncAnimationName": {
+       "$type": "CName",
+       "$storage": "string",
+       "$value": "None"
+      },
+      "speaker": {
+       "$type": "scnActorId",
+       "id": 1
+      },
+      "usage": {
+       "$type": "scnscreenplayLineUsage",
+       "playerGenderMask": {
+        "$type": "scnGenderMask",
+        "mask": 3
+       }
+      }
+     },
+     {
+      "$type": "scnscreenplayDialogLine",
+      "addressee": {
+       "$type": "scnActorId",
+       "id": 1
+      },
+      "femaleLipsyncAnimationName": {
+       "$type": "CName",
+       "$storage": "string",
+       "$value": "None"
+      },
+      "itemId": {
+       "$type": "scnscreenplayItemId",
+       "id": 512
+      },
+      "locstringId": {
+       "$type": "scnlocLocstringId",
+       "ruid": "9166327360521875264"
+      },
+      "maleLipsyncAnimationName": {
+       "$type": "CName",
+       "$storage": "string",
+       "$value": "None"
+      },
+      "speaker": {
+       "$type": "scnActorId",
+       "id": 0
+      },
+      "usage": {
+       "$type": "scnscreenplayLineUsage",
+       "playerGenderMask": {
+        "$type": "scnGenderMask",
+        "mask": 3
+       }
+      }
+     },
+     {
+      "$type": "scnscreenplayDialogLine",
+      "addressee": {
+       "$type": "scnActorId",
+       "id": 1
+      },
+      "femaleLipsyncAnimationName": {
+       "$type": "CName",
+       "$storage": "string",
+       "$value": "None"
+      },
+      "itemId": {
+       "$type": "scnscreenplayItemId",
+       "id": 768
+      },
+      "locstringId": {
+       "$type": "scnlocLocstringId",
+       "ruid": "9166335057103272741"
+      },
+      "maleLipsyncAnimationName": {
+       "$type": "CName",
+       "$storage": "string",
+       "$value": "None"
+      },
+      "speaker": {
+       "$type": "scnActorId",
+       "id": 0
+      },
+      "usage": {
+       "$type": "scnscreenplayLineUsage",
+       "playerGenderMask": {
+        "$type": "scnGenderMask",
+        "mask": 3
+       }
+      }
+     }
+    ],
+    "options": []
+   },
+   "version": 5,
+   "voInfo": [],
+   "workspotInstances": [],
+   "workspots": []
+  }
+ }
+}

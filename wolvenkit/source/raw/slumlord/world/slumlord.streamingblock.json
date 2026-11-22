@@ -75,6 +75,37 @@
      "numNodeRanges": 1,
      "level": 1,
      "category": "AlwaysLoaded"
+    },
+    {
+     "$type": "worldStreamingSectorDescriptor",
+     "data": {
+      "DepotPath": {
+       "$type": "ResourcePath",
+       "$storage": "string",
+       "$value": "slumlord\\world\\sectors\\slumlord_harbor.streamingsector"
+      },
+      "Flags": "Default"
+     },
+     "streamingBox": {
+      "$type": "Box",
+      "Max": {
+       "$type": "Vector4",
+       "W": -3.4028234663852886e+38,
+       "X": 3.4028234663852886e+38,
+       "Y": 3.4028234663852886e+38,
+       "Z": 3.4028234663852886e+38
+      },
+      "Min": {
+       "$type": "Vector4",
+       "W": 3.4028234663852886e+38,
+       "X": -3.4028234663852886e+38,
+       "Y": -3.4028234663852886e+38,
+       "Z": -3.4028234663852886e+38
+      }
+     },
+     "numNodeRanges": 1,
+     "level": 1,
+     "category": "AlwaysLoaded"
     }
    ]
   },

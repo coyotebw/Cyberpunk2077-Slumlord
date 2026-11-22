@@ -77,6 +77,36 @@
        "femaleVariant": "Pleasure doin' business, Mr. Landlord.",
        "maleVariant": "",
        "stringId": "698803929233075251"
+      },
+      {
+       "$type": "localizationPersistenceSubtitleEntry",
+       "femaleVariant": "V. I told you we'd be seeing each other again.",
+       "maleVariant": "",
+       "stringId": "9166329559545131686"
+      },
+      {
+       "$type": "localizationPersistenceSubtitleEntry",
+       "femaleVariant": "What the fuck…?",
+       "maleVariant": "",
+       "stringId": "9166328460033503475"
+      },
+      {
+       "$type": "localizationPersistenceSubtitleEntry",
+       "femaleVariant": "I need this place to film a scene for Death Stranding 12. Now get lost, you're ruining the shot.",
+       "maleVariant": "",
+       "stringId": "9166327360521875264"
+      },
+      {
+       "$type": "localizationPersistenceSubtitleEntry",
+       "femaleVariant": "Kill her!",
+       "maleVariant": "Kill him!",
+       "stringId": "9166335057103272741"
+      },
+      {
+       "$type": "localizationPersistenceSubtitleEntry",
+       "femaleVariant": "This isn't over, V!",
+       "maleVariant": "",
+       "stringId": "961256844586253376"
       }
      ]
     }

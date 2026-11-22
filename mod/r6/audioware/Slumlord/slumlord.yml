@@ -43,7 +43,7 @@ sfx:
   slumlord_v_sdcall_03_f: ./vo/slumlord_v_sdcall_03_f.ogg
   slumlord_v_sdcall_03_m: ./vo/slumlord_v_sdcall_03_m.ogg
 
-# >>> scene dialogs (tools/quest/make_motel.py): the motel scenes' lines, keyed by their string id
+# >>> scene dialogs (tools/quest/make_scenes.py): every scene line, keyed by its string id
 dialogs:
   1014050488082468450:   # slumlord_co_standoff_01: Well, look who showed. Pretty ride, huh?
     en-us: ./vo/slumlord_finger_motel_01.ogg
@@ -71,4 +71,16 @@ dialogs:
       male: ./vo/slumlord_v_truce_01_m.ogg
   698803929233075251:   # slumlord_co_truce_04: Pleasure doin' business, Mr. Landlord.
     en-us: ./vo/slumlord_finger_truce_03.ogg
+  9166329559545131686:   # slumlord_fc_talk_01: V. I told you we'd be seeing each other 
+    en-us: ./vo/slumlord_oshima_fight_01.ogg
+  9166328460033503475:   # slumlord_fc_talk_02: What the fuck…?
+    en-us:
+      fem: ./vo/slumlord_v_fight_01_f.ogg
+      male: ./vo/slumlord_v_fight_01_m.ogg
+  9166327360521875264:   # slumlord_fc_talk_03: I need this place to film a scene for De
+    en-us: ./vo/slumlord_oshima_fight_02.ogg
+  9166335057103272741:   # slumlord_fc_talk_04: Kill him!
+    en-us: ./vo/slumlord_oshima_fight_03.ogg
+  961256844586253376:   # slumlord_fc_flee_01: This isn't over, V!
+    en-us: ./vo/slumlord_oshima_flee_01.ogg
 # <<< scene dialogs

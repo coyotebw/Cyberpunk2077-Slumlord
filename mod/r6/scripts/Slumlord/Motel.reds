@@ -1,6 +1,6 @@
 // Conversation Overtime's motel scene (design doc 4.9 and 13), at Las Palapas, at night, once V owns all of
-// Santo Domingo. Since 2026-11-22 the scene is the game's own quest files (tools/quest/make_motel.py):
-// slumlord\quest\slumlord_motel.questphase spawns Finger and three 6th Street goons from communities on AI spots,
+// Santo Domingo. Since 2026-11-22 the scene is the game's own quest files (tools/quest/make_scenes.py):
+// slumlord\quest\slumlord_motel.questphase (tools/quest/make_scenes.py) spawns Finger and three 6th Street goons from communities on AI spots,
 // clears the crowd (a crowd null area), plays the standoff scene, turns the goons hostile, waits until they are
 // down, plays the truce scene and walks Finger off. This system is the bridge to it, through quest facts:
 //
@@ -37,7 +37,7 @@ public class SlumlordMotelScene extends ScriptableSystem {
   public static func BikePos() -> Vector4 { return new Vector4(-1083.34, -1525.00, 25.78, 1.0); }
   public static func BikeYaw() -> Float { return -42.8; }
 
-  // The records the quest's communities spawn (tools/quest/make_motel.py): never cleared away.
+  // The records the quest's communities spawn (tools/quest/make_scenes.py): never cleared away.
   public static func FingerRecord() -> TweakDBID { return t"Character.slumlord_quentin_finger"; }
   public static func IsSceneRecord(id: TweakDBID) -> Bool {
     if id == SlumlordMotelScene.FingerRecord() { return true; }
@@ -264,7 +264,7 @@ public class SlumlordMotelScene extends ScriptableSystem {
       + " abort=" + IntToString(this.Fact(n"slumlord_co_abort"))
       + " any time=" + (this.m_anyTime ? "yes" : "no") + " dist=" + FloatToStringPrec(dist, 0) + "m"
       + " bike=" + (this.m_bikeUp ? "up" : "no") + " cleared NPCs=" + IntToString(ArraySize(this.m_clearIds))
-      + " | Finger record " + (IsDefined(finger) ? "ok (TweakXL)" : "MISSING (TweakXL yaml not loaded)");
+      + " | Finger record " + (IsDefined(finger) ? "ok (TweakXL)" : "MISSING (r6/tweaks/Slumlord/slumlord_characters.yaml not loaded)");
   }
 }
 

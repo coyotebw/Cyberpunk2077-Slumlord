@@ -1,5 +1,5 @@
-# Slumlord: journal entries (Karl's texts, the boss quests), their texts, the world (quest pins, the motel scene's
-# spots and communities), the motel quest phase (started once per save, loops) and its scene lines' subtitles.
+# Slumlord: journal entries (Karl's texts, the boss quests), their texts, the world (quest pins, the encounters'
+# spots and communities), the encounter quest phases (started once per save, they loop) and the scene lines' subtitles.
 journal:
   - slumlord\journal\slumlord.journal
 localization:
@@ -13,4 +13,6 @@ streaming:
 quest:
   phases:
     - path: slumlord\quest\slumlord_motel.questphase
+      parent: cyberpunk2077.quest
+    - path: slumlord\quest\slumlord_harbor.questphase
       parent: cyberpunk2077.quest

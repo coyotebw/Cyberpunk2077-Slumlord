@@ -1722,7 +1722,7 @@
              "characterRecordId": {
               "$type": "TweakDBID",
               "$storage": "string",
-              "$value": "Character.sixthstreet_hooligan_ranged1_saratoga_wa"
+              "$value": "Character.slumlord_co_goon_1"
              },
              "entryName": {
               "$type": "CName",
@@ -1773,7 +1773,7 @@
              "characterRecordId": {
               "$type": "TweakDBID",
               "$storage": "string",
-              "$value": "Character.sixthstreet_hooligan_ranged1_nova_wa"
+              "$value": "Character.slumlord_co_goon_2"
              },
              "entryName": {
               "$type": "CName",
@@ -1824,7 +1824,7 @@
              "characterRecordId": {
               "$type": "TweakDBID",
               "$storage": "string",
-              "$value": "Character.sixthstreet_prepers3_shotgun3_carnage_ma_rare"
+              "$value": "Character.slumlord_co_goon_3"
              },
              "entryName": {
               "$type": "CName",

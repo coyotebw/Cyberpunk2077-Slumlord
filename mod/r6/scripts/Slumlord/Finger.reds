@@ -6,7 +6,7 @@
 //    Realty texts at once (Tenants.reds draws the live text).
 //  3 All of Santo Domingo owned -> Finger's goading call ("I got somethin' of yours").
 //  4 "Meet Finger at the Las Palapas Motel", at night only (20:00-05:00; "Wait until night" by day), with a
-//    journal map pin and GPS on the motel entrance. The scene itself is a quest phase (tools/quest/make_motel.py),
+//    journal map pin and GPS on the motel entrance. The scene itself is a quest phase (tools/quest/make_scenes.py),
 //    bridged by Motel.reds (SlumlordMotelScene).
 //  5 Win: Santo Domingo dominated, lease-broken events stop, the Kusanagi goes into V's garage, and the
 //    goons' services are owed to V as Muscle (staff, Phase 2).
@@ -32,10 +32,10 @@ public abstract class SlumlordConversationOvertime {
   // captured spot (-1083.34, -1525.00, 25.78, yaw -42.8). Moved 2026-11-20 from his own capture (-1085.81, -1530.47).
   public static func FingerSpot() -> Vector4 { return new Vector4(-1082.31, -1525.95, 25.78, 1.0); }
   public static func FingerSpotYaw() -> Float { return -42.8; }
-  // Motel scene, for when it is built: 6th Street records (to confirm in game).
+  // The motel goons' records: TweakXL clones of 6th Street records (tools/quest/make_scenes.py), so they can be
+  // told from vanilla 6th Street NPCs.
   public static func Goons() -> array<TweakDBID> {
-    return [t"Character.sixthstreet_hooligan_ranged1_saratoga_wa", t"Character.sixthstreet_hooligan_ranged1_nova_wa",
-            t"Character.sixthstreet_prepers3_shotgun3_carnage_ma_rare"];
+    return [t"Character.slumlord_co_goon_1", t"Character.slumlord_co_goon_2", t"Character.slumlord_co_goon_3"];
   }
 
   // Drafts (design doc 4.9). Each follows "...moved out in a huff, complaining ".
@@ -64,7 +64,7 @@ public abstract class SlumlordConversationOvertime {
   }
 }
 
-// The motel scene's dialogue lives in the scenes themselves: tools/quest/make_motel.py (STANDOFF, TRUCE).
+// The motel scene's dialogue lives in the scenes themselves: tools/quest/make_scenes.py (STANDOFF, TRUCE).
 
 public class SlumlordFinger extends ScriptableSystem {
   private persistent let m_stage: Int32;              // 0 not started, 1 buying up, 2 goading call due, 3 meet at the motel, 5 won

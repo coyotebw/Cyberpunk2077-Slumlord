@@ -5,7 +5,7 @@ that can be shared); the serializer gives every handle a HandleId on its first a
 Fields left out are filled with defaults by WolvenKit when the JSON is converted (cp77tools convert d).
 
 Quest graphs: Graph() collects nodes; node(kind, fields, inputs, outputs) makes a node with its sockets;
-link(a, 'Out', b, 'In') connects them. Scenes: see Scene in make_motel.py.
+link(a, 'Out', b, 'In') connects them. Scenes and sectors: encounter.py; the encounters: make_scenes.py.
 """
 import json
 
