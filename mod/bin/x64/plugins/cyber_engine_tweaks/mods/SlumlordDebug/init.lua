@@ -359,18 +359,18 @@ registerForEvent("onDraw", function()
     if ImGui.Button("Motel scene by day too") then
       guarded("Motel any time", function()
         local on = motel():Debug_ToggleAnyTime()
-        setStatus("Motel scene spawns by day: " .. tostring(on) .. " (needs the quest at the motel stage: Ring goad)")
+        setStatus("Motel encounter by day too: " .. tostring(on) .. " (needs the quest at the motel stage: Ring goad; then go to Las Palapas)")
       end)
     end
     ImGui.SameLine()
-    if ImGui.Button("Clear motel scene") then
-      guarded("Clear motel scene", function()
+    if ImGui.Button("End motel encounter") then
+      guarded("End motel encounter", function()
         motel():Debug_Clear()
         setStatus(motel():Debug_State())
       end)
     end
     ImGui.SameLine()
-    if ImGui.Button("Motel state / records") then
+    if ImGui.Button("Motel state / facts") then
       guarded("Motel state", function() setStatus(motel():Debug_State()) end)
     end
 

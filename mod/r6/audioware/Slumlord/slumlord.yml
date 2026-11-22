@@ -42,3 +42,33 @@ sfx:
   slumlord_v_sdcall_02_m: ./vo/slumlord_v_sdcall_02_m.ogg
   slumlord_v_sdcall_03_f: ./vo/slumlord_v_sdcall_03_f.ogg
   slumlord_v_sdcall_03_m: ./vo/slumlord_v_sdcall_03_m.ogg
+
+# >>> scene dialogs (tools/quest/make_motel.py): the motel scenes' lines, keyed by their string id
+dialogs:
+  1014050488082468450:   # slumlord_co_standoff_01: Well, look who showed. Pretty ride, huh?
+    en-us: ./vo/slumlord_finger_motel_01.ogg
+  1014049388570840239:   # slumlord_co_standoff_02: Not actually mine.
+    en-us:
+      fem: ./vo/slumlord_v_motel_01_f.ogg
+      male: ./vo/slumlord_v_motel_01_m.ogg
+  1014048289059212028:   # slumlord_co_standoff_03: Uh-huh. Here's the deal: you sign over S
+    en-us: ./vo/slumlord_finger_motel_02.ogg
+  1014047189547583817:   # slumlord_co_standoff_04: I'm serious.
+    en-us:
+      fem: ./vo/slumlord_v_motel_02_f.ogg
+      male: ./vo/slumlord_v_motel_02_m.ogg
+  1014046090035955606:   # slumlord_co_standoff_05: Don't play dumb with me! My boys lifted 
+    en-us: ./vo/slumlord_finger_motel_03.ogg
+  1014044990524327395:   # slumlord_co_standoff_06: Fuck it. Waste 'em!
+    en-us: ./vo/slumlord_finger_motel_04.ogg
+  698807227767959884:   # slumlord_co_truce_01: Okay, okay! Truce, truce!
+    en-us: ./vo/slumlord_finger_truce_01.ogg
+  698810526302844517:   # slumlord_co_truce_02: Look, these boys, what's left of 'em, th
+    en-us: ./vo/slumlord_finger_truce_02.ogg
+  698809426791216306:   # slumlord_co_truce_03: Deal.
+    en-us:
+      fem: ./vo/slumlord_v_truce_01_f.ogg
+      male: ./vo/slumlord_v_truce_01_m.ogg
+  698803929233075251:   # slumlord_co_truce_04: Pleasure doin' business, Mr. Landlord.
+    en-us: ./vo/slumlord_finger_truce_03.ogg
+# <<< scene dialogs

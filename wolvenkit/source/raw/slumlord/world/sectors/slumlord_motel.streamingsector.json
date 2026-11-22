@@ -1,0 +1,3181 @@
+{
+ "Header": {
+  "WolvenKitVersion": "10.0.0-beta.1",
+  "WKitJsonVersion": "0.0.9",
+  "GameVersion": 2500,
+  "ExportedDateTime": "2026-11-22T00:00:00Z",
+  "DataType": "CR2W",
+  "ArchiveFileName": ""
+ },
+ "Data": {
+  "Version": 195,
+  "BuildVersion": 0,
+  "RootChunk": {
+   "$type": "worldStreamingSector",
+   "category": "AlwaysLoaded",
+   "cookingPlatform": "PLATFORM_PC",
+   "externInplaceResource": {
+    "DepotPath": {
+     "$type": "ResourcePath",
+     "$storage": "uint64",
+     "$value": "0"
+    },
+    "Flags": "Soft"
+   },
+   "level": 1,
+   "localInplaceResource": [],
+   "nodeData": {
+    "BufferId": "0",
+    "Flags": 7471104,
+    "Type": "WolvenKit.RED4.Archive.Buffer.worldNodeDataBuffer, WolvenKit.RED4, Version=10.0.0.0, Culture=neutral, PublicKeyToken=null",
+    "Data": [
+     {
+      "$type": "worldCompiledNodeInstanceSetupInfo",
+      "dataGroup": "Base",
+      "externalInplaceResourceHash": {
+       "DepotPath": {
+        "$type": "ResourcePath",
+        "$storage": "uint64",
+        "$value": "0"
+       },
+       "Flags": "Default"
+      },
+      "globalNodeId": {
+       "$type": "worldGlobalNodeID",
+       "hash": "11354407435639721847"
+      },
+      "instanceIndex": 4294967295,
+      "nodeFlags": "FLAG_AllowForceStreamIn, FLAG_Quest",
+      "nodeIdx": "0",
+      "patchedNode": {
+       "$type": "NodeRef",
+       "$storage": "uint64",
+       "$value": "0"
+      },
+      "preboostStreamingRefPoint": {
+       "$type": "Vector3",
+       "X": -1082.31,
+       "Y": -1525.95,
+       "Z": 25.78
+      },
+      "proxyMeshId": {
+       "$type": "worldGlobalNodeID",
+       "hash": "0"
+      },
+      "scale": {
+       "$type": "Vector3",
+       "X": 1,
+       "Y": 1,
+       "Z": 1
+      },
+      "secondaryRefPointDistance": 3.40282347e+38,
+      "secondaryRefPointPosition": {
+       "$type": "Vector3",
+       "X": 0,
+       "Y": 0,
+       "Z": 0
+      },
+      "streamingDistance": 200.0,
+      "streamingPriority": "1",
+      "streamingRefPoint": {
+       "$type": "Vector3",
+       "X": -1082.31,
+       "Y": -1525.95,
+       "Z": 25.78
+      },
+      "todvisMask": "0",
+      "transform": {
+       "$type": "Transform",
+       "orientation": {
+        "$type": "Quaternion",
+        "i": 0,
+        "j": 0,
+        "k": -0.3648767843376196,
+        "r": 0.9310558158625283
+       },
+       "position": {
+        "$type": "Vector4",
+        "W": 0,
+        "X": -1082.31,
+        "Y": -1525.95,
+        "Z": 25.78
+       }
+      }
+     },
+     {
+      "$type": "worldCompiledNodeInstanceSetupInfo",
+      "dataGroup": "Base",
+      "externalInplaceResourceHash": {
+       "DepotPath": {
+        "$type": "ResourcePath",
+        "$storage": "uint64",
+        "$value": "0"
+       },
+       "Flags": "Default"
+      },
+      "globalNodeId": {
+       "$type": "worldGlobalNodeID",
+       "hash": "4492230578619101374"
+      },
+      "instanceIndex": 4294967295,
+      "nodeFlags": "FLAG_AllowForceStreamIn, FLAG_Quest",
+      "nodeIdx": "1",
+      "patchedNode": {
+       "$type": "NodeRef",
+       "$storage": "uint64",
+       "$value": "0"
+      },
+      "preboostStreamingRefPoint": {
+       "$type": "Vector3",
+       "X": -1098.0,
+       "Y": -1537.78,
+       "Z": 25.76
+      },
+      "proxyMeshId": {
+       "$type": "worldGlobalNodeID",
+       "hash": "0"
+      },
+      "scale": {
+       "$type": "Vector3",
+       "X": 1,
+       "Y": 1,
+       "Z": 1
+      },
+      "secondaryRefPointDistance": 3.40282347e+38,
+      "secondaryRefPointPosition": {
+       "$type": "Vector3",
+       "X": 0,
+       "Y": 0,
+       "Z": 0
+      },
+      "streamingDistance": 200.0,
+      "streamingPriority": "1",
+      "streamingRefPoint": {
+       "$type": "Vector3",
+       "X": -1098.0,
+       "Y": -1537.78,
+       "Z": 25.76
+      },
+      "todvisMask": "0",
+      "transform": {
+       "$type": "Transform",
+       "orientation": {
+        "$type": "Quaternion",
+        "i": 0,
+        "j": 0,
+        "k": -0.3648767843376196,
+        "r": 0.9310558158625283
+       },
+       "position": {
+        "$type": "Vector4",
+        "W": 0,
+        "X": -1098.0,
+        "Y": -1537.78,
+        "Z": 25.76
+       }
+      }
+     },
+     {
+      "$type": "worldCompiledNodeInstanceSetupInfo",
+      "dataGroup": "Base",
+      "externalInplaceResourceHash": {
+       "DepotPath": {
+        "$type": "ResourcePath",
+        "$storage": "uint64",
+        "$value": "0"
+       },
+       "Flags": "Default"
+      },
+      "globalNodeId": {
+       "$type": "worldGlobalNodeID",
+       "hash": "2552357796296822589"
+      },
+      "instanceIndex": 4294967295,
+      "nodeFlags": "FLAG_AllowForceStreamIn, FLAG_Quest",
+      "nodeIdx": "2",
+      "patchedNode": {
+       "$type": "NodeRef",
+       "$storage": "uint64",
+       "$value": "0"
+      },
+      "preboostStreamingRefPoint": {
+       "$type": "Vector3",
+       "X": -1057.27,
+       "Y": -1498.45,
+       "Z": 25.75
+      },
+      "proxyMeshId": {
+       "$type": "worldGlobalNodeID",
+       "hash": "0"
+      },
+      "scale": {
+       "$type": "Vector3",
+       "X": 1,
+       "Y": 1,
+       "Z": 1
+      },
+      "secondaryRefPointDistance": 3.40282347e+38,
+      "secondaryRefPointPosition": {
+       "$type": "Vector3",
+       "X": 0,
+       "Y": 0,
+       "Z": 0
+      },
+      "streamingDistance": 200.0,
+      "streamingPriority": "1",
+      "streamingRefPoint": {
+       "$type": "Vector3",
+       "X": -1057.27,
+       "Y": -1498.45,
+       "Z": 25.75
+      },
+      "todvisMask": "0",
+      "transform": {
+       "$type": "Transform",
+       "orientation": {
+        "$type": "Quaternion",
+        "i": 0,
+        "j": 0,
+        "k": 0.3697467572738293,
+        "r": 0.9291325715340562
+       },
+       "position": {
+        "$type": "Vector4",
+        "W": 0,
+        "X": -1057.27,
+        "Y": -1498.45,
+        "Z": 25.75
+       }
+      }
+     },
+     {
+      "$type": "worldCompiledNodeInstanceSetupInfo",
+      "dataGroup": "Base",
+      "externalInplaceResourceHash": {
+       "DepotPath": {
+        "$type": "ResourcePath",
+        "$storage": "uint64",
+        "$value": "0"
+       },
+       "Flags": "Default"
+      },
+      "globalNodeId": {
+       "$type": "worldGlobalNodeID",
+       "hash": "14171621260201599981"
+      },
+      "instanceIndex": 4294967295,
+      "nodeFlags": "FLAG_AllowForceStreamIn, FLAG_Quest",
+      "nodeIdx": "3",
+      "patchedNode": {
+       "$type": "NodeRef",
+       "$storage": "uint64",
+       "$value": "0"
+      },
+      "preboostStreamingRefPoint": {
+       "$type": "Vector3",
+       "X": -1075.5496119367156,
+       "Y": -1527.1117618315984,
+       "Z": 25.78
+      },
+      "proxyMeshId": {
+       "$type": "worldGlobalNodeID",
+       "hash": "0"
+      },
+      "scale": {
+       "$type": "Vector3",
+       "X": 1,
+       "Y": 1,
+       "Z": 1
+      },
+      "secondaryRefPointDistance": 3.40282347e+38,
+      "secondaryRefPointPosition": {
+       "$type": "Vector3",
+       "X": 0,
+       "Y": 0,
+       "Z": 0
+      },
+      "streamingDistance": 200.0,
+      "streamingPriority": "1",
+      "streamingRefPoint": {
+       "$type": "Vector3",
+       "X": -1075.5496119367156,
+       "Y": -1527.1117618315984,
+       "Z": 25.78
+      },
+      "todvisMask": "0",
+      "transform": {
+       "$type": "Transform",
+       "orientation": {
+        "$type": "Quaternion",
+        "i": 0,
+        "j": 0,
+        "k": 0.012217000835247169,
+        "r": 0.999925369660452
+       },
+       "position": {
+        "$type": "Vector4",
+        "W": 0,
+        "X": -1075.5496119367156,
+        "Y": -1527.1117618315984,
+        "Z": 25.78
+       }
+      }
+     },
+     {
+      "$type": "worldCompiledNodeInstanceSetupInfo",
+      "dataGroup": "Base",
+      "externalInplaceResourceHash": {
+       "DepotPath": {
+        "$type": "ResourcePath",
+        "$storage": "uint64",
+        "$value": "0"
+       },
+       "Flags": "Default"
+      },
+      "globalNodeId": {
+       "$type": "worldGlobalNodeID",
+       "hash": "14171617961666715348"
+      },
+      "instanceIndex": 4294967295,
+      "nodeFlags": "FLAG_AllowForceStreamIn, FLAG_Quest",
+      "nodeIdx": "4",
+      "patchedNode": {
+       "$type": "NodeRef",
+       "$storage": "uint64",
+       "$value": "0"
+      },
+      "preboostStreamingRefPoint": {
+       "$type": "Vector3",
+       "X": -1074.25,
+       "Y": -1527.08,
+       "Z": 25.78
+      },
+      "proxyMeshId": {
+       "$type": "worldGlobalNodeID",
+       "hash": "0"
+      },
+      "scale": {
+       "$type": "Vector3",
+       "X": 1,
+       "Y": 1,
+       "Z": 1
+      },
+      "secondaryRefPointDistance": 3.40282347e+38,
+      "secondaryRefPointPosition": {
+       "$type": "Vector3",
+       "X": 0,
+       "Y": 0,
+       "Z": 0
+      },
+      "streamingDistance": 200.0,
+      "streamingPriority": "1",
+      "streamingRefPoint": {
+       "$type": "Vector3",
+       "X": -1074.25,
+       "Y": -1527.08,
+       "Z": 25.78
+      },
+      "todvisMask": "0",
+      "transform": {
+       "$type": "Transform",
+       "orientation": {
+        "$type": "Quaternion",
+        "i": 0,
+        "j": 0,
+        "k": 0.012217000835247169,
+        "r": 0.999925369660452
+       },
+       "position": {
+        "$type": "Vector4",
+        "W": 0,
+        "X": -1074.25,
+        "Y": -1527.08,
+        "Z": 25.78
+       }
+      }
+     },
+     {
+      "$type": "worldCompiledNodeInstanceSetupInfo",
+      "dataGroup": "Base",
+      "externalInplaceResourceHash": {
+       "DepotPath": {
+        "$type": "ResourcePath",
+        "$storage": "uint64",
+        "$value": "0"
+       },
+       "Flags": "Default"
+      },
+      "globalNodeId": {
+       "$type": "worldGlobalNodeID",
+       "hash": "14171619061178343559"
+      },
+      "instanceIndex": 4294967295,
+      "nodeFlags": "FLAG_AllowForceStreamIn, FLAG_Quest",
+      "nodeIdx": "5",
+      "patchedNode": {
+       "$type": "NodeRef",
+       "$storage": "uint64",
+       "$value": "0"
+      },
+      "preboostStreamingRefPoint": {
+       "$type": "Vector3",
+       "X": -1072.9503880632844,
+       "Y": -1527.0482381684014,
+       "Z": 25.78
+      },
+      "proxyMeshId": {
+       "$type": "worldGlobalNodeID",
+       "hash": "0"
+      },
+      "scale": {
+       "$type": "Vector3",
+       "X": 1,
+       "Y": 1,
+       "Z": 1
+      },
+      "secondaryRefPointDistance": 3.40282347e+38,
+      "secondaryRefPointPosition": {
+       "$type": "Vector3",
+       "X": 0,
+       "Y": 0,
+       "Z": 0
+      },
+      "streamingDistance": 200.0,
+      "streamingPriority": "1",
+      "streamingRefPoint": {
+       "$type": "Vector3",
+       "X": -1072.9503880632844,
+       "Y": -1527.0482381684014,
+       "Z": 25.78
+      },
+      "todvisMask": "0",
+      "transform": {
+       "$type": "Transform",
+       "orientation": {
+        "$type": "Quaternion",
+        "i": 0,
+        "j": 0,
+        "k": 0.012217000835247169,
+        "r": 0.999925369660452
+       },
+       "position": {
+        "$type": "Vector4",
+        "W": 0,
+        "X": -1072.9503880632844,
+        "Y": -1527.0482381684014,
+        "Z": 25.78
+       }
+      }
+     },
+     {
+      "$type": "worldCompiledNodeInstanceSetupInfo",
+      "dataGroup": "Base",
+      "externalInplaceResourceHash": {
+       "DepotPath": {
+        "$type": "ResourcePath",
+        "$storage": "uint64",
+        "$value": "0"
+       },
+       "Flags": "Default"
+      },
+      "globalNodeId": {
+       "$type": "worldGlobalNodeID",
+       "hash": "10265427076495953487"
+      },
+      "instanceIndex": 4294967295,
+      "nodeFlags": "FLAG_AllowForceStreamIn, FLAG_Quest",
+      "nodeIdx": "6",
+      "patchedNode": {
+       "$type": "NodeRef",
+       "$storage": "uint64",
+       "$value": "0"
+      },
+      "preboostStreamingRefPoint": {
+       "$type": "Vector3",
+       "X": -1082.31,
+       "Y": -1525.95,
+       "Z": 25.78
+      },
+      "proxyMeshId": {
+       "$type": "worldGlobalNodeID",
+       "hash": "0"
+      },
+      "scale": {
+       "$type": "Vector3",
+       "X": 1,
+       "Y": 1,
+       "Z": 1
+      },
+      "secondaryRefPointDistance": 3.40282347e+38,
+      "secondaryRefPointPosition": {
+       "$type": "Vector3",
+       "X": 0,
+       "Y": 0,
+       "Z": 0
+      },
+      "streamingDistance": 200.0,
+      "streamingPriority": "1",
+      "streamingRefPoint": {
+       "$type": "Vector3",
+       "X": -1082.31,
+       "Y": -1525.95,
+       "Z": 25.78
+      },
+      "todvisMask": "0",
+      "transform": {
+       "$type": "Transform",
+       "orientation": {
+        "$type": "Quaternion",
+        "i": 0,
+        "j": 0,
+        "k": -0.3648767843376196,
+        "r": 0.9310558158625283
+       },
+       "position": {
+        "$type": "Vector4",
+        "W": 0,
+        "X": -1082.31,
+        "Y": -1525.95,
+        "Z": 25.78
+       }
+      }
+     },
+     {
+      "$type": "worldCompiledNodeInstanceSetupInfo",
+      "dataGroup": "Base",
+      "externalInplaceResourceHash": {
+       "DepotPath": {
+        "$type": "ResourcePath",
+        "$storage": "uint64",
+        "$value": "0"
+       },
+       "Flags": "Default"
+      },
+      "globalNodeId": {
+       "$type": "worldGlobalNodeID",
+       "hash": "13918771869661861923"
+      },
+      "instanceIndex": 4294967295,
+      "nodeFlags": "FLAG_AllowForceStreamIn, FLAG_Quest",
+      "nodeIdx": "7",
+      "patchedNode": {
+       "$type": "NodeRef",
+       "$storage": "uint64",
+       "$value": "0"
+      },
+      "preboostStreamingRefPoint": {
+       "$type": "Vector3",
+       "X": -1082.31,
+       "Y": -1525.95,
+       "Z": 10.780000000000001
+      },
+      "proxyMeshId": {
+       "$type": "worldGlobalNodeID",
+       "hash": "0"
+      },
+      "scale": {
+       "$type": "Vector3",
+       "X": 1,
+       "Y": 1,
+       "Z": 1
+      },
+      "secondaryRefPointDistance": 3.40282347e+38,
+      "secondaryRefPointPosition": {
+       "$type": "Vector3",
+       "X": 0,
+       "Y": 0,
+       "Z": 0
+      },
+      "streamingDistance": 420.0,
+      "streamingPriority": "1",
+      "streamingRefPoint": {
+       "$type": "Vector3",
+       "X": -1082.31,
+       "Y": -1525.95,
+       "Z": 10.780000000000001
+      },
+      "todvisMask": "0",
+      "transform": {
+       "$type": "Transform",
+       "orientation": {
+        "$type": "Quaternion",
+        "i": 0,
+        "j": 0,
+        "k": 0.0,
+        "r": 1.0
+       },
+       "position": {
+        "$type": "Vector4",
+        "W": 0,
+        "X": -1082.31,
+        "Y": -1525.95,
+        "Z": 10.780000000000001
+       }
+      }
+     },
+     {
+      "$type": "worldCompiledNodeInstanceSetupInfo",
+      "dataGroup": "Base",
+      "externalInplaceResourceHash": {
+       "DepotPath": {
+        "$type": "ResourcePath",
+        "$storage": "uint64",
+        "$value": "0"
+       },
+       "Flags": "Default"
+      },
+      "globalNodeId": {
+       "$type": "worldGlobalNodeID",
+       "hash": "2236393558797680676"
+      },
+      "instanceIndex": 4294967295,
+      "nodeFlags": "FLAG_AllowForceStreamIn, FLAG_Quest",
+      "nodeIdx": "8",
+      "patchedNode": {
+       "$type": "NodeRef",
+       "$storage": "uint64",
+       "$value": "0"
+      },
+      "preboostStreamingRefPoint": {
+       "$type": "Vector3",
+       "X": -1078.28,
+       "Y": -1526.5149999999999,
+       "Z": 25.78
+      },
+      "proxyMeshId": {
+       "$type": "worldGlobalNodeID",
+       "hash": "0"
+      },
+      "scale": {
+       "$type": "Vector3",
+       "X": 1,
+       "Y": 1,
+       "Z": 1
+      },
+      "secondaryRefPointDistance": 3.40282347e+38,
+      "secondaryRefPointPosition": {
+       "$type": "Vector3",
+       "X": 0,
+       "Y": 0,
+       "Z": 0
+      },
+      "streamingDistance": 270.0,
+      "streamingPriority": "1",
+      "streamingRefPoint": {
+       "$type": "Vector3",
+       "X": -1078.28,
+       "Y": -1526.5149999999999,
+       "Z": 25.78
+      },
+      "todvisMask": "0",
+      "transform": {
+       "$type": "Transform",
+       "orientation": {
+        "$type": "Quaternion",
+        "i": 0,
+        "j": 0,
+        "k": 0.0,
+        "r": 1.0
+       },
+       "position": {
+        "$type": "Vector4",
+        "W": 0,
+        "X": -1078.28,
+        "Y": -1526.5149999999999,
+        "Z": 25.78
+       }
+      }
+     },
+     {
+      "$type": "worldCompiledNodeInstanceSetupInfo",
+      "dataGroup": "Base",
+      "externalInplaceResourceHash": {
+       "DepotPath": {
+        "$type": "ResourcePath",
+        "$storage": "uint64",
+        "$value": "0"
+       },
+       "Flags": "Default"
+      },
+      "globalNodeId": {
+       "$type": "worldGlobalNodeID",
+       "hash": "0"
+      },
+      "instanceIndex": 4294967295,
+      "nodeFlags": "FLAG_AllowForceStreamIn, FLAG_Quest",
+      "nodeIdx": "9",
+      "patchedNode": {
+       "$type": "NodeRef",
+       "$storage": "uint64",
+       "$value": "0"
+      },
+      "preboostStreamingRefPoint": {
+       "$type": "Vector3",
+       "X": -1082.31,
+       "Y": -1525.95,
+       "Z": 25.78
+      },
+      "proxyMeshId": {
+       "$type": "worldGlobalNodeID",
+       "hash": "0"
+      },
+      "scale": {
+       "$type": "Vector3",
+       "X": 1,
+       "Y": 1,
+       "Z": 1
+      },
+      "secondaryRefPointDistance": 3.40282347e+38,
+      "secondaryRefPointPosition": {
+       "$type": "Vector3",
+       "X": 0,
+       "Y": 0,
+       "Z": 0
+      },
+      "streamingDistance": 1000.0,
+      "streamingPriority": "1",
+      "streamingRefPoint": {
+       "$type": "Vector3",
+       "X": -1082.31,
+       "Y": -1525.95,
+       "Z": 25.78
+      },
+      "todvisMask": "0",
+      "transform": {
+       "$type": "Transform",
+       "orientation": {
+        "$type": "Quaternion",
+        "i": 0,
+        "j": 0,
+        "k": 0.0,
+        "r": 1.0
+       },
+       "position": {
+        "$type": "Vector4",
+        "W": 0,
+        "X": -1082.31,
+        "Y": -1525.95,
+        "Z": 25.78
+       }
+      }
+     },
+     {
+      "$type": "worldCompiledNodeInstanceSetupInfo",
+      "dataGroup": "Base",
+      "externalInplaceResourceHash": {
+       "DepotPath": {
+        "$type": "ResourcePath",
+        "$storage": "uint64",
+        "$value": "0"
+       },
+       "Flags": "Default"
+      },
+      "globalNodeId": {
+       "$type": "worldGlobalNodeID",
+       "hash": "6233828434396155932"
+      },
+      "instanceIndex": 4294967295,
+      "nodeFlags": "FLAG_AllowForceStreamIn, FLAG_Quest",
+      "nodeIdx": "10",
+      "patchedNode": {
+       "$type": "NodeRef",
+       "$storage": "uint64",
+       "$value": "0"
+      },
+      "preboostStreamingRefPoint": {
+       "$type": "Vector3",
+       "X": -1082.31,
+       "Y": -1525.95,
+       "Z": 25.78
+      },
+      "proxyMeshId": {
+       "$type": "worldGlobalNodeID",
+       "hash": "0"
+      },
+      "scale": {
+       "$type": "Vector3",
+       "X": 1,
+       "Y": 1,
+       "Z": 1
+      },
+      "secondaryRefPointDistance": 3.40282347e+38,
+      "secondaryRefPointPosition": {
+       "$type": "Vector3",
+       "X": 0,
+       "Y": 0,
+       "Z": 0
+      },
+      "streamingDistance": 1000.0,
+      "streamingPriority": "1",
+      "streamingRefPoint": {
+       "$type": "Vector3",
+       "X": -1082.31,
+       "Y": -1525.95,
+       "Z": 25.78
+      },
+      "todvisMask": "0",
+      "transform": {
+       "$type": "Transform",
+       "orientation": {
+        "$type": "Quaternion",
+        "i": 0,
+        "j": 0,
+        "k": 0.0,
+        "r": 1.0
+       },
+       "position": {
+        "$type": "Vector4",
+        "W": 0,
+        "X": -1082.31,
+        "Y": -1525.95,
+        "Z": 25.78
+       }
+      }
+     },
+     {
+      "$type": "worldCompiledNodeInstanceSetupInfo",
+      "dataGroup": "Base",
+      "externalInplaceResourceHash": {
+       "DepotPath": {
+        "$type": "ResourcePath",
+        "$storage": "uint64",
+        "$value": "0"
+       },
+       "Flags": "Default"
+      },
+      "globalNodeId": {
+       "$type": "worldGlobalNodeID",
+       "hash": "17244742507559950543"
+      },
+      "instanceIndex": 4294967295,
+      "nodeFlags": "FLAG_AllowForceStreamIn, FLAG_Quest",
+      "nodeIdx": "11",
+      "patchedNode": {
+       "$type": "NodeRef",
+       "$storage": "uint64",
+       "$value": "0"
+      },
+      "preboostStreamingRefPoint": {
+       "$type": "Vector3",
+       "X": -1082.31,
+       "Y": -1525.95,
+       "Z": 25.78
+      },
+      "proxyMeshId": {
+       "$type": "worldGlobalNodeID",
+       "hash": "0"
+      },
+      "scale": {
+       "$type": "Vector3",
+       "X": 1,
+       "Y": 1,
+       "Z": 1
+      },
+      "secondaryRefPointDistance": 3.40282347e+38,
+      "secondaryRefPointPosition": {
+       "$type": "Vector3",
+       "X": 0,
+       "Y": 0,
+       "Z": 0
+      },
+      "streamingDistance": 1000.0,
+      "streamingPriority": "1",
+      "streamingRefPoint": {
+       "$type": "Vector3",
+       "X": -1082.31,
+       "Y": -1525.95,
+       "Z": 25.78
+      },
+      "todvisMask": "0",
+      "transform": {
+       "$type": "Transform",
+       "orientation": {
+        "$type": "Quaternion",
+        "i": 0,
+        "j": 0,
+        "k": 0.0,
+        "r": 1.0
+       },
+       "position": {
+        "$type": "Vector4",
+        "W": 0,
+        "X": -1082.31,
+        "Y": -1525.95,
+        "Z": 25.78
+       }
+      }
+     }
+    ]
+   },
+   "nodeRefs": [
+    {
+     "$type": "NodeRef",
+     "$storage": "string",
+     "$value": "$/slumlord/motel/#slumlord_co_ws_finger"
+    },
+    {
+     "$type": "NodeRef",
+     "$storage": "string",
+     "$value": "$/slumlord/motel/#slumlord_co_ws_hide"
+    },
+    {
+     "$type": "NodeRef",
+     "$storage": "string",
+     "$value": "$/slumlord/motel/#slumlord_co_ws_leave"
+    },
+    {
+     "$type": "NodeRef",
+     "$storage": "string",
+     "$value": "$/slumlord/motel/#slumlord_co_ws_goon_1"
+    },
+    {
+     "$type": "NodeRef",
+     "$storage": "string",
+     "$value": "$/slumlord/motel/#slumlord_co_ws_goon_2"
+    },
+    {
+     "$type": "NodeRef",
+     "$storage": "string",
+     "$value": "$/slumlord/motel/#slumlord_co_ws_goon_3"
+    },
+    {
+     "$type": "NodeRef",
+     "$storage": "string",
+     "$value": "$/slumlord/motel/#slumlord_co_sm"
+    },
+    {
+     "$type": "NodeRef",
+     "$storage": "string",
+     "$value": "$/slumlord/motel/#slumlord_co_tr_area"
+    },
+    {
+     "$type": "NodeRef",
+     "$storage": "string",
+     "$value": "$/slumlord/motel/#slumlord_co_crowd_null"
+    },
+    {
+     "$type": "NodeRef",
+     "$storage": "string",
+     "$value": "$/slumlord/motel/#slumlord_co_com_finger"
+    },
+    {
+     "$type": "NodeRef",
+     "$storage": "string",
+     "$value": "$/slumlord/motel/#slumlord_co_com_goons"
+    }
+   ],
+   "nodes": [
+    {
+     "HandleId": "0",
+     "Data": {
+      "$type": "worldAISpotNode",
+      "crowdBlacklist": {
+       "$type": "redTagList",
+       "tags": []
+      },
+      "crowdWhitelist": {
+       "$type": "redTagList",
+       "tags": []
+      },
+      "debugName": {
+       "$type": "CName",
+       "$storage": "string",
+       "$value": "{slumlord_co_ws_finger}"
+      },
+      "disableBumps": 0,
+      "isHostOnly": 0,
+      "isVisibleInGame": 1,
+      "isWorkspotInfinite": 1,
+      "isWorkspotStatic": 0,
+      "lookAtTarget": {
+       "$type": "NodeRef",
+       "$storage": "uint64",
+       "$value": "0"
+      },
+      "markings": [],
+      "proxyScale": null,
+      "sourcePrefabHash": "0",
+      "spot": {
+       "HandleId": "1",
+       "Data": {
+        "$type": "AIActionSpot",
+        "ActorBodytypeE3": "Undefined",
+        "clippingSpaceOrientation": 180,
+        "clippingSpaceRange": 120,
+        "enabledWhenMasterOccupied": 0,
+        "masterNodeRef": {
+         "$type": "NodeRef",
+         "$storage": "uint64",
+         "$value": "0"
+        },
+        "resource": {
+         "DepotPath": {
+          "$type": "ResourcePath",
+          "$storage": "string",
+          "$value": "base\\workspots\\main_characters\\ripperdoc\\ground\\ripperdoc__stand_ground_arms_crossed__talk__01.workspot"
+         },
+         "Flags": "Soft"
+        },
+        "snapToGround": 1,
+        "useClippingSpace": 0
+       }
+      },
+      "spotDef": null,
+      "tag": "None",
+      "tagExt": "None",
+      "useCrowdBlacklist": 0,
+      "useCrowdWhitelist": 0
+     }
+    },
+    {
+     "HandleId": "2",
+     "Data": {
+      "$type": "worldAISpotNode",
+      "crowdBlacklist": {
+       "$type": "redTagList",
+       "tags": []
+      },
+      "crowdWhitelist": {
+       "$type": "redTagList",
+       "tags": []
+      },
+      "debugName": {
+       "$type": "CName",
+       "$storage": "string",
+       "$value": "{slumlord_co_ws_hide}"
+      },
+      "disableBumps": 0,
+      "isHostOnly": 0,
+      "isVisibleInGame": 1,
+      "isWorkspotInfinite": 1,
+      "isWorkspotStatic": 0,
+      "lookAtTarget": {
+       "$type": "NodeRef",
+       "$storage": "uint64",
+       "$value": "0"
+      },
+      "markings": [],
+      "proxyScale": null,
+      "sourcePrefabHash": "0",
+      "spot": {
+       "HandleId": "3",
+       "Data": {
+        "$type": "AIActionSpot",
+        "ActorBodytypeE3": "Undefined",
+        "clippingSpaceOrientation": 180,
+        "clippingSpaceRange": 120,
+        "enabledWhenMasterOccupied": 0,
+        "masterNodeRef": {
+         "$type": "NodeRef",
+         "$storage": "uint64",
+         "$value": "0"
+        },
+        "resource": {
+         "DepotPath": {
+          "$type": "ResourcePath",
+          "$storage": "string",
+          "$value": "base\\workspots\\common\\ground\\generic__stand_ground_arms_crossed__stand_around__02.workspot"
+         },
+         "Flags": "Soft"
+        },
+        "snapToGround": 1,
+        "useClippingSpace": 0
+       }
+      },
+      "spotDef": null,
+      "tag": "None",
+      "tagExt": "None",
+      "useCrowdBlacklist": 0,
+      "useCrowdWhitelist": 0
+     }
+    },
+    {
+     "HandleId": "4",
+     "Data": {
+      "$type": "worldAISpotNode",
+      "crowdBlacklist": {
+       "$type": "redTagList",
+       "tags": []
+      },
+      "crowdWhitelist": {
+       "$type": "redTagList",
+       "tags": []
+      },
+      "debugName": {
+       "$type": "CName",
+       "$storage": "string",
+       "$value": "{slumlord_co_ws_leave}"
+      },
+      "disableBumps": 0,
+      "isHostOnly": 0,
+      "isVisibleInGame": 1,
+      "isWorkspotInfinite": 1,
+      "isWorkspotStatic": 0,
+      "lookAtTarget": {
+       "$type": "NodeRef",
+       "$storage": "uint64",
+       "$value": "0"
+      },
+      "markings": [],
+      "proxyScale": null,
+      "sourcePrefabHash": "0",
+      "spot": {
+       "HandleId": "5",
+       "Data": {
+        "$type": "AIActionSpot",
+        "ActorBodytypeE3": "Undefined",
+        "clippingSpaceOrientation": 180,
+        "clippingSpaceRange": 120,
+        "enabledWhenMasterOccupied": 0,
+        "masterNodeRef": {
+         "$type": "NodeRef",
+         "$storage": "uint64",
+         "$value": "0"
+        },
+        "resource": {
+         "DepotPath": {
+          "$type": "ResourcePath",
+          "$storage": "string",
+          "$value": "base\\workspots\\common\\ground\\generic__stand_ground_arms_crossed__stand_around__02.workspot"
+         },
+         "Flags": "Soft"
+        },
+        "snapToGround": 1,
+        "useClippingSpace": 0
+       }
+      },
+      "spotDef": null,
+      "tag": "None",
+      "tagExt": "None",
+      "useCrowdBlacklist": 0,
+      "useCrowdWhitelist": 0
+     }
+    },
+    {
+     "HandleId": "6",
+     "Data": {
+      "$type": "worldAISpotNode",
+      "crowdBlacklist": {
+       "$type": "redTagList",
+       "tags": []
+      },
+      "crowdWhitelist": {
+       "$type": "redTagList",
+       "tags": []
+      },
+      "debugName": {
+       "$type": "CName",
+       "$storage": "string",
+       "$value": "{slumlord_co_ws_goon_1}"
+      },
+      "disableBumps": 0,
+      "isHostOnly": 0,
+      "isVisibleInGame": 1,
+      "isWorkspotInfinite": 1,
+      "isWorkspotStatic": 0,
+      "lookAtTarget": {
+       "$type": "NodeRef",
+       "$storage": "uint64",
+       "$value": "0"
+      },
+      "markings": [],
+      "proxyScale": null,
+      "sourcePrefabHash": "0",
+      "spot": {
+       "HandleId": "7",
+       "Data": {
+        "$type": "AIActionSpot",
+        "ActorBodytypeE3": "Undefined",
+        "clippingSpaceOrientation": 180,
+        "clippingSpaceRange": 120,
+        "enabledWhenMasterOccupied": 0,
+        "masterNodeRef": {
+         "$type": "NodeRef",
+         "$storage": "uint64",
+         "$value": "0"
+        },
+        "resource": {
+         "DepotPath": {
+          "$type": "ResourcePath",
+          "$storage": "string",
+          "$value": "base\\workspots\\common\\ground\\generic__stand_ground_cigarette__smoke__01.workspot"
+         },
+         "Flags": "Soft"
+        },
+        "snapToGround": 1,
+        "useClippingSpace": 0
+       }
+      },
+      "spotDef": null,
+      "tag": "None",
+      "tagExt": "None",
+      "useCrowdBlacklist": 0,
+      "useCrowdWhitelist": 0
+     }
+    },
+    {
+     "HandleId": "8",
+     "Data": {
+      "$type": "worldAISpotNode",
+      "crowdBlacklist": {
+       "$type": "redTagList",
+       "tags": []
+      },
+      "crowdWhitelist": {
+       "$type": "redTagList",
+       "tags": []
+      },
+      "debugName": {
+       "$type": "CName",
+       "$storage": "string",
+       "$value": "{slumlord_co_ws_goon_2}"
+      },
+      "disableBumps": 0,
+      "isHostOnly": 0,
+      "isVisibleInGame": 1,
+      "isWorkspotInfinite": 1,
+      "isWorkspotStatic": 0,
+      "lookAtTarget": {
+       "$type": "NodeRef",
+       "$storage": "uint64",
+       "$value": "0"
+      },
+      "markings": [],
+      "proxyScale": null,
+      "sourcePrefabHash": "0",
+      "spot": {
+       "HandleId": "9",
+       "Data": {
+        "$type": "AIActionSpot",
+        "ActorBodytypeE3": "Undefined",
+        "clippingSpaceOrientation": 180,
+        "clippingSpaceRange": 120,
+        "enabledWhenMasterOccupied": 0,
+        "masterNodeRef": {
+         "$type": "NodeRef",
+         "$storage": "uint64",
+         "$value": "0"
+        },
+        "resource": {
+         "DepotPath": {
+          "$type": "ResourcePath",
+          "$storage": "string",
+          "$value": "base\\workspots\\common\\ground\\generic__stand_ground_arms_crossed__stand_around__02.workspot"
+         },
+         "Flags": "Soft"
+        },
+        "snapToGround": 1,
+        "useClippingSpace": 0
+       }
+      },
+      "spotDef": null,
+      "tag": "None",
+      "tagExt": "None",
+      "useCrowdBlacklist": 0,
+      "useCrowdWhitelist": 0
+     }
+    },
+    {
+     "HandleId": "10",
+     "Data": {
+      "$type": "worldAISpotNode",
+      "crowdBlacklist": {
+       "$type": "redTagList",
+       "tags": []
+      },
+      "crowdWhitelist": {
+       "$type": "redTagList",
+       "tags": []
+      },
+      "debugName": {
+       "$type": "CName",
+       "$storage": "string",
+       "$value": "{slumlord_co_ws_goon_3}"
+      },
+      "disableBumps": 0,
+      "isHostOnly": 0,
+      "isVisibleInGame": 1,
+      "isWorkspotInfinite": 1,
+      "isWorkspotStatic": 0,
+      "lookAtTarget": {
+       "$type": "NodeRef",
+       "$storage": "uint64",
+       "$value": "0"
+      },
+      "markings": [],
+      "proxyScale": null,
+      "sourcePrefabHash": "0",
+      "spot": {
+       "HandleId": "11",
+       "Data": {
+        "$type": "AIActionSpot",
+        "ActorBodytypeE3": "Undefined",
+        "clippingSpaceOrientation": 180,
+        "clippingSpaceRange": 120,
+        "enabledWhenMasterOccupied": 0,
+        "masterNodeRef": {
+         "$type": "NodeRef",
+         "$storage": "uint64",
+         "$value": "0"
+        },
+        "resource": {
+         "DepotPath": {
+          "$type": "ResourcePath",
+          "$storage": "string",
+          "$value": "base\\workspots\\common\\ground\\generic__stand_ground_cigarette__smoke__01.workspot"
+         },
+         "Flags": "Soft"
+        },
+        "snapToGround": 1,
+        "useClippingSpace": 0
+       }
+      },
+      "spotDef": null,
+      "tag": "None",
+      "tagExt": "None",
+      "useCrowdBlacklist": 0,
+      "useCrowdWhitelist": 0
+     }
+    },
+    {
+     "HandleId": "12",
+     "Data": {
+      "$type": "worldStaticMarkerNode",
+      "data": {
+       "HandleId": "13",
+       "Data": {
+        "$type": "scnSceneMarker",
+        "markers": [],
+        "workspotMarkers": []
+       }
+      },
+      "debugName": {
+       "$type": "CName",
+       "$storage": "string",
+       "$value": "{slumlord_co_sm}"
+      },
+      "isEnabled": 1,
+      "isHostOnly": 0,
+      "isVisibleInGame": 1,
+      "proxyScale": null,
+      "sourcePrefabHash": "0",
+      "tag": "None",
+      "tagExt": "None",
+      "tags": {
+       "$type": "redTagList",
+       "tags": []
+      }
+     }
+    },
+    {
+     "HandleId": "14",
+     "Data": {
+      "$type": "worldTriggerAreaNode",
+      "color": {
+       "$type": "Color",
+       "Alpha": 128,
+       "Blue": 160,
+       "Green": 160,
+       "Red": 255
+      },
+      "debugName": {
+       "$type": "CName",
+       "$storage": "string",
+       "$value": "{slumlord_co_tr_area}"
+      },
+      "isHostOnly": 0,
+      "isVisibleInGame": 1,
+      "notifiers": [
+       {
+        "HandleId": "15",
+        "Data": {
+         "$type": "questTriggerNotifier_Quest",
+         "excludeChannels": 0,
+         "includeChannels": "TC_Default",
+         "isEnabled": 1
+        }
+       }
+      ],
+      "outline": {
+       "HandleId": "16",
+       "Data": {
+        "$type": "AreaShapeOutline",
+        "buffer": "BAAAAAAADMMAAAzDAAAAAAAAgD8AAAxDAAAMwwAAAAAAAIA/AAAMQwAADEMAAAAAAACAPwAADMMAAAxDAAAAAAAAgD8AAHBC",
+        "height": 60.0,
+        "points": [
+         {
+          "$type": "Vector3",
+          "X": -140.0,
+          "Y": -140.0,
+          "Z": 0.0
+         },
+         {
+          "$type": "Vector3",
+          "X": 140.0,
+          "Y": -140.0,
+          "Z": 0.0
+         },
+         {
+          "$type": "Vector3",
+          "X": 140.0,
+          "Y": 140.0,
+          "Z": 0.0
+         },
+         {
+          "$type": "Vector3",
+          "X": -140.0,
+          "Y": 140.0,
+          "Z": 0.0
+         }
+        ]
+       }
+      },
+      "proxyScale": null,
+      "sourcePrefabHash": "0",
+      "tag": "None",
+      "tagExt": "None"
+     }
+    },
+    {
+     "HandleId": "17",
+     "Data": {
+      "$type": "worldCrowdNullAreaNode",
+      "color": {
+       "$type": "Color",
+       "Alpha": 128,
+       "Blue": 32,
+       "Green": 32,
+       "Red": 32
+      },
+      "debugName": {
+       "$type": "CName",
+       "$storage": "string",
+       "$value": "{slumlord_co_crowd_null}"
+      },
+      "IsForBlockade": 0,
+      "isHostOnly": 0,
+      "isVisibleInGame": 1,
+      "outline": {
+       "HandleId": "18",
+       "Data": {
+        "$type": "AreaShapeOutline",
+        "buffer": "BAAAAAAANMIAADTCAACgwAAAgD8AADRCAAA0wgAAoMAAAIA/AAA0QgAANEIAAKDAAACAPwAANMIAADRCAACgwAAAgD8AAMhB",
+        "height": 25.0,
+        "points": [
+         {
+          "$type": "Vector3",
+          "X": -45.0,
+          "Y": -45.0,
+          "Z": -5.0
+         },
+         {
+          "$type": "Vector3",
+          "X": 45.0,
+          "Y": -45.0,
+          "Z": -5.0
+         },
+         {
+          "$type": "Vector3",
+          "X": 45.0,
+          "Y": 45.0,
+          "Z": -5.0
+         },
+         {
+          "$type": "Vector3",
+          "X": -45.0,
+          "Y": 45.0,
+          "Z": -5.0
+         }
+        ]
+       }
+      },
+      "permanentlyEnabledByDefault": 0,
+      "proxyScale": null,
+      "sourcePrefabHash": "0",
+      "tag": "None",
+      "tagExt": "None"
+     }
+    },
+    {
+     "HandleId": "19",
+     "Data": {
+      "$type": "worldCommunityRegistryNode",
+      "communitiesData": [
+       {
+        "$type": "worldCommunityRegistryItem",
+        "communityAreaType": "Regular",
+        "communityId": {
+         "$type": "gameCommunityID",
+         "entityId": {
+          "$type": "entEntityID",
+          "hash": "6233828434396155932"
+         }
+        },
+        "entriesInitialState": [
+         {
+          "$type": "worldCommunityEntryInitialState",
+          "entryActiveOnStart": 0,
+          "entryName": {
+           "$type": "CName",
+           "$storage": "string",
+           "$value": "finger"
+          },
+          "initialPhaseName": {
+           "$type": "CName",
+           "$storage": "string",
+           "$value": "standoff"
+          }
+         }
+        ],
+        "template": {
+         "HandleId": "20",
+         "Data": {
+          "$type": "communityCommunityTemplateData",
+          "crowdEntries": [],
+          "entries": [
+           {
+            "HandleId": "21",
+            "Data": {
+             "$type": "communitySpawnEntry",
+             "characterRecordId": {
+              "$type": "TweakDBID",
+              "$storage": "string",
+              "$value": "Character.slumlord_quentin_finger"
+             },
+             "entryName": {
+              "$type": "CName",
+              "$storage": "string",
+              "$value": "finger"
+             },
+             "initializers": [],
+             "spawnInView": "default__true_",
+             "phases": [
+              {
+               "HandleId": "22",
+               "Data": {
+                "$type": "communitySpawnPhase",
+                "alwaysSpawned": "default__false_",
+                "appearances": [],
+                "phaseName": {
+                 "$type": "CName",
+                 "$storage": "string",
+                 "$value": "standoff"
+                },
+                "prefetchAppearance": 0,
+                "timePeriods": [
+                 {
+                  "$type": "communityPhaseTimePeriod",
+                  "categories": [],
+                  "hour": "Day",
+                  "isSequence": 0,
+                  "markings": [],
+                  "quantity": 1,
+                  "spotNodeRefs": [
+                   {
+                    "$type": "NodeRef",
+                    "$storage": "string",
+                    "$value": "$/slumlord/motel/#slumlord_co_ws_finger"
+                   }
+                  ]
+                 }
+                ]
+               }
+              },
+              {
+               "HandleId": "23",
+               "Data": {
+                "$type": "communitySpawnPhase",
+                "alwaysSpawned": "default__false_",
+                "appearances": [],
+                "phaseName": {
+                 "$type": "CName",
+                 "$storage": "string",
+                 "$value": "hide"
+                },
+                "prefetchAppearance": 0,
+                "timePeriods": [
+                 {
+                  "$type": "communityPhaseTimePeriod",
+                  "categories": [],
+                  "hour": "Day",
+                  "isSequence": 0,
+                  "markings": [],
+                  "quantity": 1,
+                  "spotNodeRefs": [
+                   {
+                    "$type": "NodeRef",
+                    "$storage": "string",
+                    "$value": "$/slumlord/motel/#slumlord_co_ws_hide"
+                   }
+                  ]
+                 }
+                ]
+               }
+              },
+              {
+               "HandleId": "24",
+               "Data": {
+                "$type": "communitySpawnPhase",
+                "alwaysSpawned": "default__false_",
+                "appearances": [],
+                "phaseName": {
+                 "$type": "CName",
+                 "$storage": "string",
+                 "$value": "leave"
+                },
+                "prefetchAppearance": 0,
+                "timePeriods": [
+                 {
+                  "$type": "communityPhaseTimePeriod",
+                  "categories": [],
+                  "hour": "Day",
+                  "isSequence": 0,
+                  "markings": [],
+                  "quantity": 1,
+                  "spotNodeRefs": [
+                   {
+                    "$type": "NodeRef",
+                    "$storage": "string",
+                    "$value": "$/slumlord/motel/#slumlord_co_ws_leave"
+                   }
+                  ]
+                 }
+                ]
+               }
+              }
+             ]
+            }
+           }
+          ],
+          "spawnSetReference": {
+           "$type": "CName",
+           "$storage": "string",
+           "$value": "None"
+          }
+         }
+        }
+       },
+       {
+        "$type": "worldCommunityRegistryItem",
+        "communityAreaType": "Regular",
+        "communityId": {
+         "$type": "gameCommunityID",
+         "entityId": {
+          "$type": "entEntityID",
+          "hash": "17244742507559950543"
+         }
+        },
+        "entriesInitialState": [
+         {
+          "$type": "worldCommunityEntryInitialState",
+          "entryActiveOnStart": 0,
+          "entryName": {
+           "$type": "CName",
+           "$storage": "string",
+           "$value": "goon_1"
+          },
+          "initialPhaseName": {
+           "$type": "CName",
+           "$storage": "string",
+           "$value": "standoff"
+          }
+         },
+         {
+          "$type": "worldCommunityEntryInitialState",
+          "entryActiveOnStart": 0,
+          "entryName": {
+           "$type": "CName",
+           "$storage": "string",
+           "$value": "goon_2"
+          },
+          "initialPhaseName": {
+           "$type": "CName",
+           "$storage": "string",
+           "$value": "standoff"
+          }
+         },
+         {
+          "$type": "worldCommunityEntryInitialState",
+          "entryActiveOnStart": 0,
+          "entryName": {
+           "$type": "CName",
+           "$storage": "string",
+           "$value": "goon_3"
+          },
+          "initialPhaseName": {
+           "$type": "CName",
+           "$storage": "string",
+           "$value": "standoff"
+          }
+         }
+        ],
+        "template": {
+         "HandleId": "25",
+         "Data": {
+          "$type": "communityCommunityTemplateData",
+          "crowdEntries": [],
+          "entries": [
+           {
+            "HandleId": "26",
+            "Data": {
+             "$type": "communitySpawnEntry",
+             "characterRecordId": {
+              "$type": "TweakDBID",
+              "$storage": "string",
+              "$value": "Character.sixthstreet_hooligan_ranged1_saratoga_wa"
+             },
+             "entryName": {
+              "$type": "CName",
+              "$storage": "string",
+              "$value": "goon_1"
+             },
+             "initializers": [],
+             "spawnInView": "default__true_",
+             "phases": [
+              {
+               "HandleId": "27",
+               "Data": {
+                "$type": "communitySpawnPhase",
+                "alwaysSpawned": "default__false_",
+                "appearances": [],
+                "phaseName": {
+                 "$type": "CName",
+                 "$storage": "string",
+                 "$value": "standoff"
+                },
+                "prefetchAppearance": 0,
+                "timePeriods": [
+                 {
+                  "$type": "communityPhaseTimePeriod",
+                  "categories": [],
+                  "hour": "Day",
+                  "isSequence": 0,
+                  "markings": [],
+                  "quantity": 1,
+                  "spotNodeRefs": [
+                   {
+                    "$type": "NodeRef",
+                    "$storage": "string",
+                    "$value": "$/slumlord/motel/#slumlord_co_ws_goon_1"
+                   }
+                  ]
+                 }
+                ]
+               }
+              }
+             ]
+            }
+           },
+           {
+            "HandleId": "28",
+            "Data": {
+             "$type": "communitySpawnEntry",
+             "characterRecordId": {
+              "$type": "TweakDBID",
+              "$storage": "string",
+              "$value": "Character.sixthstreet_hooligan_ranged1_nova_wa"
+             },
+             "entryName": {
+              "$type": "CName",
+              "$storage": "string",
+              "$value": "goon_2"
+             },
+             "initializers": [],
+             "spawnInView": "default__true_",
+             "phases": [
+              {
+               "HandleId": "29",
+               "Data": {
+                "$type": "communitySpawnPhase",
+                "alwaysSpawned": "default__false_",
+                "appearances": [],
+                "phaseName": {
+                 "$type": "CName",
+                 "$storage": "string",
+                 "$value": "standoff"
+                },
+                "prefetchAppearance": 0,
+                "timePeriods": [
+                 {
+                  "$type": "communityPhaseTimePeriod",
+                  "categories": [],
+                  "hour": "Day",
+                  "isSequence": 0,
+                  "markings": [],
+                  "quantity": 1,
+                  "spotNodeRefs": [
+                   {
+                    "$type": "NodeRef",
+                    "$storage": "string",
+                    "$value": "$/slumlord/motel/#slumlord_co_ws_goon_2"
+                   }
+                  ]
+                 }
+                ]
+               }
+              }
+             ]
+            }
+           },
+           {
+            "HandleId": "30",
+            "Data": {
+             "$type": "communitySpawnEntry",
+             "characterRecordId": {
+              "$type": "TweakDBID",
+              "$storage": "string",
+              "$value": "Character.sixthstreet_prepers3_shotgun3_carnage_ma_rare"
+             },
+             "entryName": {
+              "$type": "CName",
+              "$storage": "string",
+              "$value": "goon_3"
+             },
+             "initializers": [],
+             "spawnInView": "default__true_",
+             "phases": [
+              {
+               "HandleId": "31",
+               "Data": {
+                "$type": "communitySpawnPhase",
+                "alwaysSpawned": "default__false_",
+                "appearances": [],
+                "phaseName": {
+                 "$type": "CName",
+                 "$storage": "string",
+                 "$value": "standoff"
+                },
+                "prefetchAppearance": 0,
+                "timePeriods": [
+                 {
+                  "$type": "communityPhaseTimePeriod",
+                  "categories": [],
+                  "hour": "Day",
+                  "isSequence": 0,
+                  "markings": [],
+                  "quantity": 1,
+                  "spotNodeRefs": [
+                   {
+                    "$type": "NodeRef",
+                    "$storage": "string",
+                    "$value": "$/slumlord/motel/#slumlord_co_ws_goon_3"
+                   }
+                  ]
+                 }
+                ]
+               }
+              }
+             ]
+            }
+           }
+          ],
+          "spawnSetReference": {
+           "$type": "CName",
+           "$storage": "string",
+           "$value": "None"
+          }
+         }
+        }
+       }
+      ],
+      "crowdCreationRegistry": null,
+      "debugName": {
+       "$type": "CName",
+       "$storage": "string",
+       "$value": "slumlord_co_registry"
+      },
+      "isHostOnly": 0,
+      "isVisibleInGame": 1,
+      "proxyScale": null,
+      "representsCrowd": 0,
+      "sourcePrefabHash": "0",
+      "spawnSetNameToCommunityID": {
+       "$type": "gameCommunitySpawnSetNameToID",
+       "entries": []
+      },
+      "tag": "None",
+      "tagExt": "None",
+      "workspotsPersistentData": [
+       {
+        "$type": "AISpotPersistentData",
+        "globalNodeId": {
+         "$type": "worldGlobalNodeID",
+         "hash": "11354407435639721847"
+        },
+        "isEnabled": 1,
+        "worldPosition": {
+         "$type": "WorldPosition",
+         "x": {
+          "$type": "FixedPoint",
+          "Bits": -141860536
+         },
+         "y": {
+          "$type": "FixedPoint",
+          "Bits": -200009318
+         },
+         "z": {
+          "$type": "FixedPoint",
+          "Bits": 3379036
+         }
+        },
+        "yaw": -42.8
+       },
+       {
+        "$type": "AISpotPersistentData",
+        "globalNodeId": {
+         "$type": "worldGlobalNodeID",
+         "hash": "4492230578619101374"
+        },
+        "isEnabled": 1,
+        "worldPosition": {
+         "$type": "WorldPosition",
+         "x": {
+          "$type": "FixedPoint",
+          "Bits": -143917056
+         },
+         "y": {
+          "$type": "FixedPoint",
+          "Bits": -201559900
+         },
+         "z": {
+          "$type": "FixedPoint",
+          "Bits": 3376415
+         }
+        },
+        "yaw": -42.8
+       },
+       {
+        "$type": "AISpotPersistentData",
+        "globalNodeId": {
+         "$type": "worldGlobalNodeID",
+         "hash": "2552357796296822589"
+        },
+        "isEnabled": 1,
+        "worldPosition": {
+         "$type": "WorldPosition",
+         "x": {
+          "$type": "FixedPoint",
+          "Bits": -138578493
+         },
+         "y": {
+          "$type": "FixedPoint",
+          "Bits": -196404838
+         },
+         "z": {
+          "$type": "FixedPoint",
+          "Bits": 3375104
+         }
+        },
+        "yaw": 43.4
+       },
+       {
+        "$type": "AISpotPersistentData",
+        "globalNodeId": {
+         "$type": "worldGlobalNodeID",
+         "hash": "14171621260201599981"
+        },
+        "isEnabled": 1,
+        "worldPosition": {
+         "$type": "WorldPosition",
+         "x": {
+          "$type": "FixedPoint",
+          "Bits": -140974439
+         },
+         "y": {
+          "$type": "FixedPoint",
+          "Bits": -200161593
+         },
+         "z": {
+          "$type": "FixedPoint",
+          "Bits": 3379036
+         }
+        },
+        "yaw": 1.4
+       },
+       {
+        "$type": "AISpotPersistentData",
+        "globalNodeId": {
+         "$type": "worldGlobalNodeID",
+         "hash": "14171617961666715348"
+        },
+        "isEnabled": 1,
+        "worldPosition": {
+         "$type": "WorldPosition",
+         "x": {
+          "$type": "FixedPoint",
+          "Bits": -140804096
+         },
+         "y": {
+          "$type": "FixedPoint",
+          "Bits": -200157430
+         },
+         "z": {
+          "$type": "FixedPoint",
+          "Bits": 3379036
+         }
+        },
+        "yaw": 1.4
+       },
+       {
+        "$type": "AISpotPersistentData",
+        "globalNodeId": {
+         "$type": "worldGlobalNodeID",
+         "hash": "14171619061178343559"
+        },
+        "isEnabled": 1,
+        "worldPosition": {
+         "$type": "WorldPosition",
+         "x": {
+          "$type": "FixedPoint",
+          "Bits": -140633753
+         },
+         "y": {
+          "$type": "FixedPoint",
+          "Bits": -200153267
+         },
+         "z": {
+          "$type": "FixedPoint",
+          "Bits": 3379036
+         }
+        },
+        "yaw": 1.4
+       }
+      ]
+     }
+    },
+    {
+     "HandleId": "32",
+     "Data": {
+      "$type": "worldCompiledCommunityAreaNode",
+      "area": {
+       "HandleId": "33",
+       "Data": {
+        "$type": "communityArea",
+        "entriesData": [
+         {
+          "$type": "communityCommunityEntrySpotsData",
+          "entryName": {
+           "$type": "CName",
+           "$storage": "string",
+           "$value": "finger"
+          },
+          "phasesData": [
+           {
+            "$type": "communityCommunityEntryPhaseSpotsData",
+            "entryPhaseName": {
+             "$type": "CName",
+             "$storage": "string",
+             "$value": "standoff"
+            },
+            "timePeriodsData": [
+             {
+              "$type": "communityCommunityEntryPhaseTimePeriodData",
+              "isSequence": 0,
+              "periodName": {
+               "$type": "CName",
+               "$storage": "string",
+               "$value": "Day"
+              },
+              "spotNodeIds": [
+               {
+                "$type": "worldGlobalNodeID",
+                "hash": "11354407435639721847"
+               }
+              ]
+             }
+            ]
+           },
+           {
+            "$type": "communityCommunityEntryPhaseSpotsData",
+            "entryPhaseName": {
+             "$type": "CName",
+             "$storage": "string",
+             "$value": "hide"
+            },
+            "timePeriodsData": [
+             {
+              "$type": "communityCommunityEntryPhaseTimePeriodData",
+              "isSequence": 0,
+              "periodName": {
+               "$type": "CName",
+               "$storage": "string",
+               "$value": "Day"
+              },
+              "spotNodeIds": [
+               {
+                "$type": "worldGlobalNodeID",
+                "hash": "4492230578619101374"
+               }
+              ]
+             }
+            ]
+           },
+           {
+            "$type": "communityCommunityEntryPhaseSpotsData",
+            "entryPhaseName": {
+             "$type": "CName",
+             "$storage": "string",
+             "$value": "leave"
+            },
+            "timePeriodsData": [
+             {
+              "$type": "communityCommunityEntryPhaseTimePeriodData",
+              "isSequence": 0,
+              "periodName": {
+               "$type": "CName",
+               "$storage": "string",
+               "$value": "Day"
+              },
+              "spotNodeIds": [
+               {
+                "$type": "worldGlobalNodeID",
+                "hash": "2552357796296822589"
+               }
+              ]
+             }
+            ]
+           }
+          ]
+         }
+        ]
+       }
+      },
+      "debugName": {
+       "$type": "CName",
+       "$storage": "string",
+       "$value": "slumlord_co_com_finger"
+      },
+      "isHostOnly": 0,
+      "isVisibleInGame": 1,
+      "proxyScale": null,
+      "sourceObjectId": {
+       "$type": "entEntityID",
+       "hash": "6233828434396155932"
+      },
+      "sourcePrefabHash": "0",
+      "tag": "None",
+      "tagExt": "None"
+     }
+    },
+    {
+     "HandleId": "34",
+     "Data": {
+      "$type": "worldCompiledCommunityAreaNode",
+      "area": {
+       "HandleId": "35",
+       "Data": {
+        "$type": "communityArea",
+        "entriesData": [
+         {
+          "$type": "communityCommunityEntrySpotsData",
+          "entryName": {
+           "$type": "CName",
+           "$storage": "string",
+           "$value": "goon_1"
+          },
+          "phasesData": [
+           {
+            "$type": "communityCommunityEntryPhaseSpotsData",
+            "entryPhaseName": {
+             "$type": "CName",
+             "$storage": "string",
+             "$value": "standoff"
+            },
+            "timePeriodsData": [
+             {
+              "$type": "communityCommunityEntryPhaseTimePeriodData",
+              "isSequence": 0,
+              "periodName": {
+               "$type": "CName",
+               "$storage": "string",
+               "$value": "Day"
+              },
+              "spotNodeIds": [
+               {
+                "$type": "worldGlobalNodeID",
+                "hash": "14171621260201599981"
+               }
+              ]
+             }
+            ]
+           }
+          ]
+         },
+         {
+          "$type": "communityCommunityEntrySpotsData",
+          "entryName": {
+           "$type": "CName",
+           "$storage": "string",
+           "$value": "goon_2"
+          },
+          "phasesData": [
+           {
+            "$type": "communityCommunityEntryPhaseSpotsData",
+            "entryPhaseName": {
+             "$type": "CName",
+             "$storage": "string",
+             "$value": "standoff"
+            },
+            "timePeriodsData": [
+             {
+              "$type": "communityCommunityEntryPhaseTimePeriodData",
+              "isSequence": 0,
+              "periodName": {
+               "$type": "CName",
+               "$storage": "string",
+               "$value": "Day"
+              },
+              "spotNodeIds": [
+               {
+                "$type": "worldGlobalNodeID",
+                "hash": "14171617961666715348"
+               }
+              ]
+             }
+            ]
+           }
+          ]
+         },
+         {
+          "$type": "communityCommunityEntrySpotsData",
+          "entryName": {
+           "$type": "CName",
+           "$storage": "string",
+           "$value": "goon_3"
+          },
+          "phasesData": [
+           {
+            "$type": "communityCommunityEntryPhaseSpotsData",
+            "entryPhaseName": {
+             "$type": "CName",
+             "$storage": "string",
+             "$value": "standoff"
+            },
+            "timePeriodsData": [
+             {
+              "$type": "communityCommunityEntryPhaseTimePeriodData",
+              "isSequence": 0,
+              "periodName": {
+               "$type": "CName",
+               "$storage": "string",
+               "$value": "Day"
+              },
+              "spotNodeIds": [
+               {
+                "$type": "worldGlobalNodeID",
+                "hash": "14171619061178343559"
+               }
+              ]
+             }
+            ]
+           }
+          ]
+         }
+        ]
+       }
+      },
+      "debugName": {
+       "$type": "CName",
+       "$storage": "string",
+       "$value": "slumlord_co_com_goons"
+      },
+      "isHostOnly": 0,
+      "isVisibleInGame": 1,
+      "proxyScale": null,
+      "sourceObjectId": {
+       "$type": "entEntityID",
+       "hash": "17244742507559950543"
+      },
+      "sourcePrefabHash": "0",
+      "tag": "None",
+      "tagExt": "None"
+     }
+    }
+   ],
+   "persistentNodeIndex": 0,
+   "persistentNodes": [
+    {
+     "$type": "worldCompiledNodeInstanceSetupInfo",
+     "dataGroup": "Base",
+     "externalInplaceResourceHash": {
+      "DepotPath": {
+       "$type": "ResourcePath",
+       "$storage": "uint64",
+       "$value": "0"
+      },
+      "Flags": "Default"
+     },
+     "globalNodeId": {
+      "$type": "worldGlobalNodeID",
+      "hash": "11354407435639721847"
+     },
+     "instanceIndex": 4294967295,
+     "nodeFlags": "FLAG_AllowForceStreamIn, FLAG_Quest",
+     "nodeIdx": "0",
+     "patchedNode": {
+      "$type": "NodeRef",
+      "$storage": "uint64",
+      "$value": "0"
+     },
+     "preboostStreamingRefPoint": {
+      "$type": "Vector3",
+      "X": -1082.31,
+      "Y": -1525.95,
+      "Z": 25.78
+     },
+     "proxyMeshId": {
+      "$type": "worldGlobalNodeID",
+      "hash": "0"
+     },
+     "scale": {
+      "$type": "Vector3",
+      "X": 1,
+      "Y": 1,
+      "Z": 1
+     },
+     "secondaryRefPointDistance": 3.40282347e+38,
+     "secondaryRefPointPosition": {
+      "$type": "Vector3",
+      "X": 0,
+      "Y": 0,
+      "Z": 0
+     },
+     "streamingDistance": 200.0,
+     "streamingPriority": "1",
+     "streamingRefPoint": {
+      "$type": "Vector3",
+      "X": -1082.31,
+      "Y": -1525.95,
+      "Z": 25.78
+     },
+     "todvisMask": "0",
+     "transform": {
+      "$type": "Transform",
+      "orientation": {
+       "$type": "Quaternion",
+       "i": 0,
+       "j": 0,
+       "k": -0.3648767843376196,
+       "r": 0.9310558158625283
+      },
+      "position": {
+       "$type": "Vector4",
+       "W": 0,
+       "X": -1082.31,
+       "Y": -1525.95,
+       "Z": 25.78
+      }
+     }
+    },
+    {
+     "$type": "worldCompiledNodeInstanceSetupInfo",
+     "dataGroup": "Base",
+     "externalInplaceResourceHash": {
+      "DepotPath": {
+       "$type": "ResourcePath",
+       "$storage": "uint64",
+       "$value": "0"
+      },
+      "Flags": "Default"
+     },
+     "globalNodeId": {
+      "$type": "worldGlobalNodeID",
+      "hash": "4492230578619101374"
+     },
+     "instanceIndex": 4294967295,
+     "nodeFlags": "FLAG_AllowForceStreamIn, FLAG_Quest",
+     "nodeIdx": "1",
+     "patchedNode": {
+      "$type": "NodeRef",
+      "$storage": "uint64",
+      "$value": "0"
+     },
+     "preboostStreamingRefPoint": {
+      "$type": "Vector3",
+      "X": -1098.0,
+      "Y": -1537.78,
+      "Z": 25.76
+     },
+     "proxyMeshId": {
+      "$type": "worldGlobalNodeID",
+      "hash": "0"
+     },
+     "scale": {
+      "$type": "Vector3",
+      "X": 1,
+      "Y": 1,
+      "Z": 1
+     },
+     "secondaryRefPointDistance": 3.40282347e+38,
+     "secondaryRefPointPosition": {
+      "$type": "Vector3",
+      "X": 0,
+      "Y": 0,
+      "Z": 0
+     },
+     "streamingDistance": 200.0,
+     "streamingPriority": "1",
+     "streamingRefPoint": {
+      "$type": "Vector3",
+      "X": -1098.0,
+      "Y": -1537.78,
+      "Z": 25.76
+     },
+     "todvisMask": "0",
+     "transform": {
+      "$type": "Transform",
+      "orientation": {
+       "$type": "Quaternion",
+       "i": 0,
+       "j": 0,
+       "k": -0.3648767843376196,
+       "r": 0.9310558158625283
+      },
+      "position": {
+       "$type": "Vector4",
+       "W": 0,
+       "X": -1098.0,
+       "Y": -1537.78,
+       "Z": 25.76
+      }
+     }
+    },
+    {
+     "$type": "worldCompiledNodeInstanceSetupInfo",
+     "dataGroup": "Base",
+     "externalInplaceResourceHash": {
+      "DepotPath": {
+       "$type": "ResourcePath",
+       "$storage": "uint64",
+       "$value": "0"
+      },
+      "Flags": "Default"
+     },
+     "globalNodeId": {
+      "$type": "worldGlobalNodeID",
+      "hash": "2552357796296822589"
+     },
+     "instanceIndex": 4294967295,
+     "nodeFlags": "FLAG_AllowForceStreamIn, FLAG_Quest",
+     "nodeIdx": "2",
+     "patchedNode": {
+      "$type": "NodeRef",
+      "$storage": "uint64",
+      "$value": "0"
+     },
+     "preboostStreamingRefPoint": {
+      "$type": "Vector3",
+      "X": -1057.27,
+      "Y": -1498.45,
+      "Z": 25.75
+     },
+     "proxyMeshId": {
+      "$type": "worldGlobalNodeID",
+      "hash": "0"
+     },
+     "scale": {
+      "$type": "Vector3",
+      "X": 1,
+      "Y": 1,
+      "Z": 1
+     },
+     "secondaryRefPointDistance": 3.40282347e+38,
+     "secondaryRefPointPosition": {
+      "$type": "Vector3",
+      "X": 0,
+      "Y": 0,
+      "Z": 0
+     },
+     "streamingDistance": 200.0,
+     "streamingPriority": "1",
+     "streamingRefPoint": {
+      "$type": "Vector3",
+      "X": -1057.27,
+      "Y": -1498.45,
+      "Z": 25.75
+     },
+     "todvisMask": "0",
+     "transform": {
+      "$type": "Transform",
+      "orientation": {
+       "$type": "Quaternion",
+       "i": 0,
+       "j": 0,
+       "k": 0.3697467572738293,
+       "r": 0.9291325715340562
+      },
+      "position": {
+       "$type": "Vector4",
+       "W": 0,
+       "X": -1057.27,
+       "Y": -1498.45,
+       "Z": 25.75
+      }
+     }
+    },
+    {
+     "$type": "worldCompiledNodeInstanceSetupInfo",
+     "dataGroup": "Base",
+     "externalInplaceResourceHash": {
+      "DepotPath": {
+       "$type": "ResourcePath",
+       "$storage": "uint64",
+       "$value": "0"
+      },
+      "Flags": "Default"
+     },
+     "globalNodeId": {
+      "$type": "worldGlobalNodeID",
+      "hash": "14171621260201599981"
+     },
+     "instanceIndex": 4294967295,
+     "nodeFlags": "FLAG_AllowForceStreamIn, FLAG_Quest",
+     "nodeIdx": "3",
+     "patchedNode": {
+      "$type": "NodeRef",
+      "$storage": "uint64",
+      "$value": "0"
+     },
+     "preboostStreamingRefPoint": {
+      "$type": "Vector3",
+      "X": -1075.5496119367156,
+      "Y": -1527.1117618315984,
+      "Z": 25.78
+     },
+     "proxyMeshId": {
+      "$type": "worldGlobalNodeID",
+      "hash": "0"
+     },
+     "scale": {
+      "$type": "Vector3",
+      "X": 1,
+      "Y": 1,
+      "Z": 1
+     },
+     "secondaryRefPointDistance": 3.40282347e+38,
+     "secondaryRefPointPosition": {
+      "$type": "Vector3",
+      "X": 0,
+      "Y": 0,
+      "Z": 0
+     },
+     "streamingDistance": 200.0,
+     "streamingPriority": "1",
+     "streamingRefPoint": {
+      "$type": "Vector3",
+      "X": -1075.5496119367156,
+      "Y": -1527.1117618315984,
+      "Z": 25.78
+     },
+     "todvisMask": "0",
+     "transform": {
+      "$type": "Transform",
+      "orientation": {
+       "$type": "Quaternion",
+       "i": 0,
+       "j": 0,
+       "k": 0.012217000835247169,
+       "r": 0.999925369660452
+      },
+      "position": {
+       "$type": "Vector4",
+       "W": 0,
+       "X": -1075.5496119367156,
+       "Y": -1527.1117618315984,
+       "Z": 25.78
+      }
+     }
+    },
+    {
+     "$type": "worldCompiledNodeInstanceSetupInfo",
+     "dataGroup": "Base",
+     "externalInplaceResourceHash": {
+      "DepotPath": {
+       "$type": "ResourcePath",
+       "$storage": "uint64",
+       "$value": "0"
+      },
+      "Flags": "Default"
+     },
+     "globalNodeId": {
+      "$type": "worldGlobalNodeID",
+      "hash": "14171617961666715348"
+     },
+     "instanceIndex": 4294967295,
+     "nodeFlags": "FLAG_AllowForceStreamIn, FLAG_Quest",
+     "nodeIdx": "4",
+     "patchedNode": {
+      "$type": "NodeRef",
+      "$storage": "uint64",
+      "$value": "0"
+     },
+     "preboostStreamingRefPoint": {
+      "$type": "Vector3",
+      "X": -1074.25,
+      "Y": -1527.08,
+      "Z": 25.78
+     },
+     "proxyMeshId": {
+      "$type": "worldGlobalNodeID",
+      "hash": "0"
+     },
+     "scale": {
+      "$type": "Vector3",
+      "X": 1,
+      "Y": 1,
+      "Z": 1
+     },
+     "secondaryRefPointDistance": 3.40282347e+38,
+     "secondaryRefPointPosition": {
+      "$type": "Vector3",
+      "X": 0,
+      "Y": 0,
+      "Z": 0
+     },
+     "streamingDistance": 200.0,
+     "streamingPriority": "1",
+     "streamingRefPoint": {
+      "$type": "Vector3",
+      "X": -1074.25,
+      "Y": -1527.08,
+      "Z": 25.78
+     },
+     "todvisMask": "0",
+     "transform": {
+      "$type": "Transform",
+      "orientation": {
+       "$type": "Quaternion",
+       "i": 0,
+       "j": 0,
+       "k": 0.012217000835247169,
+       "r": 0.999925369660452
+      },
+      "position": {
+       "$type": "Vector4",
+       "W": 0,
+       "X": -1074.25,
+       "Y": -1527.08,
+       "Z": 25.78
+      }
+     }
+    },
+    {
+     "$type": "worldCompiledNodeInstanceSetupInfo",
+     "dataGroup": "Base",
+     "externalInplaceResourceHash": {
+      "DepotPath": {
+       "$type": "ResourcePath",
+       "$storage": "uint64",
+       "$value": "0"
+      },
+      "Flags": "Default"
+     },
+     "globalNodeId": {
+      "$type": "worldGlobalNodeID",
+      "hash": "14171619061178343559"
+     },
+     "instanceIndex": 4294967295,
+     "nodeFlags": "FLAG_AllowForceStreamIn, FLAG_Quest",
+     "nodeIdx": "5",
+     "patchedNode": {
+      "$type": "NodeRef",
+      "$storage": "uint64",
+      "$value": "0"
+     },
+     "preboostStreamingRefPoint": {
+      "$type": "Vector3",
+      "X": -1072.9503880632844,
+      "Y": -1527.0482381684014,
+      "Z": 25.78
+     },
+     "proxyMeshId": {
+      "$type": "worldGlobalNodeID",
+      "hash": "0"
+     },
+     "scale": {
+      "$type": "Vector3",
+      "X": 1,
+      "Y": 1,
+      "Z": 1
+     },
+     "secondaryRefPointDistance": 3.40282347e+38,
+     "secondaryRefPointPosition": {
+      "$type": "Vector3",
+      "X": 0,
+      "Y": 0,
+      "Z": 0
+     },
+     "streamingDistance": 200.0,
+     "streamingPriority": "1",
+     "streamingRefPoint": {
+      "$type": "Vector3",
+      "X": -1072.9503880632844,
+      "Y": -1527.0482381684014,
+      "Z": 25.78
+     },
+     "todvisMask": "0",
+     "transform": {
+      "$type": "Transform",
+      "orientation": {
+       "$type": "Quaternion",
+       "i": 0,
+       "j": 0,
+       "k": 0.012217000835247169,
+       "r": 0.999925369660452
+      },
+      "position": {
+       "$type": "Vector4",
+       "W": 0,
+       "X": -1072.9503880632844,
+       "Y": -1527.0482381684014,
+       "Z": 25.78
+      }
+     }
+    },
+    {
+     "$type": "worldCompiledNodeInstanceSetupInfo",
+     "dataGroup": "Base",
+     "externalInplaceResourceHash": {
+      "DepotPath": {
+       "$type": "ResourcePath",
+       "$storage": "uint64",
+       "$value": "0"
+      },
+      "Flags": "Default"
+     },
+     "globalNodeId": {
+      "$type": "worldGlobalNodeID",
+      "hash": "10265427076495953487"
+     },
+     "instanceIndex": 4294967295,
+     "nodeFlags": "FLAG_AllowForceStreamIn, FLAG_Quest",
+     "nodeIdx": "6",
+     "patchedNode": {
+      "$type": "NodeRef",
+      "$storage": "uint64",
+      "$value": "0"
+     },
+     "preboostStreamingRefPoint": {
+      "$type": "Vector3",
+      "X": -1082.31,
+      "Y": -1525.95,
+      "Z": 25.78
+     },
+     "proxyMeshId": {
+      "$type": "worldGlobalNodeID",
+      "hash": "0"
+     },
+     "scale": {
+      "$type": "Vector3",
+      "X": 1,
+      "Y": 1,
+      "Z": 1
+     },
+     "secondaryRefPointDistance": 3.40282347e+38,
+     "secondaryRefPointPosition": {
+      "$type": "Vector3",
+      "X": 0,
+      "Y": 0,
+      "Z": 0
+     },
+     "streamingDistance": 200.0,
+     "streamingPriority": "1",
+     "streamingRefPoint": {
+      "$type": "Vector3",
+      "X": -1082.31,
+      "Y": -1525.95,
+      "Z": 25.78
+     },
+     "todvisMask": "0",
+     "transform": {
+      "$type": "Transform",
+      "orientation": {
+       "$type": "Quaternion",
+       "i": 0,
+       "j": 0,
+       "k": -0.3648767843376196,
+       "r": 0.9310558158625283
+      },
+      "position": {
+       "$type": "Vector4",
+       "W": 0,
+       "X": -1082.31,
+       "Y": -1525.95,
+       "Z": 25.78
+      }
+     }
+    },
+    {
+     "$type": "worldCompiledNodeInstanceSetupInfo",
+     "dataGroup": "Base",
+     "externalInplaceResourceHash": {
+      "DepotPath": {
+       "$type": "ResourcePath",
+       "$storage": "uint64",
+       "$value": "0"
+      },
+      "Flags": "Default"
+     },
+     "globalNodeId": {
+      "$type": "worldGlobalNodeID",
+      "hash": "13918771869661861923"
+     },
+     "instanceIndex": 4294967295,
+     "nodeFlags": "FLAG_AllowForceStreamIn, FLAG_Quest",
+     "nodeIdx": "7",
+     "patchedNode": {
+      "$type": "NodeRef",
+      "$storage": "uint64",
+      "$value": "0"
+     },
+     "preboostStreamingRefPoint": {
+      "$type": "Vector3",
+      "X": -1082.31,
+      "Y": -1525.95,
+      "Z": 10.780000000000001
+     },
+     "proxyMeshId": {
+      "$type": "worldGlobalNodeID",
+      "hash": "0"
+     },
+     "scale": {
+      "$type": "Vector3",
+      "X": 1,
+      "Y": 1,
+      "Z": 1
+     },
+     "secondaryRefPointDistance": 3.40282347e+38,
+     "secondaryRefPointPosition": {
+      "$type": "Vector3",
+      "X": 0,
+      "Y": 0,
+      "Z": 0
+     },
+     "streamingDistance": 420.0,
+     "streamingPriority": "1",
+     "streamingRefPoint": {
+      "$type": "Vector3",
+      "X": -1082.31,
+      "Y": -1525.95,
+      "Z": 10.780000000000001
+     },
+     "todvisMask": "0",
+     "transform": {
+      "$type": "Transform",
+      "orientation": {
+       "$type": "Quaternion",
+       "i": 0,
+       "j": 0,
+       "k": 0.0,
+       "r": 1.0
+      },
+      "position": {
+       "$type": "Vector4",
+       "W": 0,
+       "X": -1082.31,
+       "Y": -1525.95,
+       "Z": 10.780000000000001
+      }
+     }
+    },
+    {
+     "$type": "worldCompiledNodeInstanceSetupInfo",
+     "dataGroup": "Base",
+     "externalInplaceResourceHash": {
+      "DepotPath": {
+       "$type": "ResourcePath",
+       "$storage": "uint64",
+       "$value": "0"
+      },
+      "Flags": "Default"
+     },
+     "globalNodeId": {
+      "$type": "worldGlobalNodeID",
+      "hash": "2236393558797680676"
+     },
+     "instanceIndex": 4294967295,
+     "nodeFlags": "FLAG_AllowForceStreamIn, FLAG_Quest",
+     "nodeIdx": "8",
+     "patchedNode": {
+      "$type": "NodeRef",
+      "$storage": "uint64",
+      "$value": "0"
+     },
+     "preboostStreamingRefPoint": {
+      "$type": "Vector3",
+      "X": -1078.28,
+      "Y": -1526.5149999999999,
+      "Z": 25.78
+     },
+     "proxyMeshId": {
+      "$type": "worldGlobalNodeID",
+      "hash": "0"
+     },
+     "scale": {
+      "$type": "Vector3",
+      "X": 1,
+      "Y": 1,
+      "Z": 1
+     },
+     "secondaryRefPointDistance": 3.40282347e+38,
+     "secondaryRefPointPosition": {
+      "$type": "Vector3",
+      "X": 0,
+      "Y": 0,
+      "Z": 0
+     },
+     "streamingDistance": 270.0,
+     "streamingPriority": "1",
+     "streamingRefPoint": {
+      "$type": "Vector3",
+      "X": -1078.28,
+      "Y": -1526.5149999999999,
+      "Z": 25.78
+     },
+     "todvisMask": "0",
+     "transform": {
+      "$type": "Transform",
+      "orientation": {
+       "$type": "Quaternion",
+       "i": 0,
+       "j": 0,
+       "k": 0.0,
+       "r": 1.0
+      },
+      "position": {
+       "$type": "Vector4",
+       "W": 0,
+       "X": -1078.28,
+       "Y": -1526.5149999999999,
+       "Z": 25.78
+      }
+     }
+    },
+    {
+     "$type": "worldCompiledNodeInstanceSetupInfo",
+     "dataGroup": "Base",
+     "externalInplaceResourceHash": {
+      "DepotPath": {
+       "$type": "ResourcePath",
+       "$storage": "uint64",
+       "$value": "0"
+      },
+      "Flags": "Default"
+     },
+     "globalNodeId": {
+      "$type": "worldGlobalNodeID",
+      "hash": "0"
+     },
+     "instanceIndex": 4294967295,
+     "nodeFlags": "FLAG_AllowForceStreamIn, FLAG_Quest",
+     "nodeIdx": "9",
+     "patchedNode": {
+      "$type": "NodeRef",
+      "$storage": "uint64",
+      "$value": "0"
+     },
+     "preboostStreamingRefPoint": {
+      "$type": "Vector3",
+      "X": -1082.31,
+      "Y": -1525.95,
+      "Z": 25.78
+     },
+     "proxyMeshId": {
+      "$type": "worldGlobalNodeID",
+      "hash": "0"
+     },
+     "scale": {
+      "$type": "Vector3",
+      "X": 1,
+      "Y": 1,
+      "Z": 1
+     },
+     "secondaryRefPointDistance": 3.40282347e+38,
+     "secondaryRefPointPosition": {
+      "$type": "Vector3",
+      "X": 0,
+      "Y": 0,
+      "Z": 0
+     },
+     "streamingDistance": 1000.0,
+     "streamingPriority": "1",
+     "streamingRefPoint": {
+      "$type": "Vector3",
+      "X": -1082.31,
+      "Y": -1525.95,
+      "Z": 25.78
+     },
+     "todvisMask": "0",
+     "transform": {
+      "$type": "Transform",
+      "orientation": {
+       "$type": "Quaternion",
+       "i": 0,
+       "j": 0,
+       "k": 0.0,
+       "r": 1.0
+      },
+      "position": {
+       "$type": "Vector4",
+       "W": 0,
+       "X": -1082.31,
+       "Y": -1525.95,
+       "Z": 25.78
+      }
+     }
+    },
+    {
+     "$type": "worldCompiledNodeInstanceSetupInfo",
+     "dataGroup": "Base",
+     "externalInplaceResourceHash": {
+      "DepotPath": {
+       "$type": "ResourcePath",
+       "$storage": "uint64",
+       "$value": "0"
+      },
+      "Flags": "Default"
+     },
+     "globalNodeId": {
+      "$type": "worldGlobalNodeID",
+      "hash": "6233828434396155932"
+     },
+     "instanceIndex": 4294967295,
+     "nodeFlags": "FLAG_AllowForceStreamIn, FLAG_Quest",
+     "nodeIdx": "10",
+     "patchedNode": {
+      "$type": "NodeRef",
+      "$storage": "uint64",
+      "$value": "0"
+     },
+     "preboostStreamingRefPoint": {
+      "$type": "Vector3",
+      "X": -1082.31,
+      "Y": -1525.95,
+      "Z": 25.78
+     },
+     "proxyMeshId": {
+      "$type": "worldGlobalNodeID",
+      "hash": "0"
+     },
+     "scale": {
+      "$type": "Vector3",
+      "X": 1,
+      "Y": 1,
+      "Z": 1
+     },
+     "secondaryRefPointDistance": 3.40282347e+38,
+     "secondaryRefPointPosition": {
+      "$type": "Vector3",
+      "X": 0,
+      "Y": 0,
+      "Z": 0
+     },
+     "streamingDistance": 1000.0,
+     "streamingPriority": "1",
+     "streamingRefPoint": {
+      "$type": "Vector3",
+      "X": -1082.31,
+      "Y": -1525.95,
+      "Z": 25.78
+     },
+     "todvisMask": "0",
+     "transform": {
+      "$type": "Transform",
+      "orientation": {
+       "$type": "Quaternion",
+       "i": 0,
+       "j": 0,
+       "k": 0.0,
+       "r": 1.0
+      },
+      "position": {
+       "$type": "Vector4",
+       "W": 0,
+       "X": -1082.31,
+       "Y": -1525.95,
+       "Z": 25.78
+      }
+     }
+    },
+    {
+     "$type": "worldCompiledNodeInstanceSetupInfo",
+     "dataGroup": "Base",
+     "externalInplaceResourceHash": {
+      "DepotPath": {
+       "$type": "ResourcePath",
+       "$storage": "uint64",
+       "$value": "0"
+      },
+      "Flags": "Default"
+     },
+     "globalNodeId": {
+      "$type": "worldGlobalNodeID",
+      "hash": "17244742507559950543"
+     },
+     "instanceIndex": 4294967295,
+     "nodeFlags": "FLAG_AllowForceStreamIn, FLAG_Quest",
+     "nodeIdx": "11",
+     "patchedNode": {
+      "$type": "NodeRef",
+      "$storage": "uint64",
+      "$value": "0"
+     },
+     "preboostStreamingRefPoint": {
+      "$type": "Vector3",
+      "X": -1082.31,
+      "Y": -1525.95,
+      "Z": 25.78
+     },
+     "proxyMeshId": {
+      "$type": "worldGlobalNodeID",
+      "hash": "0"
+     },
+     "scale": {
+      "$type": "Vector3",
+      "X": 1,
+      "Y": 1,
+      "Z": 1
+     },
+     "secondaryRefPointDistance": 3.40282347e+38,
+     "secondaryRefPointPosition": {
+      "$type": "Vector3",
+      "X": 0,
+      "Y": 0,
+      "Z": 0
+     },
+     "streamingDistance": 1000.0,
+     "streamingPriority": "1",
+     "streamingRefPoint": {
+      "$type": "Vector3",
+      "X": -1082.31,
+      "Y": -1525.95,
+      "Z": 25.78
+     },
+     "todvisMask": "0",
+     "transform": {
+      "$type": "Transform",
+      "orientation": {
+       "$type": "Quaternion",
+       "i": 0,
+       "j": 0,
+       "k": 0.0,
+       "r": 1.0
+      },
+      "position": {
+       "$type": "Vector4",
+       "W": 0,
+       "X": -1082.31,
+       "Y": -1525.95,
+       "Z": 25.78
+      }
+     }
+    }
+   ],
+   "variantIndices": [
+    0
+   ],
+   "variantNodes": [],
+   "version": 68
+  }
+ }
+}

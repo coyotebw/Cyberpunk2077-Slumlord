@@ -6,7 +6,8 @@
 //    Realty texts at once (Tenants.reds draws the live text).
 //  3 All of Santo Domingo owned -> Finger's goading call ("I got somethin' of yours").
 //  4 "Meet Finger at the Las Palapas Motel", at night only (20:00-05:00; "Wait until night" by day), with a
-//    journal map pin and GPS on the motel entrance. The scene itself is Motel.reds (SlumlordMotelScene).
+//    journal map pin and GPS on the motel entrance. The scene itself is a quest phase (tools/quest/make_motel.py),
+//    bridged by Motel.reds (SlumlordMotelScene).
 //  5 Win: Santo Domingo dominated, lease-broken events stop, the Kusanagi goes into V's garage, and the
 //    goons' services are owed to V as Muscle (staff, Phase 2).
 module Slumlord
@@ -63,33 +64,7 @@ public abstract class SlumlordConversationOvertime {
   }
 }
 
-// The motel scene's dialogue, for when the scene is built (design doc 4.9). Finger's lines are
-// Andrew's recordings (in person: dry, -21.4 LUFS, positional). V's lines: vanilla clips (dry, -24 LUFS), picked 2026-11-19.
-public abstract class SlumlordMotelScript {
-  // Before the fight. Returns false past the last line.
-  public static func Standoff(n: Int32, male: Bool, line: ref<SlumlordCallLine>) -> Bool {
-    switch n {
-      case 0: line.Set(n"slumlord_finger_motel_01", "Well, look who showed. Pretty ride, huh? Be a shame if somethin' happened to it.", 6.43, "Finger", 0.6); return true;
-      case 1: line.Set(male ? n"slumlord_v_motel_01_m" : n"slumlord_v_motel_01_f", "Not actually mine.", 1.56, "V", 0.6); return true;   // vanilla q204
-      case 2: line.Set(n"slumlord_finger_motel_02", "Uh-huh. Here's the deal: you sign over Santo to me, and you ride outta here on your pretty little bike.", 6.75, "Finger", 0.6); return true;
-      case 3: line.Set(male ? n"slumlord_v_motel_02_m" : n"slumlord_v_motel_02_f", "I'm serious.", male ? 1.10 : 1.11, "V", 0.6); return true;   // vanilla mq001
-      case 4: line.Set(n"slumlord_finger_motel_03", "Don't play dumb with me! My boys lifted it right outta your— ...Whose bike IS this?", 6.51, "Finger", 0.4); return true;
-      case 5: line.Set(n"slumlord_finger_motel_04", "Fuck it. Waste 'em!", 1.71, "Finger", 0.3); return true;
-      default: return false;
-    }
-  }
-
-  // After the last goon falls.
-  public static func Truce(n: Int32, male: Bool, line: ref<SlumlordCallLine>) -> Bool {
-    switch n {
-      case 0: line.Set(n"slumlord_finger_truce_01", "Okay, okay! Truce, truce!", 2.14, "Finger", 0.6); return true;
-      case 1: line.Set(n"slumlord_finger_truce_02", "Look, these boys, what's left of 'em, they're good muscle. They're yours. Just let me walk.", 6.01, "Finger", 0.6); return true;
-      case 2: line.Set(male ? n"slumlord_v_truce_01_m" : n"slumlord_v_truce_01_f", "Deal.", male ? 0.63 : 0.70, "V", 0.6); return true;   // vanilla sq023
-      case 3: line.Set(n"slumlord_finger_truce_03", "Pleasure doin' business, Mr. Landlord.", 3.76, "Finger", 0.6); return true;
-      default: return false;
-    }
-  }
-}
+// The motel scene's dialogue lives in the scenes themselves: tools/quest/make_motel.py (STANDOFF, TRUCE).
 
 public class SlumlordFinger extends ScriptableSystem {
   private persistent let m_stage: Int32;              // 0 not started, 1 buying up, 2 goading call due, 3 meet at the motel, 5 won
@@ -348,6 +323,8 @@ public class SlumlordFinger extends ScriptableSystem {
     SlumlordJournal.Set(game, SlumlordConversationOvertime.Quest() + "/slumlord_co_desc_motel", "gameJournalQuestDescription", gameJournalEntryState.Inactive, false);
     SlumlordJournal.Set(game, SlumlordConversationOvertime.Quest(), "gameJournalQuest", gameJournalEntryState.Inactive, false);
     GameInstance.GetQuestsSystem(game).SetFactStr(SlumlordConversationOvertime.DoneFact(), 0);
+    let motel = SlumlordMotelScene.GetInstance(game);
+    if IsDefined(motel) { motel.Debug_ResetFacts(); }
     let boss = SlumlordBoss.GetInstance(game);
     if IsDefined(boss) {
       boss.Debug_ResetFinger();
