@@ -199,6 +199,10 @@ registerForEvent("onDraw", function()
       end)
     end
     ImGui.SameLine()
+    if ImGui.Button("Skip 7 days") then
+      guarded("Skip 7 days", function() setStatus(system():Debug_SkipDays(7)) end)
+    end
+    ImGui.SameLine()
     if ImGui.Button("Collect") then
       guarded("Collect", function()
         setStatus("Collected " .. tostring(system():Collect()))

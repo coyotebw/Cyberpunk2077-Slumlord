@@ -746,6 +746,21 @@ public class SlumlordSystem extends ScriptableSystem {
     return this.GetUncollectedTotal();
   }
 
+  // Moves the game clock forward by whole days (time of day kept), then lets the normal rent-day check run:
+  // a real skip, so rent, tenants, lease-broken events and anything else keyed to game time all see it.
+  public func Debug_SkipDays(days: Int32) -> String {
+    this.EnsureLoaded();
+    let ts = GameInstance.GetTimeSystem(this.GetGameInstance());
+    let before = ts.GetGameTime();
+    ts.SetGameTimeBySeconds(GameTime.GetSeconds(before) + days * 86400);
+    let after = ts.GetGameTime();
+    let rentDays = this.Refresh();
+    return "Skipped " + IntToString(days) + " days: day " + IntToString(GameTime.Days(before)) + " -> "
+      + IntToString(GameTime.Days(after)) + ", " + IntToString(GameTime.Hours(after)) + ":"
+      + (GameTime.Minutes(after) < 10 ? "0" : "") + IntToString(GameTime.Minutes(after))
+      + ". Rent days processed: " + IntToString(rentDays) + ". Waiting: " + IntToString(this.GetUncollectedTotal());
+  }
+
   public func Debug_BuyFree(id: CName) -> Bool {
     this.EnsureLoaded();
     let state = this.GetState(id);
