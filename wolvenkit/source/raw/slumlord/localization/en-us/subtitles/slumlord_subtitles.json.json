@@ -22,37 +22,25 @@
        "$type": "localizationPersistenceSubtitleEntry",
        "femaleVariant": "Well, look who showed. Pretty ride, huh? Be a shame if somethin' happened to it.",
        "maleVariant": "",
-       "stringId": "1014050488082468450"
-      },
-      {
-       "$type": "localizationPersistenceSubtitleEntry",
-       "femaleVariant": "Not actually mine.",
-       "maleVariant": "",
-       "stringId": "1014049388570840239"
+       "stringId": "10237422524937244258"
       },
       {
        "$type": "localizationPersistenceSubtitleEntry",
        "femaleVariant": "Uh-huh. Here's the deal: you sign over Santo to me, and you ride outta here on your pretty little bike.",
        "maleVariant": "",
-       "stringId": "1014048289059212028"
-      },
-      {
-       "$type": "localizationPersistenceSubtitleEntry",
-       "femaleVariant": "I'm serious.",
-       "maleVariant": "",
-       "stringId": "1014047189547583817"
+       "stringId": "10237420325913987836"
       },
       {
        "$type": "localizationPersistenceSubtitleEntry",
        "femaleVariant": "Don't play dumb with me! My boys lifted it right outta your— ...Whose bike IS this?",
        "maleVariant": "",
-       "stringId": "1014046090035955606"
+       "stringId": "10237418126890731414"
       },
       {
        "$type": "localizationPersistenceSubtitleEntry",
        "femaleVariant": "Fuck it. Waste 'em!",
        "maleVariant": "",
-       "stringId": "1014044990524327395"
+       "stringId": "10237417027379103203"
       },
       {
        "$type": "localizationPersistenceSubtitleEntry",
@@ -65,12 +53,6 @@
        "femaleVariant": "Look, these boys, what's left of 'em, they're good muscle. They're yours. Just let me walk.",
        "maleVariant": "",
        "stringId": "698810526302844517"
-      },
-      {
-       "$type": "localizationPersistenceSubtitleEntry",
-       "femaleVariant": "Deal.",
-       "maleVariant": "",
-       "stringId": "698809426791216306"
       },
       {
        "$type": "localizationPersistenceSubtitleEntry",

@@ -16,6 +16,7 @@
 //   slumlord_fc_fled   read here: 1 when Oshima shouts and runs -> his Sandevistan sprint
 //   slumlord_fc_won    read here: 1 -> Win() (journal, XP, Oshima unlocked as a contractor, Karl's thanks)
 //   slumlord_fc_abort  set here: 1 ends the encounter (debug reset)
+//   slumlord_fc_tries  quest: casts that failed to spawn in a row (3: the phase waits until V leaves); reset here
 // What stays in script: Oshima's Sandevistan dashes during the fight and his sprint away (the game's NPC
 // Sandevistan time dilation, ease curves and FX names, driven from here), and removing the vanilla gang.
 module Slumlord
@@ -57,6 +58,8 @@ public class SlumlordFight extends ScriptableSystem {
 
   private let m_ticking: Bool;
   private let m_textQueued: Bool;
+  private let m_textGateWaits: Int32;           // text retries spent waiting on the quest gate alone (not saved)
+  private let m_skipTextGate: Bool;             // Debug_StartTexts: texts skip the quest gate
   private let m_pinId: NewMappinID;
   private let m_pinOn: Bool;
 
@@ -246,6 +249,14 @@ public class SlumlordFight extends ScriptableSystem {
     this.m_textQueued = false;
     if this.m_stage != 1 { return; }
     let game = this.GetGameInstance();
+    // A scene, combat, a call or the main story: Karl texts a little later (10 minutes at most, so a stuck gate
+    // can't hold the quest back; the debug start skips the wait).
+    if !this.m_skipTextGate && !SlumlordGameFree.Now(game) && this.m_textGateWaits < 40 {
+      this.m_textGateWaits += 1;
+      this.QueueText(15.0);
+      return;
+    }
+    this.m_textGateWaits = 0;
     if this.m_textsSent == 0 {
       SlumlordJournal.Set(game, SlumlordJournal.Karl(), "gameJournalContact", gameJournalEntryState.Active, false);
       SlumlordJournal.Set(game, SlumlordJournal.Thread(), "gameJournalPhoneConversation", gameJournalEntryState.Active, false);
@@ -258,6 +269,7 @@ public class SlumlordFight extends ScriptableSystem {
       return;
     }
     // last text: the quest
+    this.m_skipTextGate = false;
     this.m_stage = 2;
     this.SetFact(n"slumlord_fc_won", 0);   // a win fact left from an earlier run must not count
     SlumlordJournal.Set(game, SlumlordJournal.Quest(), "gameJournalQuest", gameJournalEntryState.Active, true);
@@ -576,9 +588,11 @@ public class SlumlordFight extends ScriptableSystem {
   // Ends a running encounter (the quest phase despawns everyone and waits again).
   private func AbortEncounter() -> Void {
     if this.Fact(n"slumlord_fc_scene") == 1 { this.SetFact(n"slumlord_fc_abort", 1); }
+    this.SetFact(n"slumlord_fc_tries", 0);
   }
 
   public func Debug_StartTexts() -> Void {
+    this.m_skipTextGate = true;
     this.AbortEncounter();
     this.m_stage = 0;
     this.SetFact(n"slumlord_fc_ready", 0);
@@ -624,6 +638,8 @@ public class SlumlordFight extends ScriptableSystem {
       + " | quest phase: ready=" + IntToString(this.Fact(n"slumlord_fc_ready")) + " scene=" + IntToString(this.Fact(n"slumlord_fc_scene"))
       + " fight=" + IntToString(this.Fact(n"slumlord_fc_fight")) + " fled=" + IntToString(this.Fact(n"slumlord_fc_fled"))
       + " won=" + IntToString(this.Fact(n"slumlord_fc_won")) + " abort=" + IntToString(this.Fact(n"slumlord_fc_abort"))
+      + " tries=" + IntToString(this.Fact(n"slumlord_fc_tries"))
+      + " game free=" + (this.Fact(n"slumlord_gate_on") == 1 ? IntToString(this.Fact(n"slumlord_game_free")) : "no gate")
       + " Oshima=" + (IsDefined(this.Oshima()) ? "found" : "not seen") + " cleared=" + IntToString(ArraySize(this.m_clearIds))
       + " | pin=" + SlumlordFight.JournalPinState(this.GetGameInstance())
       + " near door:" + this.DescribeLocals()

@@ -16,3 +16,5 @@ quest:
       parent: cyberpunk2077.quest
     - path: slumlord\quest\slumlord_harbor.questphase
       parent: cyberpunk2077.quest
+    - path: slumlord\quest\slumlord_gate.questphase
+      parent: cyberpunk2077.quest

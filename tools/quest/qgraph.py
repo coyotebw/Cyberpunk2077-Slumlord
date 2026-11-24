@@ -56,8 +56,13 @@ def CN(s):
 
 
 def NR(s):
+    """A NodeRef by path. WolvenKit 10.0.0-beta.1 writes a NodeRef given by hash ($storage uint64) as 0 when it
+    converts JSON to CR2W (checked 2026-11-23), so vanilla nodes need their path: find it in WolvenKit's hash list
+    by matching FNV-1a 64 of the path without '#'."""
     if not s:
         return {"$type": "NodeRef", "$storage": "uint64", "$value": "0"}
+    if not isinstance(s, str):
+        raise ValueError(f"NodeRef by hash can't be written by WolvenKit: {s}")
     return {"$type": "NodeRef", "$storage": "string", "$value": s}
 
 
@@ -160,15 +165,73 @@ def c_delay(seconds):
               "seconds": s, "miliseconds": int(round((seconds - s) * 1000))})})
 
 
+# Shapes below copied from vanilla 2.5 phases (sts_std_arr_12_ow) and Sonora Apex's setup phase.
+
+def c_content_free(blocked=False):
+    """The main story isn't holding side content (no content-lock block token active)."""
+    return H({"$type": "questContentCondition", "type": H({"$type": "questContentLock_ConditionType",
+              "isContentBlocked": 1 if blocked else 0})})
+
+
+def c_scene_tier(tier="Tier1_FullGameplay", inverted=False):
+    """No scene is running (V in full gameplay); inverted: some scene holds V."""
+    return H({"$type": "questSceneCondition", "type": H({"$type": "questSceneTier_ConditionType",
+              "isInverted": 1 if inverted else 0, "tier": tier})})
+
+
+def c_status_effect(effect, has=True):
+    """V has (or, has=False, doesn't have) a status effect, e.g. GameplayRestriction.PhoneCall."""
+    return H({"$type": "questCharacterCondition", "type": H({"$type": "questCharacterStatusEffect_CondtionType",
+              "inverted": 0 if has else 1, "isPlayer": 1, "objectRef": ENT(), "statusEffectID": effect})})
+
+
+def c_vehicle(state, op="NotEqual"):
+    """V's vehicle state (Driving, Passenger, ...); vanilla street stories check NotEqual Driving and Passenger."""
+    sub = {"$type": "questCharacterState_PlayerSubType", "locomotionComparisonType": "Equal", "locomotionState": "Any",
+           "swimmingState": "Any", "swimmingStateComparisonType": "Equal", "takedownState": "Any",
+           "takedownStateComparisonType": "Equal", "timeDilationComparisonType": "Equal", "timeDilationState": "Any",
+           "upperBodyComparisonType": "Equal", "upperBodyState": "Any", "vehicleComparisonType": op,
+           "vehicleState": state, "weaponComparisonType": "Equal", "weaponState": "Any"}
+    return H({"$type": "questCharacterCondition", "type": H({"$type": "questCharacterState_ConditionType",
+              "subType": H(sub)})})
+
+
+def c_on_foot():
+    return c_and(c_vehicle("Driving"), c_vehicle("Passenger"))
+
+
+def c_journal(path, state="Active", cls="gameJournalQuest", index=4, inverted=False):
+    """A journal entry's state. index: fileEntryIndex, 4 for vanilla street stories (as vanilla and MBC write it)."""
+    return H({"$type": "questJournalCondition", "type": H({"$type": "questJournalEntryState_ConditionType",
+              "inverted": 1 if inverted else 0,
+              "path": H({"$type": "gameJournalPath", "className": CN(cls), "editorPath": "", "fileEntryIndex": index,
+                         "realPath": path}),
+              "state": state})})
+
+
+def c_game_free():
+    """Start-when-free gate (skill 4.5): no content lock, no scene, V not in combat, not on another call."""
+    return c_and(c_content_free(), c_scene_tier(), c_player_combat(inverted=True),
+                 c_status_effect("GameplayRestriction.PhoneCall", has=False))
+
+
+def c_game_busy():
+    """The negation of c_game_free()."""
+    return c_or(c_content_free(blocked=True), c_scene_tier(inverted=True), c_player_combat(),
+                c_status_effect("GameplayRestriction.PhoneCall", has=True))
+
+
 # ---- quest graph
 
 class Node:
-    def __init__(self, graph, data, inputs, outputs):
+    def __init__(self, graph, data, inputs, outputs, cut_source=False):
         self.graph = graph
         self.data = data
         self.sockets = {}
-        socks = [H({"$type": "questSocketDefinition", "connections": [], "name": CN("CutDestination"),
-                    "type": "CutDestination"})]
+        cut = H({"$type": "questSocketDefinition", "connections": [], "name": CN("CutDestination"),
+                 "type": "CutDestination"})
+        self.sockets["CutDestination"] = cut
+        socks = [cut]
         for name in inputs:
             s = H({"$type": "questSocketDefinition", "connections": [], "name": CN(name), "type": "Input"})
             self.sockets[name] = s
@@ -176,6 +239,10 @@ class Node:
         for name in outputs:
             s = H({"$type": "questSocketDefinition", "connections": [], "name": CN(name), "type": "Output"})
             self.sockets[name] = s
+            socks.append(s)
+        if cut_source:   # CutControl: its CutSource cancels the nodes wired to it (vanilla socket order)
+            s = H({"$type": "questSocketDefinition", "connections": [], "name": CN("CutSource"), "type": "CutSource"})
+            self.sockets["CutSource"] = s
             socks.append(s)
         data["sockets"] = socks
 
@@ -189,11 +256,11 @@ class Graph:
         self.nodes = []
         self.next_id = first_id
 
-    def node(self, kind, fields=None, inputs=("In",), outputs=("Out",)):
+    def node(self, kind, fields=None, inputs=("In",), outputs=("Out",), cut_source=False):
         data = {"$type": kind, "id": self.next_id}
         self.next_id += 1
         data.update(fields or {})
-        n = Node(self, data, inputs, outputs)
+        n = Node(self, data, inputs, outputs, cut_source)
         self.nodes.append(n)
         return n
 
@@ -242,6 +309,38 @@ class Graph:
                          "sceneLocation": {"$type": "scnWorldMarker", "nodeRef": NR(marker), "tag": CN("None"),
                                            "type": "NodeRef"}},
                          inputs=entries, outputs=exits)
+
+    def cut(self, permanent=False):
+        return self.node("questCutControlNodeDefinition", {"permanent": 1 if permanent else 0}, cut_source=True)
+
+    def race(self, src, out, *pauses):
+        """Start every pause node from src.out; the first one to pass cancels the others (vanilla's timeout
+        pattern: each branch runs through a CutControl whose CutSource is wired to the other branches'
+        CutDestination). Returns the CutControls in the order of `pauses`; continue each branch from its 'Out'."""
+        cuts = []
+        for p in pauses:
+            self.link(src, out, p, "In")
+            c = self.cut()
+            self.link(p, "Out", c, "In")
+            cuts.append(c)
+        for i, c in enumerate(cuts):
+            for j, p in enumerate(pauses):
+                if i != j:
+                    self.link(c, "CutSource", p, "CutDestination")
+        return cuts
+
+    def tokens(self, action, source):
+        """Block or Unblock the game's token-driven open-world content (street stories, gigs) under `source`."""
+        return self.node("questGameManagerNodeDefinition", {"type": H({
+            "$type": "questContentTokenManager_NodeType",
+            "subtype": H({"$type": "questBlockTokenActivation_NodeSubType", "action": action,
+                          "resetTokenSpawnTimer": 1, "source": CN(source)})})})
+
+    def checkpoint(self, name):
+        """Autosave point, as vanilla gigs place before and after their encounter (skipped while saves are locked)."""
+        return self.node("questCheckpointNodeDefinition", {"additionalEndGameRewardsTweak": [], "debugString": name,
+                         "endGameSave": 0, "ignoreSaveLocks": 0, "pointOfNoReturn": 0, "retryOnFailure": 0,
+                         "saveLock": 0})
 
     def link(self, a, out, b, inp):
         src = a.sockets[out]

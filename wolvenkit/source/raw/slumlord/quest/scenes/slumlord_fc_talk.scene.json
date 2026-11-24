@@ -530,7 +530,7 @@
            "scalingData": null,
            "screenplayLineId": {
             "$type": "scnscreenplayItemId",
-            "id": 0
+            "id": 1
            },
            "startTime": 0,
            "type": "0",
@@ -570,7 +570,7 @@
            "scalingData": null,
            "screenplayLineId": {
             "$type": "scnscreenplayItemId",
-            "id": 256
+            "id": 257
            },
            "startTime": 2750,
            "type": "0",
@@ -610,7 +610,7 @@
            "scalingData": null,
            "screenplayLineId": {
             "$type": "scnscreenplayItemId",
-            "id": 512
+            "id": 513
            },
            "startTime": 5090,
            "type": "0",
@@ -650,7 +650,7 @@
            "scalingData": null,
            "screenplayLineId": {
             "$type": "scnscreenplayItemId",
-            "id": 768
+            "id": 769
            },
            "startTime": 13940,
            "type": "0",
@@ -985,7 +985,7 @@
       },
       "itemId": {
        "$type": "scnscreenplayItemId",
-       "id": 0
+       "id": 1
       },
       "locstringId": {
        "$type": "scnlocLocstringId",
@@ -1021,7 +1021,7 @@
       },
       "itemId": {
        "$type": "scnscreenplayItemId",
-       "id": 256
+       "id": 257
       },
       "locstringId": {
        "$type": "scnlocLocstringId",
@@ -1057,7 +1057,7 @@
       },
       "itemId": {
        "$type": "scnscreenplayItemId",
-       "id": 512
+       "id": 513
       },
       "locstringId": {
        "$type": "scnlocLocstringId",
@@ -1093,7 +1093,7 @@
       },
       "itemId": {
        "$type": "scnscreenplayItemId",
-       "id": 768
+       "id": 769
       },
       "locstringId": {
        "$type": "scnlocLocstringId",

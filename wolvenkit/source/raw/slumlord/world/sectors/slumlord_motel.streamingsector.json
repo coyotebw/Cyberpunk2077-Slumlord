@@ -699,10 +699,10 @@
       },
       "globalNodeId": {
        "$type": "worldGlobalNodeID",
-       "hash": "0"
+       "hash": "18327679298235546684"
       },
       "instanceIndex": 4294967295,
-      "nodeFlags": "FLAG_AllowForceStreamIn, FLAG_Quest",
+      "nodeFlags": "FLAG_AllowForceStreamIn",
       "nodeIdx": "9",
       "patchedNode": {
        "$type": "NodeRef",
@@ -772,10 +772,10 @@
       },
       "globalNodeId": {
        "$type": "worldGlobalNodeID",
-       "hash": "6233828434396155932"
+       "hash": "0"
       },
       "instanceIndex": 4294967295,
-      "nodeFlags": "FLAG_AllowForceStreamIn, FLAG_Quest",
+      "nodeFlags": "FLAG_AllowForceStreamIn",
       "nodeIdx": "10",
       "patchedNode": {
        "$type": "NodeRef",
@@ -845,10 +845,10 @@
       },
       "globalNodeId": {
        "$type": "worldGlobalNodeID",
-       "hash": "17244742507559950543"
+       "hash": "0"
       },
       "instanceIndex": 4294967295,
-      "nodeFlags": "FLAG_AllowForceStreamIn, FLAG_Quest",
+      "nodeFlags": "FLAG_AllowForceStreamIn",
       "nodeIdx": "11",
       "patchedNode": {
        "$type": "NodeRef",
@@ -2964,10 +2964,10 @@
      },
      "globalNodeId": {
       "$type": "worldGlobalNodeID",
-      "hash": "0"
+      "hash": "18327679298235546684"
      },
      "instanceIndex": 4294967295,
-     "nodeFlags": "FLAG_AllowForceStreamIn, FLAG_Quest",
+     "nodeFlags": "FLAG_AllowForceStreamIn",
      "nodeIdx": "9",
      "patchedNode": {
       "$type": "NodeRef",
@@ -3037,10 +3037,10 @@
      },
      "globalNodeId": {
       "$type": "worldGlobalNodeID",
-      "hash": "6233828434396155932"
+      "hash": "0"
      },
      "instanceIndex": 4294967295,
-     "nodeFlags": "FLAG_AllowForceStreamIn, FLAG_Quest",
+     "nodeFlags": "FLAG_AllowForceStreamIn",
      "nodeIdx": "10",
      "patchedNode": {
       "$type": "NodeRef",
@@ -3110,10 +3110,10 @@
      },
      "globalNodeId": {
       "$type": "worldGlobalNodeID",
-      "hash": "17244742507559950543"
+      "hash": "0"
      },
      "instanceIndex": 4294967295,
-     "nodeFlags": "FLAG_AllowForceStreamIn, FLAG_Quest",
+     "nodeFlags": "FLAG_AllowForceStreamIn",
      "nodeIdx": "11",
      "patchedNode": {
       "$type": "NodeRef",

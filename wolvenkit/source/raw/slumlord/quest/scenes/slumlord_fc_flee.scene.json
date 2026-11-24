@@ -443,7 +443,7 @@
            "scalingData": null,
            "screenplayLineId": {
             "$type": "scnscreenplayItemId",
-            "id": 0
+            "id": 1
            },
            "startTime": 0,
            "type": "0",
@@ -530,7 +530,7 @@
       },
       "itemId": {
        "$type": "scnscreenplayItemId",
-       "id": 0
+       "id": 1
       },
       "locstringId": {
        "$type": "scnlocLocstringId",

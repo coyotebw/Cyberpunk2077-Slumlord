@@ -25,6 +25,8 @@ public class SlumlordBoss extends ScriptableSystem {
   private let m_lastCaller: String;                // shown on the end-of-call screen
   private let m_line: Int32;
   private let m_attemptQueued: Bool;
+  private let m_gateWaits: Int32;                  // retries spent waiting on the quest gate alone (not saved)
+  private let m_skipGate: Bool;                    // debug rings skip the quest gate
 
   public static func GetInstance(game: GameInstance) -> ref<SlumlordBoss> {
     return GameInstance.GetScriptableSystemsContainer(game).Get(n"Slumlord.SlumlordBoss") as SlumlordBoss;
@@ -34,6 +36,7 @@ public class SlumlordBoss extends ScriptableSystem {
   public static func CallDelaySeconds() -> Float { return 45.0; }     // after the purchase: let V leave the terminal
   public static func RetrySeconds() -> Float { return 30.0; }         // V busy (combat, another call)
   public static func MissedRetrySeconds() -> Float { return 120.0; }  // V let it ring out
+  public static func MaxGateWaits() -> Int32 { return 20; }           // 20 x 30 s: a stuck gate holds a call 10 min at most
   public static func CallDoneFact() -> String { return "slumlord_wat_call_done"; }
   public static func FingerCallDoneFact() -> String { return "slumlord_sd_call_done"; }
 
@@ -80,6 +83,7 @@ public class SlumlordBoss extends ScriptableSystem {
     this.m_watCallDone = false;
     this.m_watCallPending = true;
     this.m_callState = 0;
+    this.m_skipGate = true;
     this.TryRing();
   }
 
@@ -92,6 +96,7 @@ public class SlumlordBoss extends ScriptableSystem {
       this.m_sdThreatPending = true;
     }
     this.m_callState = 0;
+    this.m_skipGate = true;
     this.TryRing();
   }
 
@@ -149,10 +154,20 @@ public class SlumlordBoss extends ScriptableSystem {
     let next = this.NextPending();
     if !IsNameValid(next) { return; }
     let player = GetPlayer(this.GetGameInstance());
-    if !IsDefined(player) || player.IsInCombat() || this.OtherCallActive() {
+    // Busy: combat, another call, or (quest gate, slumlord_gate.questphase) a scene, the main story holding side
+    // content, a call in progress. The gate alone can hold a call back for 10 minutes at most.
+    let gateBusy = !this.m_skipGate && !SlumlordGameFree.Now(this.GetGameInstance())
+      && this.m_gateWaits < SlumlordBoss.MaxGateWaits();
+    if !IsDefined(player) || player.IsInCombat() || this.OtherCallActive() || gateBusy {
+      if gateBusy { this.m_gateWaits += 1; }
       this.ScheduleAttempt(SlumlordBoss.RetrySeconds());
       return;
     }
+    if this.m_gateWaits >= SlumlordBoss.MaxGateWaits() {
+      SlumlordUi.Log("Boss calls: the quest gate said busy for 10 minutes; ringing anyway");
+    }
+    this.m_gateWaits = 0;
+    this.m_skipGate = false;
     this.m_active = next;
     this.m_callState = 1;
     this.SendCall(questPhoneCallPhase.IncomingCall);

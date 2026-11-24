@@ -20,6 +20,9 @@ MOD = ROOT / "mod"
 
 SUBS_PATH = r"slumlord\localization\en-us\subtitles\slumlord_subtitles.json"
 GAP = 0.45   # seconds between scene lines
+# The game's voice languages. Audioware has no fallback locale and every voice language has its own line-length
+# report, so custom lines are registered under all of them (English audio everywhere beats silence).
+VOICE_LANGS = ("en-us", "de-de", "es-es", "fr-fr", "it-it", "jp-jp", "kr-kr", "pl-pl", "pt-br", "ru-ru", "zh-cn")
 
 
 def fnv1a64(s):
@@ -36,8 +39,9 @@ def node_id(ref):
 
 
 def ruid(key):
-    """String id of a scene line (subtitle, Audioware dialog, line length): stable, below 2^63."""
-    return fnv1a64("slumlord:" + key) & 0x7FFFFFFFFFFFFFFF
+    """String id of a custom scene line (subtitle, Audioware dialog, line length): stable, full unsigned 64 bits as
+    vanilla's (masking to 63 bits went with crashes on approach in another project)."""
+    return fnv1a64("slumlord:" + key)
 
 
 def quat(yaw):
@@ -51,14 +55,20 @@ def fixed(v):
 
 class Line:
     """A scene line. who: "npc" (the scene's NPC actor) or "v". text: one string, or (for female V, for male V).
-    secs: (female V, male V) lengths. audio: one file stem, or (female, male) stems in r6/audioware/Slumlord/vo."""
+    secs: (female V, male V) lengths. audio: one file stem, or (female, male) stems in r6/audioware/Slumlord/vo.
+    vanilla: a vanilla line's string id (the hex in its .wem name) to speak instead: the game then supplies voice,
+    subtitles and length in every language, and nothing is registered for it (audio is ignored)."""
 
-    def __init__(self, key, who, text, secs, audio):
-        self.key, self.who, self.text, self.secs, self.audio = key, who, text, secs, audio
+    def __init__(self, key, who, text, secs, audio=None, vanilla=None):
+        self.key, self.who, self.text, self.secs, self.audio, self.vanilla = key, who, text, secs, audio, vanilla
 
     @property
     def id(self):
-        return ruid(self.key)
+        return self.vanilla if self.vanilla else ruid(self.key)
+
+    @property
+    def custom(self):
+        return not self.vanilla
 
     def texts(self):
         return self.text if isinstance(self.text, tuple) else (self.text, self.text)
@@ -76,6 +86,7 @@ class Encounter:
         self.area = None                    # (name, x, y, z, half, height)
         self.null = None                    # (name, x, y, z, half)
         self.records = {}                   # TweakXL clones: record -> (base, display-name key or None)
+        self.token_source = f"slumlord_{key}"   # content-token block source while the encounter is up
 
     def ref(self, name):
         return self.base + name
@@ -86,12 +97,16 @@ class Encounter:
 
 # ---------------------------------------------------------------- world sector
 
-def setup_info(ref, pos, yaw=0.0, distance=200.0, idx=0):
+def setup_info(ref, pos, yaw=0.0, distance=200.0, idx=0, gid=None, flags="FLAG_AllowForceStreamIn, FLAG_Quest"):
+    """gid: the global node id when it isn't the ref's hash (vanilla gives the community registry its own id and
+    compiled community areas 0)."""
     x, y, z = pos
+    if gid is None:
+        gid = node_id(ref) if ref else 0
     return {"$type": "worldCompiledNodeInstanceSetupInfo", "dataGroup": "Base",
             "externalInplaceResourceHash": RES(None, "Default"),
-            "globalNodeId": {"$type": "worldGlobalNodeID", "hash": str(node_id(ref) if ref else 0)},
-            "instanceIndex": 4294967295, "nodeFlags": "FLAG_AllowForceStreamIn, FLAG_Quest", "nodeIdx": str(idx),
+            "globalNodeId": {"$type": "worldGlobalNodeID", "hash": str(gid)},
+            "instanceIndex": 4294967295, "nodeFlags": flags, "nodeIdx": str(idx),
             "patchedNode": NR(None), "preboostStreamingRefPoint": V3(x, y, z),
             "proxyMeshId": {"$type": "worldGlobalNodeID", "hash": "0"}, "scale": V3(1, 1, 1),
             "secondaryRefPointDistance": 3.40282347e+38, "secondaryRefPointPosition": V3(0, 0, 0),
@@ -122,10 +137,10 @@ def ai_spot(name, workspot):
 def build_sector(enc):
     nodes, data, refs = [], [], []
 
-    def add(node, ref, pos, yaw=0.0, distance=200.0):
+    def add(node, ref, pos, yaw=0.0, distance=200.0, gid=None, flags="FLAG_AllowForceStreamIn, FLAG_Quest"):
         idx = len(nodes)
         nodes.append(H(node))
-        data.append(setup_info(ref, pos, yaw, distance, idx=idx))
+        data.append(setup_info(ref, pos, yaw, distance, idx=idx, gid=gid, flags=flags))
         if ref:
             refs.append(NR(ref))
 
@@ -197,9 +212,14 @@ def build_sector(enc):
                                       "isEnabled": 1, "worldPosition": {"$type": "WorldPosition", "x": fixed(x),
                                                                         "y": fixed(y), "z": fixed(z)}, "yaw": yaw}
                                      for n, (x, y, z, yaw, _) in enc.spots.items()]},
-        None, (mx, my, mz), distance=1000.0)
+        None, (mx, my, mz), distance=1000.0, gid=node_id(enc.ref(f"slumlord_{enc.key}_registry")),
+        flags="FLAG_AllowForceStreamIn")
+    # As vanilla's AlwaysLoaded sectors (2.5): a compiled community area has global node id 0 and only
+    # FLAG_AllowForceStreamIn; the community is known by sourceObjectId (= the registry item's communityId), and
+    # its NodeRef stays listed in the sector's nodeRefs, as vanilla lists e.g. #arr_12_com_motel.
     for c, entries in enc.communities.items():
-        add(area_node(enc.ref(c), entries, c), enc.ref(c), (mx, my, mz), distance=1000.0)
+        add(area_node(enc.ref(c), entries, c), enc.ref(c), (mx, my, mz), distance=1000.0, gid=0,
+            flags="FLAG_AllowForceStreamIn")
 
     sector = {"$type": "worldStreamingSector", "category": "AlwaysLoaded", "cookingPlatform": "PLATFORM_PC",
               "externInplaceResource": RES(None), "level": 1, "localInplaceResource": [],
@@ -272,7 +292,7 @@ def build_scene(depot_path, lines, npc, interrupt_on=None):
     for i, line in enumerate(lines):
         rid = line.id
         dur = max(line.secs)
-        item = i * 256
+        item = i * 256 + 1   # vanilla screenplay shape: index x 256, +1 for lines (+2 for options)
         speaker, addressee = (NPC, V) if line.who == "npc" else (V, NPC)
         events.append(H({"$type": "scnDialogLineEvent",
                          "additionalSpeakers": {"$type": "scnAdditionalSpeakers", "executionTag": 0, "role": "Full", "speakers": []},
@@ -292,9 +312,9 @@ def build_scene(depot_path, lines, npc, interrupt_on=None):
         vd.append({"$type": "scnlocLocStoreEmbeddedVariantDescriptorEntry", "localeId": "db_db",
                    "locstringId": {"$type": "scnlocLocstringId", "ruid": str(rid)},
                    "signature": {"$type": "scnlocSignature", "val": "3"},
-                   "variantId": {"$type": "scnlocVariantId", "ruid": str(rid + 4)}, "vpeIndex": i})
+                   "variantId": {"$type": "scnlocVariantId", "ruid": str((rid + 4) & 0xFFFFFFFFFFFFFFFF)}, "vpeIndex": i})
         vp.append({"$type": "scnlocLocStoreEmbeddedVariantPayloadEntry", "content": line.texts()[1],
-                   "variantId": {"$type": "scnlocVariantId", "ruid": str(rid + 4)}})
+                   "variantId": {"$type": "scnlocVariantId", "ruid": str((rid + 4) & 0xFFFFFFFFFFFFFFFF)}})
         t += dur + GAP
     behaviors = [{"$type": "scnSectionInternalsActorBehavior", "actorId": {"$type": "scnActorId", "id": a},
                   "behaviorMode": "OnlyIfAlive"} for a in (NPC, V)]
@@ -423,9 +443,12 @@ def write_phase(enc, graph):
 # ---------------------------------------------------------------- shared outputs
 
 def build_texts(lines, onscreens):
-    """Subtitles for every scene line, their map, and onscreen texts (key -> text) added to en-us.json."""
+    """Subtitles for every custom scene line (vanilla lines bring their own), their map, and onscreen texts
+    (key -> text) added to en-us.json. ArchiveXL falls back to the first language listed for both."""
     entries = []
     for line in lines:
+        if not line.custom:
+            continue
         fem, male = line.texts()
         entries.append({"$type": "localizationPersistenceSubtitleEntry", "femaleVariant": fem,
                         "maleVariant": male if male != fem else "", "stringId": str(line.id)})
@@ -454,32 +477,41 @@ def build_audio(lines):
     p = MOD / "r6/audioware/Slumlord/slumlord.yml"
     text = p.read_text(encoding="utf-8")
     text = re.sub(r"\n*# >>> scene dialogs \(tools/quest/.*?# <<< scene dialogs\n", "\n", text, flags=re.S)
-    out = ["# >>> scene dialogs (tools/quest/make_scenes.py): every scene line, keyed by its string id", "dialogs:"]
+    out = ["# >>> scene dialogs (tools/quest/make_scenes.py): every custom scene line, keyed by its string id, in every",
+           "# voice language (Audioware has no fallback locale). Lines that reuse vanilla V lines aren't listed: the",
+           "# game voices those itself.", "dialogs:"]
     for line in lines:
+        if not line.custom:
+            continue
         out.append(f"  {line.id}:   # {line.key}: {line.texts()[1][:40]}")
-        if isinstance(line.audio, tuple):
-            out += ["    en-us:", f"      fem: ./vo/{line.audio[0]}.ogg", f"      male: ./vo/{line.audio[1]}.ogg"]
-        else:
-            out.append(f"    en-us: ./vo/{line.audio}.ogg")
+        for lang in VOICE_LANGS:
+            if isinstance(line.audio, tuple):
+                out += [f"    {lang}:", f"      fem: ./vo/{line.audio[0]}.ogg", f"      male: ./vo/{line.audio[1]}.ogg"]
+            else:
+                out.append(f"    {lang}: ./vo/{line.audio}.ogg")
     out.append("# <<< scene dialogs")
     p.write_text(text.rstrip("\n") + "\n\n" + "\n".join(out) + "\n", encoding="utf-8")
 
 
 def build_lengths(lines):
-    out = ["// Generated by tools/quest/make_scenes.py: lengths of the scene lines for the game's voice-over length",
+    out = ["// Generated by tools/quest/make_scenes.py: lengths of the custom scene lines for the game's voice-over length",
            "// table (the engine times subtitles and lines by it; ArchiveXL can't add to it). Same approach as",
-           "// Audioware's scene-dialog example. Needs Codeware.",
+           "// Audioware's scene-dialog example. Every voice language has its own report, so all eleven get the lines.",
+           "// Needs Codeware.",
            "module Slumlord", "",
            "public class SlumlordSceneLineLengths extends ScriptableService {",
            "  private cb func OnLoad() {",
-           "    GameInstance.GetCallbackSystem().RegisterCallback(n\"Resource/PostLoad\", this, n\"OnPostLoad\")",
-           "      .AddTarget(ResourceTarget.Path(r\"base\\\\localization\\\\en-us\\\\stringidvariantlengthsreport.json\"));",
-           "  }", "",
-           "  private cb func OnPostLoad(event: ref<ResourceEvent>) {",
-           "    let resource = event.GetResource() as JsonResource;",
-           "    let map = IsDefined(resource) ? resource.root as locVoiceoverLengthMap : null;",
-           "    if !IsDefined(map) { return; }"]
+           "    let callback = GameInstance.GetCallbackSystem().RegisterCallback(n\"Resource/PostLoad\", this, n\"OnPostLoad\");"]
+    for lang in VOICE_LANGS:
+        out.append(f"    callback.AddTarget(ResourceTarget.Path(r\"base\\\\localization\\\\{lang}\\\\stringidvariantlengthsreport.json\"));")
+    out += ["  }", "",
+            "  private cb func OnPostLoad(event: ref<ResourceEvent>) {",
+            "    let resource = event.GetResource() as JsonResource;",
+            "    let map = IsDefined(resource) ? resource.root as locVoiceoverLengthMap : null;",
+            "    if !IsDefined(map) { return; }"]
     for line in lines:
+        if not line.custom:
+            continue
         out.append(f"    SlumlordSceneLineLengths.Add(map, {line.id}ul, {line.secs[0]:.2f}, {line.secs[1]:.2f});   // {line.key}")
     out += ["  }", "",
             "  private static func Add(map: ref<locVoiceoverLengthMap>, id: Uint64, female: Float, male: Float) -> Void {",

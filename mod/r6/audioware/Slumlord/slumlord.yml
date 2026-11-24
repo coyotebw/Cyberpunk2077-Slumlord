@@ -30,12 +30,6 @@ sfx:
   slumlord_finger_truce_01: ./vo/slumlord_finger_truce_01.ogg
   slumlord_finger_truce_02: ./vo/slumlord_finger_truce_02.ogg
   slumlord_finger_truce_03: ./vo/slumlord_finger_truce_03.ogg
-  slumlord_v_motel_01_f: ./vo/slumlord_v_motel_01_f.ogg
-  slumlord_v_motel_01_m: ./vo/slumlord_v_motel_01_m.ogg
-  slumlord_v_motel_02_f: ./vo/slumlord_v_motel_02_f.ogg
-  slumlord_v_motel_02_m: ./vo/slumlord_v_motel_02_m.ogg
-  slumlord_v_truce_01_f: ./vo/slumlord_v_truce_01_f.ogg
-  slumlord_v_truce_01_m: ./vo/slumlord_v_truce_01_m.ogg
   slumlord_v_sdcall_01_f: ./vo/slumlord_v_sdcall_01_f.ogg
   slumlord_v_sdcall_01_m: ./vo/slumlord_v_sdcall_01_m.ogg
   slumlord_v_sdcall_02_f: ./vo/slumlord_v_sdcall_02_f.ogg
@@ -43,44 +37,174 @@ sfx:
   slumlord_v_sdcall_03_f: ./vo/slumlord_v_sdcall_03_f.ogg
   slumlord_v_sdcall_03_m: ./vo/slumlord_v_sdcall_03_m.ogg
 
-# >>> scene dialogs (tools/quest/make_scenes.py): every scene line, keyed by its string id
+# >>> scene dialogs (tools/quest/make_scenes.py): every custom scene line, keyed by its string id, in every
+# voice language (Audioware has no fallback locale). Lines that reuse vanilla V lines aren't listed: the
+# game voices those itself.
 dialogs:
-  1014050488082468450:   # slumlord_co_standoff_01: Well, look who showed. Pretty ride, huh?
+  10237422524937244258:   # slumlord_co_standoff_01: Well, look who showed. Pretty ride, huh?
     en-us: ./vo/slumlord_finger_motel_01.ogg
-  1014049388570840239:   # slumlord_co_standoff_02: Not actually mine.
-    en-us:
-      fem: ./vo/slumlord_v_motel_01_f.ogg
-      male: ./vo/slumlord_v_motel_01_m.ogg
-  1014048289059212028:   # slumlord_co_standoff_03: Uh-huh. Here's the deal: you sign over S
+    de-de: ./vo/slumlord_finger_motel_01.ogg
+    es-es: ./vo/slumlord_finger_motel_01.ogg
+    fr-fr: ./vo/slumlord_finger_motel_01.ogg
+    it-it: ./vo/slumlord_finger_motel_01.ogg
+    jp-jp: ./vo/slumlord_finger_motel_01.ogg
+    kr-kr: ./vo/slumlord_finger_motel_01.ogg
+    pl-pl: ./vo/slumlord_finger_motel_01.ogg
+    pt-br: ./vo/slumlord_finger_motel_01.ogg
+    ru-ru: ./vo/slumlord_finger_motel_01.ogg
+    zh-cn: ./vo/slumlord_finger_motel_01.ogg
+  10237420325913987836:   # slumlord_co_standoff_03: Uh-huh. Here's the deal: you sign over S
     en-us: ./vo/slumlord_finger_motel_02.ogg
-  1014047189547583817:   # slumlord_co_standoff_04: I'm serious.
-    en-us:
-      fem: ./vo/slumlord_v_motel_02_f.ogg
-      male: ./vo/slumlord_v_motel_02_m.ogg
-  1014046090035955606:   # slumlord_co_standoff_05: Don't play dumb with me! My boys lifted 
+    de-de: ./vo/slumlord_finger_motel_02.ogg
+    es-es: ./vo/slumlord_finger_motel_02.ogg
+    fr-fr: ./vo/slumlord_finger_motel_02.ogg
+    it-it: ./vo/slumlord_finger_motel_02.ogg
+    jp-jp: ./vo/slumlord_finger_motel_02.ogg
+    kr-kr: ./vo/slumlord_finger_motel_02.ogg
+    pl-pl: ./vo/slumlord_finger_motel_02.ogg
+    pt-br: ./vo/slumlord_finger_motel_02.ogg
+    ru-ru: ./vo/slumlord_finger_motel_02.ogg
+    zh-cn: ./vo/slumlord_finger_motel_02.ogg
+  10237418126890731414:   # slumlord_co_standoff_05: Don't play dumb with me! My boys lifted 
     en-us: ./vo/slumlord_finger_motel_03.ogg
-  1014044990524327395:   # slumlord_co_standoff_06: Fuck it. Waste 'em!
+    de-de: ./vo/slumlord_finger_motel_03.ogg
+    es-es: ./vo/slumlord_finger_motel_03.ogg
+    fr-fr: ./vo/slumlord_finger_motel_03.ogg
+    it-it: ./vo/slumlord_finger_motel_03.ogg
+    jp-jp: ./vo/slumlord_finger_motel_03.ogg
+    kr-kr: ./vo/slumlord_finger_motel_03.ogg
+    pl-pl: ./vo/slumlord_finger_motel_03.ogg
+    pt-br: ./vo/slumlord_finger_motel_03.ogg
+    ru-ru: ./vo/slumlord_finger_motel_03.ogg
+    zh-cn: ./vo/slumlord_finger_motel_03.ogg
+  10237417027379103203:   # slumlord_co_standoff_06: Fuck it. Waste 'em!
     en-us: ./vo/slumlord_finger_motel_04.ogg
+    de-de: ./vo/slumlord_finger_motel_04.ogg
+    es-es: ./vo/slumlord_finger_motel_04.ogg
+    fr-fr: ./vo/slumlord_finger_motel_04.ogg
+    it-it: ./vo/slumlord_finger_motel_04.ogg
+    jp-jp: ./vo/slumlord_finger_motel_04.ogg
+    kr-kr: ./vo/slumlord_finger_motel_04.ogg
+    pl-pl: ./vo/slumlord_finger_motel_04.ogg
+    pt-br: ./vo/slumlord_finger_motel_04.ogg
+    ru-ru: ./vo/slumlord_finger_motel_04.ogg
+    zh-cn: ./vo/slumlord_finger_motel_04.ogg
   698807227767959884:   # slumlord_co_truce_01: Okay, okay! Truce, truce!
     en-us: ./vo/slumlord_finger_truce_01.ogg
+    de-de: ./vo/slumlord_finger_truce_01.ogg
+    es-es: ./vo/slumlord_finger_truce_01.ogg
+    fr-fr: ./vo/slumlord_finger_truce_01.ogg
+    it-it: ./vo/slumlord_finger_truce_01.ogg
+    jp-jp: ./vo/slumlord_finger_truce_01.ogg
+    kr-kr: ./vo/slumlord_finger_truce_01.ogg
+    pl-pl: ./vo/slumlord_finger_truce_01.ogg
+    pt-br: ./vo/slumlord_finger_truce_01.ogg
+    ru-ru: ./vo/slumlord_finger_truce_01.ogg
+    zh-cn: ./vo/slumlord_finger_truce_01.ogg
   698810526302844517:   # slumlord_co_truce_02: Look, these boys, what's left of 'em, th
     en-us: ./vo/slumlord_finger_truce_02.ogg
-  698809426791216306:   # slumlord_co_truce_03: Deal.
-    en-us:
-      fem: ./vo/slumlord_v_truce_01_f.ogg
-      male: ./vo/slumlord_v_truce_01_m.ogg
+    de-de: ./vo/slumlord_finger_truce_02.ogg
+    es-es: ./vo/slumlord_finger_truce_02.ogg
+    fr-fr: ./vo/slumlord_finger_truce_02.ogg
+    it-it: ./vo/slumlord_finger_truce_02.ogg
+    jp-jp: ./vo/slumlord_finger_truce_02.ogg
+    kr-kr: ./vo/slumlord_finger_truce_02.ogg
+    pl-pl: ./vo/slumlord_finger_truce_02.ogg
+    pt-br: ./vo/slumlord_finger_truce_02.ogg
+    ru-ru: ./vo/slumlord_finger_truce_02.ogg
+    zh-cn: ./vo/slumlord_finger_truce_02.ogg
   698803929233075251:   # slumlord_co_truce_04: Pleasure doin' business, Mr. Landlord.
     en-us: ./vo/slumlord_finger_truce_03.ogg
+    de-de: ./vo/slumlord_finger_truce_03.ogg
+    es-es: ./vo/slumlord_finger_truce_03.ogg
+    fr-fr: ./vo/slumlord_finger_truce_03.ogg
+    it-it: ./vo/slumlord_finger_truce_03.ogg
+    jp-jp: ./vo/slumlord_finger_truce_03.ogg
+    kr-kr: ./vo/slumlord_finger_truce_03.ogg
+    pl-pl: ./vo/slumlord_finger_truce_03.ogg
+    pt-br: ./vo/slumlord_finger_truce_03.ogg
+    ru-ru: ./vo/slumlord_finger_truce_03.ogg
+    zh-cn: ./vo/slumlord_finger_truce_03.ogg
   9166329559545131686:   # slumlord_fc_talk_01: V. I told you we'd be seeing each other 
     en-us: ./vo/slumlord_oshima_fight_01.ogg
+    de-de: ./vo/slumlord_oshima_fight_01.ogg
+    es-es: ./vo/slumlord_oshima_fight_01.ogg
+    fr-fr: ./vo/slumlord_oshima_fight_01.ogg
+    it-it: ./vo/slumlord_oshima_fight_01.ogg
+    jp-jp: ./vo/slumlord_oshima_fight_01.ogg
+    kr-kr: ./vo/slumlord_oshima_fight_01.ogg
+    pl-pl: ./vo/slumlord_oshima_fight_01.ogg
+    pt-br: ./vo/slumlord_oshima_fight_01.ogg
+    ru-ru: ./vo/slumlord_oshima_fight_01.ogg
+    zh-cn: ./vo/slumlord_oshima_fight_01.ogg
   9166328460033503475:   # slumlord_fc_talk_02: What the fuck…?
     en-us:
       fem: ./vo/slumlord_v_fight_01_f.ogg
       male: ./vo/slumlord_v_fight_01_m.ogg
+    de-de:
+      fem: ./vo/slumlord_v_fight_01_f.ogg
+      male: ./vo/slumlord_v_fight_01_m.ogg
+    es-es:
+      fem: ./vo/slumlord_v_fight_01_f.ogg
+      male: ./vo/slumlord_v_fight_01_m.ogg
+    fr-fr:
+      fem: ./vo/slumlord_v_fight_01_f.ogg
+      male: ./vo/slumlord_v_fight_01_m.ogg
+    it-it:
+      fem: ./vo/slumlord_v_fight_01_f.ogg
+      male: ./vo/slumlord_v_fight_01_m.ogg
+    jp-jp:
+      fem: ./vo/slumlord_v_fight_01_f.ogg
+      male: ./vo/slumlord_v_fight_01_m.ogg
+    kr-kr:
+      fem: ./vo/slumlord_v_fight_01_f.ogg
+      male: ./vo/slumlord_v_fight_01_m.ogg
+    pl-pl:
+      fem: ./vo/slumlord_v_fight_01_f.ogg
+      male: ./vo/slumlord_v_fight_01_m.ogg
+    pt-br:
+      fem: ./vo/slumlord_v_fight_01_f.ogg
+      male: ./vo/slumlord_v_fight_01_m.ogg
+    ru-ru:
+      fem: ./vo/slumlord_v_fight_01_f.ogg
+      male: ./vo/slumlord_v_fight_01_m.ogg
+    zh-cn:
+      fem: ./vo/slumlord_v_fight_01_f.ogg
+      male: ./vo/slumlord_v_fight_01_m.ogg
   9166327360521875264:   # slumlord_fc_talk_03: I need this place to film a scene for De
     en-us: ./vo/slumlord_oshima_fight_02.ogg
+    de-de: ./vo/slumlord_oshima_fight_02.ogg
+    es-es: ./vo/slumlord_oshima_fight_02.ogg
+    fr-fr: ./vo/slumlord_oshima_fight_02.ogg
+    it-it: ./vo/slumlord_oshima_fight_02.ogg
+    jp-jp: ./vo/slumlord_oshima_fight_02.ogg
+    kr-kr: ./vo/slumlord_oshima_fight_02.ogg
+    pl-pl: ./vo/slumlord_oshima_fight_02.ogg
+    pt-br: ./vo/slumlord_oshima_fight_02.ogg
+    ru-ru: ./vo/slumlord_oshima_fight_02.ogg
+    zh-cn: ./vo/slumlord_oshima_fight_02.ogg
   9166335057103272741:   # slumlord_fc_talk_04: Kill him!
     en-us: ./vo/slumlord_oshima_fight_03.ogg
+    de-de: ./vo/slumlord_oshima_fight_03.ogg
+    es-es: ./vo/slumlord_oshima_fight_03.ogg
+    fr-fr: ./vo/slumlord_oshima_fight_03.ogg
+    it-it: ./vo/slumlord_oshima_fight_03.ogg
+    jp-jp: ./vo/slumlord_oshima_fight_03.ogg
+    kr-kr: ./vo/slumlord_oshima_fight_03.ogg
+    pl-pl: ./vo/slumlord_oshima_fight_03.ogg
+    pt-br: ./vo/slumlord_oshima_fight_03.ogg
+    ru-ru: ./vo/slumlord_oshima_fight_03.ogg
+    zh-cn: ./vo/slumlord_oshima_fight_03.ogg
   961256844586253376:   # slumlord_fc_flee_01: This isn't over, V!
     en-us: ./vo/slumlord_oshima_flee_01.ogg
+    de-de: ./vo/slumlord_oshima_flee_01.ogg
+    es-es: ./vo/slumlord_oshima_flee_01.ogg
+    fr-fr: ./vo/slumlord_oshima_flee_01.ogg
+    it-it: ./vo/slumlord_oshima_flee_01.ogg
+    jp-jp: ./vo/slumlord_oshima_flee_01.ogg
+    kr-kr: ./vo/slumlord_oshima_flee_01.ogg
+    pl-pl: ./vo/slumlord_oshima_flee_01.ogg
+    pt-br: ./vo/slumlord_oshima_flee_01.ogg
+    ru-ru: ./vo/slumlord_oshima_flee_01.ogg
+    zh-cn: ./vo/slumlord_oshima_flee_01.ogg
 # <<< scene dialogs

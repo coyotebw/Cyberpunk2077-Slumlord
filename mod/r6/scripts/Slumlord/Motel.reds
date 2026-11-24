@@ -9,9 +9,13 @@
 //   slumlord_co_fight      read here: 1 fighting, 2 goons down -> journal objectives
 //   slumlord_co_motel_won  read here: 1 after the truce -> SlumlordFinger.Win()
 //   slumlord_co_abort      set here: 1 ends the encounter (debug, or the quest is no longer at the motel stage)
+//   slumlord_co_tries      quest: casts that failed to spawn in a row (3: the phase waits until V leaves); reset here
 //
-// What stays in script: the bike that isn't V's (a vehicle prop), and removing vanilla NPCs that the crowd null
-// area doesn't cover (community NPCs) near Finger's spot until the fight starts.
+// What stays in script: the bike that isn't V's (a vehicle prop), and a fallback that removes police still standing
+// near Finger's spot until the fight starts. The quest phase itself clears the crowd (null area), switches off the
+// open-world NCPD pair on the motel's upper walkway (their community, by id) and waits while El Capitan's gig with
+// Pedro at the same motel runs. Nothing else is touched: Pedro, Claire's and Johnny's race crowds and the metro
+// regulars belong to vanilla content that waits on them.
 module Slumlord
 
 public class SlumlordMotelScene extends ScriptableSystem {
@@ -168,8 +172,9 @@ public class SlumlordMotelScene extends ScriptableSystem {
   }
 
   // ---- clearing the area ----
-  // Las Palapas is dense. The crowd null area takes care of the crowd; community NPCs are destroyed here (the game
-  // refuses despawn requests for some, Fight.reds 2026-11-18), every second until the fight starts.
+  // Las Palapas is dense. The crowd null area takes care of the crowd and the quest phase deactivates the night
+  // NCPD community; police that still stand inside the clear radius are destroyed here (the game refuses despawn
+  // requests for community NPCs, Fight.reds 2026-11-18), every second until the fight starts.
 
   private func ClearLocals(player: ref<PlayerPuppet>) -> Void {
     let center = SlumlordConversationOvertime.FingerSpot();
@@ -199,10 +204,17 @@ public class SlumlordMotelScene extends ScriptableSystem {
     }
   }
 
-  // Never the scene's own people; never anyone in combat, dead or hostile to V (destroying those left V stuck in
-  // combat, 2026-11-21).
+  // Police only (NCPD affiliation or group), never the scene's own people, never anyone in combat, dead or hostile
+  // to V (destroying those left V stuck in combat, 2026-11-21). Destroying everyone near the spot, as before
+  // 2026-11-23, could take vanilla quest characters (Pedro, Claire, Johnny, race crowds) and stall their quests.
+  public static func IsPolice(npc: ref<NPCPuppet>) -> Bool {
+    let info = StrLower(SlumlordFight.GangInfo(npc));
+    return StrContains(info, "ncpd") || StrContains(info, "police");
+  }
+
   private func MaybeRemove(npc: ref<NPCPuppet>, center: Vector4) -> Void {
     if SlumlordMotelScene.IsSceneRecord(npc.GetRecordID()) || npc.IsPlayerCompanion() { return; }
+    if !SlumlordMotelScene.IsPolice(npc) { return; }
     if NPCPuppet.IsInCombat(npc) || npc.IsDead() { return; }
     let player = GetPlayer(this.GetGameInstance());
     if IsDefined(player) && Equals(GameObject.GetAttitudeBetween(npc, player), EAIAttitude.AIA_Hostile) { return; }
@@ -253,6 +265,7 @@ public class SlumlordMotelScene extends ScriptableSystem {
   public func Debug_ResetFacts() -> Void {
     this.SetFact(n"slumlord_co_motel_won", 0);
     this.SetFact(n"slumlord_co_ready", 0);
+    this.SetFact(n"slumlord_co_tries", 0);
     this.SetFact(n"slumlord_co_abort", this.Fact(n"slumlord_co_scene") == 1 ? 1 : 0);
     if this.m_bikeUp {
       GameInstance.GetDynamicEntitySystem().DeleteTagged(SlumlordMotelScene.BikeTag());
@@ -269,6 +282,8 @@ public class SlumlordMotelScene extends ScriptableSystem {
       + " fight=" + IntToString(this.Fact(n"slumlord_co_fight"))
       + " won=" + IntToString(this.Fact(n"slumlord_co_motel_won"))
       + " abort=" + IntToString(this.Fact(n"slumlord_co_abort"))
+      + " tries=" + IntToString(this.Fact(n"slumlord_co_tries"))
+      + " game free=" + (this.Fact(n"slumlord_gate_on") == 1 ? IntToString(this.Fact(n"slumlord_game_free")) : "no gate")
       + " any time=" + (this.m_anyTime ? "yes" : "no") + " dist=" + FloatToStringPrec(dist, 0) + "m"
       + " bike=" + (this.m_bikeUp ? "up" : "no") + " cleared NPCs=" + IntToString(ArraySize(this.m_clearIds))
       + " | Finger record " + (IsDefined(finger) ? "ok (TweakXL)" : "MISSING (r6/tweaks/Slumlord/slumlord_characters.yaml not loaded)");

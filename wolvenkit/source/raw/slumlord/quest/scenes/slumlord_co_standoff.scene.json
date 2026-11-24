@@ -305,7 +305,7 @@
       "localeId": "db_db",
       "locstringId": {
        "$type": "scnlocLocstringId",
-       "ruid": "1014050488082468450"
+       "ruid": "10237422524937244258"
       },
       "signature": {
        "$type": "scnlocSignature",
@@ -313,7 +313,7 @@
       },
       "variantId": {
        "$type": "scnlocVariantId",
-       "ruid": "1014050488082468454"
+       "ruid": "10237422524937244262"
       },
       "vpeIndex": 0
      },
@@ -322,7 +322,7 @@
       "localeId": "db_db",
       "locstringId": {
        "$type": "scnlocLocstringId",
-       "ruid": "1014049388570840239"
+       "ruid": "1730300931073597440"
       },
       "signature": {
        "$type": "scnlocSignature",
@@ -330,7 +330,7 @@
       },
       "variantId": {
        "$type": "scnlocVariantId",
-       "ruid": "1014049388570840243"
+       "ruid": "1730300931073597444"
       },
       "vpeIndex": 1
      },
@@ -339,7 +339,7 @@
       "localeId": "db_db",
       "locstringId": {
        "$type": "scnlocLocstringId",
-       "ruid": "1014048289059212028"
+       "ruid": "10237420325913987836"
       },
       "signature": {
        "$type": "scnlocSignature",
@@ -347,7 +347,7 @@
       },
       "variantId": {
        "$type": "scnlocVariantId",
-       "ruid": "1014048289059212032"
+       "ruid": "10237420325913987840"
       },
       "vpeIndex": 2
      },
@@ -356,7 +356,7 @@
       "localeId": "db_db",
       "locstringId": {
        "$type": "scnlocLocstringId",
-       "ruid": "1014047189547583817"
+       "ruid": "1863268095561617408"
       },
       "signature": {
        "$type": "scnlocSignature",
@@ -364,7 +364,7 @@
       },
       "variantId": {
        "$type": "scnlocVariantId",
-       "ruid": "1014047189547583821"
+       "ruid": "1863268095561617412"
       },
       "vpeIndex": 3
      },
@@ -373,7 +373,7 @@
       "localeId": "db_db",
       "locstringId": {
        "$type": "scnlocLocstringId",
-       "ruid": "1014046090035955606"
+       "ruid": "10237418126890731414"
       },
       "signature": {
        "$type": "scnlocSignature",
@@ -381,7 +381,7 @@
       },
       "variantId": {
        "$type": "scnlocVariantId",
-       "ruid": "1014046090035955610"
+       "ruid": "10237418126890731418"
       },
       "vpeIndex": 4
      },
@@ -390,7 +390,7 @@
       "localeId": "db_db",
       "locstringId": {
        "$type": "scnlocLocstringId",
-       "ruid": "1014044990524327395"
+       "ruid": "10237417027379103203"
       },
       "signature": {
        "$type": "scnlocSignature",
@@ -398,7 +398,7 @@
       },
       "variantId": {
        "$type": "scnlocVariantId",
-       "ruid": "1014044990524327399"
+       "ruid": "10237417027379103207"
       },
       "vpeIndex": 5
      }
@@ -409,7 +409,7 @@
       "content": "Well, look who showed. Pretty ride, huh? Be a shame if somethin' happened to it.",
       "variantId": {
        "$type": "scnlocVariantId",
-       "ruid": "1014050488082468454"
+       "ruid": "10237422524937244262"
       }
      },
      {
@@ -417,7 +417,7 @@
       "content": "Not actually mine.",
       "variantId": {
        "$type": "scnlocVariantId",
-       "ruid": "1014049388570840243"
+       "ruid": "1730300931073597444"
       }
      },
      {
@@ -425,7 +425,7 @@
       "content": "Uh-huh. Here's the deal: you sign over Santo to me, and you ride outta here on your pretty little bike.",
       "variantId": {
        "$type": "scnlocVariantId",
-       "ruid": "1014048289059212032"
+       "ruid": "10237420325913987840"
       }
      },
      {
@@ -433,7 +433,7 @@
       "content": "I'm serious.",
       "variantId": {
        "$type": "scnlocVariantId",
-       "ruid": "1014047189547583821"
+       "ruid": "1863268095561617412"
       }
      },
      {
@@ -441,7 +441,7 @@
       "content": "Don't play dumb with me! My boys lifted it right outta your— ...Whose bike IS this?",
       "variantId": {
        "$type": "scnlocVariantId",
-       "ruid": "1014046090035955610"
+       "ruid": "10237418126890731418"
       }
      },
      {
@@ -449,7 +449,7 @@
       "content": "Fuck it. Waste 'em!",
       "variantId": {
        "$type": "scnlocVariantId",
-       "ruid": "1014044990524327399"
+       "ruid": "10237417027379103207"
       }
      }
     ]
@@ -580,7 +580,7 @@
            "scalingData": null,
            "screenplayLineId": {
             "$type": "scnscreenplayItemId",
-            "id": 0
+            "id": 1
            },
            "startTime": 0,
            "type": "0",
@@ -620,7 +620,7 @@
            "scalingData": null,
            "screenplayLineId": {
             "$type": "scnscreenplayItemId",
-            "id": 256
+            "id": 257
            },
            "startTime": 6880,
            "type": "0",
@@ -660,7 +660,7 @@
            "scalingData": null,
            "screenplayLineId": {
             "$type": "scnscreenplayItemId",
-            "id": 512
+            "id": 513
            },
            "startTime": 8890,
            "type": "0",
@@ -700,7 +700,7 @@
            "scalingData": null,
            "screenplayLineId": {
             "$type": "scnscreenplayItemId",
-            "id": 768
+            "id": 769
            },
            "startTime": 16090,
            "type": "0",
@@ -740,7 +740,7 @@
            "scalingData": null,
            "screenplayLineId": {
             "$type": "scnscreenplayItemId",
-            "id": 1024
+            "id": 1025
            },
            "startTime": 17650,
            "type": "0",
@@ -780,7 +780,7 @@
            "scalingData": null,
            "screenplayLineId": {
             "$type": "scnscreenplayItemId",
-            "id": 1280
+            "id": 1281
            },
            "startTime": 24610,
            "type": "0",
@@ -1115,11 +1115,11 @@
       },
       "itemId": {
        "$type": "scnscreenplayItemId",
-       "id": 0
+       "id": 1
       },
       "locstringId": {
        "$type": "scnlocLocstringId",
-       "ruid": "1014050488082468450"
+       "ruid": "10237422524937244258"
       },
       "maleLipsyncAnimationName": {
        "$type": "CName",
@@ -1151,11 +1151,11 @@
       },
       "itemId": {
        "$type": "scnscreenplayItemId",
-       "id": 256
+       "id": 257
       },
       "locstringId": {
        "$type": "scnlocLocstringId",
-       "ruid": "1014049388570840239"
+       "ruid": "1730300931073597440"
       },
       "maleLipsyncAnimationName": {
        "$type": "CName",
@@ -1187,83 +1187,11 @@
       },
       "itemId": {
        "$type": "scnscreenplayItemId",
-       "id": 512
+       "id": 513
       },
       "locstringId": {
        "$type": "scnlocLocstringId",
-       "ruid": "1014048289059212028"
-      },
-      "maleLipsyncAnimationName": {
-       "$type": "CName",
-       "$storage": "string",
-       "$value": "None"
-      },
-      "speaker": {
-       "$type": "scnActorId",
-       "id": 0
-      },
-      "usage": {
-       "$type": "scnscreenplayLineUsage",
-       "playerGenderMask": {
-        "$type": "scnGenderMask",
-        "mask": 3
-       }
-      }
-     },
-     {
-      "$type": "scnscreenplayDialogLine",
-      "addressee": {
-       "$type": "scnActorId",
-       "id": 0
-      },
-      "femaleLipsyncAnimationName": {
-       "$type": "CName",
-       "$storage": "string",
-       "$value": "None"
-      },
-      "itemId": {
-       "$type": "scnscreenplayItemId",
-       "id": 768
-      },
-      "locstringId": {
-       "$type": "scnlocLocstringId",
-       "ruid": "1014047189547583817"
-      },
-      "maleLipsyncAnimationName": {
-       "$type": "CName",
-       "$storage": "string",
-       "$value": "None"
-      },
-      "speaker": {
-       "$type": "scnActorId",
-       "id": 1
-      },
-      "usage": {
-       "$type": "scnscreenplayLineUsage",
-       "playerGenderMask": {
-        "$type": "scnGenderMask",
-        "mask": 3
-       }
-      }
-     },
-     {
-      "$type": "scnscreenplayDialogLine",
-      "addressee": {
-       "$type": "scnActorId",
-       "id": 1
-      },
-      "femaleLipsyncAnimationName": {
-       "$type": "CName",
-       "$storage": "string",
-       "$value": "None"
-      },
-      "itemId": {
-       "$type": "scnscreenplayItemId",
-       "id": 1024
-      },
-      "locstringId": {
-       "$type": "scnlocLocstringId",
-       "ruid": "1014046090035955606"
+       "ruid": "10237420325913987836"
       },
       "maleLipsyncAnimationName": {
        "$type": "CName",
@@ -1286,6 +1214,42 @@
       "$type": "scnscreenplayDialogLine",
       "addressee": {
        "$type": "scnActorId",
+       "id": 0
+      },
+      "femaleLipsyncAnimationName": {
+       "$type": "CName",
+       "$storage": "string",
+       "$value": "None"
+      },
+      "itemId": {
+       "$type": "scnscreenplayItemId",
+       "id": 769
+      },
+      "locstringId": {
+       "$type": "scnlocLocstringId",
+       "ruid": "1863268095561617408"
+      },
+      "maleLipsyncAnimationName": {
+       "$type": "CName",
+       "$storage": "string",
+       "$value": "None"
+      },
+      "speaker": {
+       "$type": "scnActorId",
+       "id": 1
+      },
+      "usage": {
+       "$type": "scnscreenplayLineUsage",
+       "playerGenderMask": {
+        "$type": "scnGenderMask",
+        "mask": 3
+       }
+      }
+     },
+     {
+      "$type": "scnscreenplayDialogLine",
+      "addressee": {
+       "$type": "scnActorId",
        "id": 1
       },
       "femaleLipsyncAnimationName": {
@@ -1295,11 +1259,47 @@
       },
       "itemId": {
        "$type": "scnscreenplayItemId",
-       "id": 1280
+       "id": 1025
       },
       "locstringId": {
        "$type": "scnlocLocstringId",
-       "ruid": "1014044990524327395"
+       "ruid": "10237418126890731414"
+      },
+      "maleLipsyncAnimationName": {
+       "$type": "CName",
+       "$storage": "string",
+       "$value": "None"
+      },
+      "speaker": {
+       "$type": "scnActorId",
+       "id": 0
+      },
+      "usage": {
+       "$type": "scnscreenplayLineUsage",
+       "playerGenderMask": {
+        "$type": "scnGenderMask",
+        "mask": 3
+       }
+      }
+     },
+     {
+      "$type": "scnscreenplayDialogLine",
+      "addressee": {
+       "$type": "scnActorId",
+       "id": 1
+      },
+      "femaleLipsyncAnimationName": {
+       "$type": "CName",
+       "$storage": "string",
+       "$value": "None"
+      },
+      "itemId": {
+       "$type": "scnscreenplayItemId",
+       "id": 1281
+      },
+      "locstringId": {
+       "$type": "scnlocLocstringId",
+       "ruid": "10237417027379103203"
       },
       "maleLipsyncAnimationName": {
        "$type": "CName",

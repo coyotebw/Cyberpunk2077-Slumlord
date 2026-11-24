@@ -16,6 +16,7 @@ FILES=(
   quest/scenes/slumlord_fc_talk.scene
   quest/scenes/slumlord_fc_flee.scene
   world/sectors/slumlord_harbor.streamingsector
+  quest/slumlord_gate.questphase
   world/slumlord.streamingblock
   localization/en-us.json
   localization/en-us/subtitles/slumlord_subtitles.json

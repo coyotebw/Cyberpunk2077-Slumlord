@@ -339,7 +339,7 @@
       "localeId": "db_db",
       "locstringId": {
        "$type": "scnlocLocstringId",
-       "ruid": "698809426791216306"
+       "ruid": "1803789808907030528"
       },
       "signature": {
        "$type": "scnlocSignature",
@@ -347,7 +347,7 @@
       },
       "variantId": {
        "$type": "scnlocVariantId",
-       "ruid": "698809426791216310"
+       "ruid": "1803789808907030532"
       },
       "vpeIndex": 2
      },
@@ -391,7 +391,7 @@
       "content": "Deal.",
       "variantId": {
        "$type": "scnlocVariantId",
-       "ruid": "698809426791216310"
+       "ruid": "1803789808907030532"
       }
      },
      {
@@ -518,7 +518,7 @@
            "scalingData": null,
            "screenplayLineId": {
             "$type": "scnscreenplayItemId",
-            "id": 0
+            "id": 1
            },
            "startTime": 0,
            "type": "0",
@@ -558,7 +558,7 @@
            "scalingData": null,
            "screenplayLineId": {
             "$type": "scnscreenplayItemId",
-            "id": 256
+            "id": 257
            },
            "startTime": 2590,
            "type": "0",
@@ -598,7 +598,7 @@
            "scalingData": null,
            "screenplayLineId": {
             "$type": "scnscreenplayItemId",
-            "id": 512
+            "id": 513
            },
            "startTime": 9050,
            "type": "0",
@@ -638,7 +638,7 @@
            "scalingData": null,
            "screenplayLineId": {
             "$type": "scnscreenplayItemId",
-            "id": 768
+            "id": 769
            },
            "startTime": 10200,
            "type": "0",
@@ -725,7 +725,7 @@
       },
       "itemId": {
        "$type": "scnscreenplayItemId",
-       "id": 0
+       "id": 1
       },
       "locstringId": {
        "$type": "scnlocLocstringId",
@@ -761,7 +761,7 @@
       },
       "itemId": {
        "$type": "scnscreenplayItemId",
-       "id": 256
+       "id": 257
       },
       "locstringId": {
        "$type": "scnlocLocstringId",
@@ -797,11 +797,11 @@
       },
       "itemId": {
        "$type": "scnscreenplayItemId",
-       "id": 512
+       "id": 513
       },
       "locstringId": {
        "$type": "scnlocLocstringId",
-       "ruid": "698809426791216306"
+       "ruid": "1803789808907030528"
       },
       "maleLipsyncAnimationName": {
        "$type": "CName",
@@ -833,7 +833,7 @@
       },
       "itemId": {
        "$type": "scnscreenplayItemId",
-       "id": 768
+       "id": 769
       },
       "locstringId": {
        "$type": "scnlocLocstringId",
