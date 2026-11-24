@@ -4,7 +4,7 @@
 // plain metadata that compile either way.
 //
 // Read them with SlumlordSettings.Get(). Changes apply at once: prices, rent and fees are worked out when shown or
-// charged, tenant rates on the next rent day, pins are redrawn when a setting changes.
+// charged, tenant rates on the next rent day.
 module Slumlord
 
 public class SlumlordSettings extends IScriptable {
@@ -89,21 +89,11 @@ public class SlumlordSettings extends IScriptable {
   @runtimeProperty("ModSettings.max", "100")
   public let fingerHarassPercent: Int32 = 20;
 
-  // ---- Map
-
-  @runtimeProperty("ModSettings.mod", "Slumlord")
-  @runtimeProperty("ModSettings.category", "Map")
-  @runtimeProperty("ModSettings.category.order", "4")
-  @runtimeProperty("ModSettings.order", "1")
-  @runtimeProperty("ModSettings.displayName", "Property pins")
-  @runtimeProperty("ModSettings.description", "Show Slumlord's property pins (listings and holdings) on the map. Quest pins are not affected.")
-  public let showPins: Bool = true;
-
   // ---- Marmur Bank (only with Marmur Bank installed and an account open)
 
   @runtimeProperty("ModSettings.mod", "Slumlord")
   @runtimeProperty("ModSettings.category", "Marmur Bank")
-  @runtimeProperty("ModSettings.category.order", "5")
+  @runtimeProperty("ModSettings.category.order", "4")
   @runtimeProperty("ModSettings.order", "1")
   @runtimeProperty("ModSettings.displayName", "Name entries in Marmur")
   @runtimeProperty("ModSettings.description", "Rent, purchases and contractor fees show in Marmur's activity as Real Estate entries from Slumlord Realty or the crew. Needs Marmur Bank.")
@@ -111,7 +101,7 @@ public class SlumlordSettings extends IScriptable {
 
   @runtimeProperty("ModSettings.mod", "Slumlord")
   @runtimeProperty("ModSettings.category", "Marmur Bank")
-  @runtimeProperty("ModSettings.category.order", "5")
+  @runtimeProperty("ModSettings.category.order", "4")
   @runtimeProperty("ModSettings.order", "2")
   @runtimeProperty("ModSettings.displayName", "Pay from savings")
   @runtimeProperty("ModSettings.description", "When your cash is short, purchases and contractor fees draw the rest from Marmur savings. Needs Marmur Bank with Overdraft Protection turned on.")
@@ -127,10 +117,8 @@ public class SlumlordSettings extends IScriptable {
   }
 
   // Mod Settings calls this after any change (RegisterListenerToModifications).
-  public cb func OnModSettingsChange() -> Void {
-    let system = SlumlordSystem.GetInstance(GetGameInstance());
-    if IsDefined(system) { system.RefreshPins(); }
-  }
+  // Nothing to redraw since the property map pins were removed (2026-11-22): every setting is read when used.
+  public cb func OnModSettingsChange() -> Void {}
 }
 
 // Owns the live settings object, kept up to date by Mod Settings while the game runs.

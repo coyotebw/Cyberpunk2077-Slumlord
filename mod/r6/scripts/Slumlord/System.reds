@@ -32,7 +32,6 @@ public class SlumlordSystem extends ScriptableSystem {
   private let m_contractors: array<ref<SlumlordContractorDef>>;
   private let m_tickId: DelayID;
   private let m_tickActive: Bool;
-  private let m_pinIds: array<NewMappinID>;
 
   // ===================================================================== lifecycle
 
@@ -57,7 +56,6 @@ public class SlumlordSystem extends ScriptableSystem {
       ModLog(n"Slumlord", "Initialized on this save.");
     }
     this.Refresh();
-    this.RefreshPins();
     this.ScheduleTick();
   }
 
@@ -172,7 +170,6 @@ public class SlumlordSystem extends ScriptableSystem {
     }
 
     if this.GetOwnedCount() > 0 {
-      this.RefreshPins();   // owned pins turn into rent-ready pins
       if SlumlordSettings.Get().weeklyReport { SlumlordTenantReport.Send(this.GetGameInstance()); }
     }
     if accrued > 0 {
@@ -555,7 +552,6 @@ public class SlumlordSystem extends ScriptableSystem {
     }
     this.Earn(total, "Slumlord Realty", "Rent collected: " + IntToString(paying) + (paying == 1 ? " property" : " properties"));
     this.m_lifetimeCollected += total;
-    this.RefreshPins();
     return total;
   }
 
@@ -573,7 +569,6 @@ public class SlumlordSystem extends ScriptableSystem {
     state.rankPoints = 0;
     state.jobsThisWeek = 0;
     ModLog(n"Slumlord", "Bought " + def.displayName);
-    this.RefreshPins();
     let boss = SlumlordBoss.GetInstance(this.GetGameInstance());
     if IsDefined(boss) {
       boss.OnPropertyBought(def);
@@ -622,32 +617,6 @@ public class SlumlordSystem extends ScriptableSystem {
     // Phase 5 hook: Chairman Mao contact + The Landlord Special.
     this.ShowMessage("Every property in Night City is yours. Someone wants to meet you.");
     ModLog(n"Slumlord", "Empire complete.");
-  }
-
-  // ===================================================================== map pins
-
-  // Draft: one vanilla pin per captured position in an unlocked district.
-  // Phase 1b replaces the vanilla icon with the design-system pin atlas
-  // (listing / owned by rank / rent / trouble).
-  public func RefreshPins() -> Void {
-    let mappins = GameInstance.GetMappinSystem(this.GetGameInstance());
-    for pinId in this.m_pinIds {
-      mappins.UnregisterMappin(pinId);
-    }
-    ArrayClear(this.m_pinIds);
-    if !SlumlordSettings.Get().showPins { return; }
-    for def in this.m_properties {
-      if SlumlordPositions.Has(def.id) && this.IsDistrictUnlocked(def.districtId) {
-        let data: MappinData;
-        data.mappinType = t"Mappins.DefaultStaticMappin";
-        data.variant = gamedataMappinVariant.Zzz05_ApartmentToPurchaseVariant; // drawn over with our pin (Pins.reds)
-        data.scriptData = SlumlordPins.Data(this.GetState(def.id));
-        data.active = true;
-        data.debugCaption = "Slumlord " + NameToString(def.id);
-        data.visibleThroughWalls = false;
-        ArrayPush(this.m_pinIds, mappins.RegisterMappin(data, SlumlordPositions.Get(def.id)));
-      }
-    }
   }
 
   // ===================================================================== contractors (Contractors.reds)
@@ -730,7 +699,6 @@ public class SlumlordSystem extends ScriptableSystem {
       state.rankPoints = 0;
       this.m_rankUps += 1;
       ModLog(n"Slumlord", def.displayName + " renovated by " + c.crew + ": rank " + SlumlordEconomy.RankLetter(state.rank));
-      this.RefreshPins();
       return SlumlordHireResult.RankedUp;
     }
     return SlumlordHireResult.Progress;
@@ -783,7 +751,6 @@ public class SlumlordSystem extends ScriptableSystem {
     state.reportOut = 0;
     state.rankPoints = 0;
     state.jobsThisWeek = 0;
-    this.RefreshPins();
     this.NotifyBosses();
     return true;
   }
@@ -793,7 +760,6 @@ public class SlumlordSystem extends ScriptableSystem {
     if !IsDefined(state) { return false; }
     state.rank = Clamp(rank, 0, SlumlordTuning.MaxRank());
     state.rankPoints = 0;
-    this.RefreshPins();
     return true;
   }
 
@@ -843,7 +809,6 @@ public class SlumlordSystem extends ScriptableSystem {
     let boss = SlumlordBoss.GetInstance(game);
     if IsDefined(boss) { boss.Debug_Reset(); }          // Oshima's call
     this.EnsureLoaded();
-    this.RefreshPins();
   }
 
   public func Debug_Dump() -> String {
@@ -873,7 +838,7 @@ public class SlumlordSystem extends ScriptableSystem {
               + "  jobs " + IntToString(s.jobsThisWeek) + "/" + IntToString(SlumlordTuning.JobsPerRentDay());
           }
           if !SlumlordPositions.Has(p.id) {
-            out = out + "  (no pin position)";
+            out = out + "  (no position recorded)";
           }
         }
       }

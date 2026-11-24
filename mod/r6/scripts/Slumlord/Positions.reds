@@ -1,7 +1,9 @@
-// World positions for property map pins.
-// Capture them in game with the SlumlordDebug CET window ("Capture position"), which appends
-// ready-to-paste lines to captured_positions.txt in its mod folder. Paste them inside Get().
-// A property without a position gets no pin.
+// Recorded world positions of the properties' entrances, captured in game.
+// Property map pins were removed on 2026-11-22 (they never looked right, and only a few properties are visited in
+// person); these positions are kept for a possible return and are still used as anchors (Fight.reds: the Harbor
+// Safehouse door). Last pin code: Pins.reds and MapFilter.reds in git history before 2026-11-22.
+// Capture new ones in game with the SlumlordDebug CET window ("Capture position"), which appends ready-to-paste
+// lines to captured_positions.txt in its mod folder. Paste them inside Get().
 module Slumlord
 
 public abstract class SlumlordPositions {
