@@ -294,7 +294,8 @@ def harbor_phase(enc):
 def root(enc, inner, communities, extra_resets, gates=(), cleanup=()):
     """Wait for the ready fact, V in the area and the game free (plus `gates`), run `inner`, clean up whichever way
     it ended, wait again. inner's outputs: Out1 done, Out2 aborted (V left, or the script's abort), Out3 the cast
-    never spawned. Three failed spawns in a row wait for V to leave the area before trying again.
+    never spawned. Three failed spawns in a row wait for V to leave the area, or for the scripts' debug resets to
+    clear the tries fact, before trying again.
     cleanup: functions(graph) -> node, run during cleanup (e.g. vanilla communities back on)."""
     F = enc.fact
     area = enc.ref(enc.area[0])
@@ -322,7 +323,7 @@ def root(enc, inner, communities, extra_resets, gates=(), cleanup=()):
     capped = g.branch(c_fact(F("tries"), "GreaterOrEqual", 3))
     g.link(last, "Out", capped, "In")
     g.link(capped, "False", wait, "In")
-    left = g.pause(c_trigger(area, "IsOutside"))
+    left = g.pause(c_or(c_trigger(area, "IsOutside"), c_fact(F("tries"), "Equal", 0)))
     g.link(capped, "True", left, "In")
     g.link(g.chain(left, g.set_fact(F("tries"), 0)), "Out", wait, "In")
     return g

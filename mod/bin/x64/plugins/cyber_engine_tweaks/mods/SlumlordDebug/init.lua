@@ -311,6 +311,12 @@ registerForEvent("onDraw", function()
     if ImGui.Button("Fight state") then
       guarded("Fight state", function() setStatus("Million Dollar Baby: " .. fight():Debug_State()) end)
     end
+    if ImGui.Button("Restart harbor encounter") then
+      guarded("Restart harbor encounter", function()
+        fight():Debug_RestartEncounter()
+        setStatus("Harbor encounter ended; it starts again about 5 s later while you're in range. " .. fight():Debug_State())
+      end)
+    end
     ImGui.PushItemWidth(140)
     Debug.spot = ImGui.Combo("##spot", Debug.spot, SPOTS, #SPOTS)
     ImGui.PopItemWidth()
@@ -367,10 +373,10 @@ registerForEvent("onDraw", function()
       end)
     end
     ImGui.SameLine()
-    if ImGui.Button("End motel encounter") then
-      guarded("End motel encounter", function()
+    if ImGui.Button("Restart motel encounter") then
+      guarded("Restart motel encounter", function()
         motel():Debug_Clear()
-        setStatus(motel():Debug_State())
+        setStatus("Motel encounter ended; it starts again about 5 s later while you're in range and it's ready. " .. motel():Debug_State())
       end)
     end
     ImGui.SameLine()

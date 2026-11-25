@@ -104,6 +104,8 @@ public class SlumlordBoss extends ScriptableSystem {
     this.m_watCallDone = false;
     this.m_watCallPending = false;
     this.m_callState = 0;
+    this.m_skipGate = false;
+    this.m_gateWaits = 0;
     GameInstance.GetQuestsSystem(this.GetGameInstance()).SetFactStr(SlumlordBoss.CallDoneFact(), 0);
   }
 
@@ -113,6 +115,8 @@ public class SlumlordBoss extends ScriptableSystem {
     this.m_sdGoadPending = false;
     this.m_sdGoadDone = false;
     this.m_callState = 0;
+    this.m_skipGate = false;
+    this.m_gateWaits = 0;
     GameInstance.GetQuestsSystem(this.GetGameInstance()).SetFactStr(SlumlordBoss.FingerCallDoneFact(), 0);
   }
 
@@ -120,7 +124,10 @@ public class SlumlordBoss extends ScriptableSystem {
     return "oshima pending=" + (this.m_watCallPending ? "yes" : "no") + " done=" + (this.m_watCallDone ? "yes" : "no")
       + " | finger threat " + (this.m_sdThreatDone ? "done" : (this.m_sdThreatPending ? "pending" : "-"))
       + " goad " + (this.m_sdGoadDone ? "done" : (this.m_sdGoadPending ? "pending" : "-"))
-      + " | state=" + IntToString(this.m_callState) + " active=" + NameToString(this.m_active);
+      + " | state=" + IntToString(this.m_callState) + " active=" + NameToString(this.m_active)
+      + " | game free=" + (SlumlordGameFree.GateOn(this.GetGameInstance()) ? (SlumlordGameFree.Now(this.GetGameInstance()) ? "yes" : "no") : "no gate")
+      + " gate waits=" + IntToString(this.m_gateWaits) + "/" + IntToString(SlumlordBoss.MaxGateWaits())
+      + (this.m_skipGate ? " (debug ring skips the gate)" : "");
   }
 
   // ---- ringing ----

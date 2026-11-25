@@ -10,10 +10,13 @@ module Slumlord
 // scene holds V, V isn't in combat or on another call. The same conditions gate the encounters natively. The phase
 // marks itself with slumlord_gate_on; without it (archive missing) callers fall back to their own checks.
 public abstract class SlumlordGameFree {
+  public static func GateOn(game: GameInstance) -> Bool {
+    return GameInstance.GetQuestsSystem(game).GetFact(n"slumlord_gate_on") == 1;
+  }
+
   public static func Now(game: GameInstance) -> Bool {
-    let quests = GameInstance.GetQuestsSystem(game);
-    if quests.GetFact(n"slumlord_gate_on") != 1 { return true; }
-    return quests.GetFact(n"slumlord_game_free") == 1;
+    if !SlumlordGameFree.GateOn(game) { return true; }
+    return GameInstance.GetQuestsSystem(game).GetFact(n"slumlord_game_free") == 1;
   }
 }
 

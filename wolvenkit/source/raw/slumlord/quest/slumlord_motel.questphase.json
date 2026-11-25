@@ -7080,44 +7080,68 @@
         "condition": {
          "HandleId": "491",
          "Data": {
-          "$type": "questTriggerCondition",
-          "activatorRef": {
-           "$type": "gameEntityReference",
-           "dynamicEntityUniqueName": {
-            "$type": "CName",
-            "$storage": "string",
-            "$value": "None"
+          "$type": "questLogicalCondition",
+          "conditions": [
+           {
+            "HandleId": "492",
+            "Data": {
+             "$type": "questTriggerCondition",
+             "activatorRef": {
+              "$type": "gameEntityReference",
+              "dynamicEntityUniqueName": {
+               "$type": "CName",
+               "$storage": "string",
+               "$value": "None"
+              },
+              "names": [],
+              "reference": {
+               "$type": "NodeRef",
+               "$storage": "uint64",
+               "$value": "0"
+              },
+              "sceneActorContextName": {
+               "$type": "CName",
+               "$storage": "string",
+               "$value": "None"
+              },
+              "slotName": {
+               "$type": "CName",
+               "$storage": "string",
+               "$value": "None"
+              },
+              "type": "EntityRef"
+             },
+             "isPlayerActivator": 1,
+             "triggerAreaRef": {
+              "$type": "NodeRef",
+              "$storage": "string",
+              "$value": "$/slumlord/motel/#slumlord_co_tr_area"
+             },
+             "type": "IsOutside"
+            }
            },
-           "names": [],
-           "reference": {
-            "$type": "NodeRef",
-            "$storage": "uint64",
-            "$value": "0"
-           },
-           "sceneActorContextName": {
-            "$type": "CName",
-            "$storage": "string",
-            "$value": "None"
-           },
-           "slotName": {
-            "$type": "CName",
-            "$storage": "string",
-            "$value": "None"
-           },
-           "type": "EntityRef"
-          },
-          "isPlayerActivator": 1,
-          "triggerAreaRef": {
-           "$type": "NodeRef",
-           "$storage": "string",
-           "$value": "$/slumlord/motel/#slumlord_co_tr_area"
-          },
-          "type": "IsOutside"
+           {
+            "HandleId": "493",
+            "Data": {
+             "$type": "questFactsDBCondition",
+             "type": {
+              "HandleId": "494",
+              "Data": {
+               "$type": "questVarComparison_ConditionType",
+               "comparisonType": "Equal",
+               "factName": "slumlord_co_tries",
+               "value": 0
+              }
+             }
+            }
+           }
+          ],
+          "operation": "OR"
          }
         },
         "sockets": [
          {
-          "HandleId": "492",
+          "HandleId": "495",
           "Data": {
            "$type": "questSocketDefinition",
            "connections": [],
@@ -7133,21 +7157,21 @@
           "HandleRefId": "489"
          },
          {
-          "HandleId": "493",
+          "HandleId": "496",
           "Data": {
            "$type": "questSocketDefinition",
            "connections": [
             {
-             "HandleId": "494",
+             "HandleId": "497",
              "Data": {
               "$type": "graphGraphConnectionDefinition",
               "destination": {
-               "HandleId": "495",
+               "HandleId": "498",
                "Data": {
                 "$type": "questSocketDefinition",
                 "connections": [
                  {
-                  "HandleRefId": "494"
+                  "HandleRefId": "497"
                  }
                 ],
                 "name": {
@@ -7159,7 +7183,7 @@
                }
               },
               "source": {
-               "HandleRefId": "493"
+               "HandleRefId": "496"
               }
              }
             }
@@ -7176,12 +7200,12 @@
        }
       },
       {
-       "HandleId": "496",
+       "HandleId": "499",
        "Data": {
         "$type": "questFactsDBManagerNodeDefinition",
         "id": 17,
         "type": {
-         "HandleId": "497",
+         "HandleId": "500",
          "Data": {
           "$type": "questSetVar_NodeType",
           "factName": "slumlord_co_tries",
@@ -7191,7 +7215,7 @@
         },
         "sockets": [
          {
-          "HandleId": "498",
+          "HandleId": "501",
           "Data": {
            "$type": "questSocketDefinition",
            "connections": [],
@@ -7204,7 +7228,7 @@
           }
          },
          {
-          "HandleRefId": "495"
+          "HandleRefId": "498"
          },
          {
           "HandleRefId": "9"

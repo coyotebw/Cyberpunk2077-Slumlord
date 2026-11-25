@@ -13,7 +13,7 @@
 //
 // What stays in script: the bike that isn't V's (a vehicle prop), and a fallback that removes police still standing
 // near Finger's spot until the fight starts. The quest phase itself clears the crowd (null area), switches off the
-// open-world NCPD pair on the motel's upper walkway (their community, by id) and waits while El Capitan's gig with
+// open-world NCPD patrol on the motel's upper walkway (its cs_patrol community) and waits while El Capitan's gig with
 // Pedro at the same motel runs. Nothing else is touched: Pedro, Claire's and Johnny's race crowds and the metro
 // regulars belong to vanilla content that waits on them.
 module Slumlord
@@ -253,10 +253,22 @@ public class SlumlordMotelScene extends ScriptableSystem {
   }
 
   // Ends the encounter now: the quest phase despawns everyone and waits for V again.
+  // Ends the running encounter (the quest phase cleans up: crowd, cast, police, content tokens) and clears the
+  // spawn-retry count. The phase starts it again about 5 s later while V is in range and it's ready (stage 3 at
+  // night, or "by day too"), so in practice this restarts it. With no encounter up it only clears the count: an abort
+  // left set would end the next encounter the moment it starts.
   public func Debug_Clear() -> Void {
-    this.SetFact(n"slumlord_co_abort", 1);
+    if this.Fact(n"slumlord_co_scene") == 1 { this.SetFact(n"slumlord_co_abort", 1); }
+    this.SetFact(n"slumlord_co_tries", 0);
     GameInstance.GetDynamicEntitySystem().DeleteTagged(SlumlordMotelScene.BikeTag());
     this.m_bikeUp = false;
+  }
+
+  // El Capitan's gig sts_std_arr_12 puts Pedro in a motel room; the quest phase holds the encounter while it's active.
+  public static func GigActive(game: GameInstance) -> Bool {
+    let journal = GameInstance.GetJournalManager(game);
+    let entry = journal.GetEntryByString("quests/street_stories/santo_domingo/arroyo/sts_std_arr_12", "gameJournalQuest");
+    return IsDefined(entry) && Equals(journal.GetEntryState(entry), gameJournalEntryState.Active);
   }
 
   // The script-owned facts back to their start (Reset Conversation Overtime, Reset all, and when the quest reaches
@@ -285,6 +297,7 @@ public class SlumlordMotelScene extends ScriptableSystem {
       + " tries=" + IntToString(this.Fact(n"slumlord_co_tries"))
       + " game free=" + (this.Fact(n"slumlord_gate_on") == 1 ? IntToString(this.Fact(n"slumlord_game_free")) : "no gate")
       + " any time=" + (this.m_anyTime ? "yes" : "no") + " dist=" + FloatToStringPrec(dist, 0) + "m"
+      + " El Capitan's motel gig=" + (SlumlordMotelScene.GigActive(this.GetGameInstance()) ? "active (encounter waits)" : "not active")
       + " bike=" + (this.m_bikeUp ? "up" : "no") + " cleared NPCs=" + IntToString(ArraySize(this.m_clearIds))
       + " | Finger record " + (IsDefined(finger) ? "ok (TweakXL)" : "MISSING (r6/tweaks/Slumlord/slumlord_characters.yaml not loaded)");
   }

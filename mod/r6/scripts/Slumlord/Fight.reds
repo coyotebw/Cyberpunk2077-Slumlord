@@ -593,6 +593,7 @@ public class SlumlordFight extends ScriptableSystem {
 
   public func Debug_StartTexts() -> Void {
     this.m_skipTextGate = true;
+    this.m_textGateWaits = 0;
     this.AbortEncounter();
     this.m_stage = 0;
     this.SetFact(n"slumlord_fc_ready", 0);
@@ -601,9 +602,17 @@ public class SlumlordFight extends ScriptableSystem {
     this.BeginTexts(2.0);
   }
 
+  // Ends the running Safehouse encounter (the quest phase cleans up) and clears the spawn-retry count; the quest
+  // stays at its stage, so the phase starts the encounter again about 5 s later while V is in range.
+  public func Debug_RestartEncounter() -> Void {
+    this.AbortEncounter();
+  }
+
   public func Debug_Reset() -> Void {
     let game = this.GetGameInstance();
     this.AbortEncounter();
+    this.m_skipTextGate = false;
+    this.m_textGateWaits = 0;
     this.SetPin(false);
     this.m_stage = 0;
     this.m_textsSent = 0;
