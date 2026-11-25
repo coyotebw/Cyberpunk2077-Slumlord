@@ -330,8 +330,9 @@ def root(enc, inner, communities, extra_resets, gates=(), cleanup=()):
 
 
 def gate_phase():
-    """Start-when-free gate for Slumlord's script-sent calls and texts (skill 4.5): keeps slumlord_game_free at 1
-    while the game is free for unsolicited content (no content lock, no scene, V not in combat or on a call)."""
+    """Keeps slumlord_game_free at 1 while the encounters' start conditions hold (no content lock, no scene, V not in
+    combat or on a call), for the debug readouts. Calls and texts don't wait on it: it read "busy" the whole time V
+    was buying at a computer (2026-11-24 test)."""
     g = Graph()
     g_in = g.input()
     free = g.pause(c_game_free())

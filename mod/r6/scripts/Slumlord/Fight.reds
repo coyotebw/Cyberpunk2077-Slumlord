@@ -58,8 +58,6 @@ public class SlumlordFight extends ScriptableSystem {
 
   private let m_ticking: Bool;
   private let m_textQueued: Bool;
-  private let m_textGateWaits: Int32;           // text retries spent waiting on the quest gate alone (not saved)
-  private let m_skipTextGate: Bool;             // Debug_StartTexts: texts skip the quest gate
   private let m_pinId: NewMappinID;
   private let m_pinOn: Bool;
 
@@ -249,14 +247,6 @@ public class SlumlordFight extends ScriptableSystem {
     this.m_textQueued = false;
     if this.m_stage != 1 { return; }
     let game = this.GetGameInstance();
-    // A scene, combat, a call or the main story: Karl texts a little later (10 minutes at most, so a stuck gate
-    // can't hold the quest back; the debug start skips the wait).
-    if !this.m_skipTextGate && !SlumlordGameFree.Now(game) && this.m_textGateWaits < 40 {
-      this.m_textGateWaits += 1;
-      this.QueueText(15.0);
-      return;
-    }
-    this.m_textGateWaits = 0;
     if this.m_textsSent == 0 {
       SlumlordJournal.Set(game, SlumlordJournal.Karl(), "gameJournalContact", gameJournalEntryState.Active, false);
       SlumlordJournal.Set(game, SlumlordJournal.Thread(), "gameJournalPhoneConversation", gameJournalEntryState.Active, false);
@@ -269,7 +259,6 @@ public class SlumlordFight extends ScriptableSystem {
       return;
     }
     // last text: the quest
-    this.m_skipTextGate = false;
     this.m_stage = 2;
     this.SetFact(n"slumlord_fc_won", 0);   // a win fact left from an earlier run must not count
     SlumlordJournal.Set(game, SlumlordJournal.Quest(), "gameJournalQuest", gameJournalEntryState.Active, true);
@@ -592,8 +581,6 @@ public class SlumlordFight extends ScriptableSystem {
   }
 
   public func Debug_StartTexts() -> Void {
-    this.m_skipTextGate = true;
-    this.m_textGateWaits = 0;
     this.AbortEncounter();
     this.m_stage = 0;
     this.SetFact(n"slumlord_fc_ready", 0);
@@ -611,8 +598,6 @@ public class SlumlordFight extends ScriptableSystem {
   public func Debug_Reset() -> Void {
     let game = this.GetGameInstance();
     this.AbortEncounter();
-    this.m_skipTextGate = false;
-    this.m_textGateWaits = 0;
     this.SetPin(false);
     this.m_stage = 0;
     this.m_textsSent = 0;
@@ -648,7 +633,8 @@ public class SlumlordFight extends ScriptableSystem {
       + " fight=" + IntToString(this.Fact(n"slumlord_fc_fight")) + " fled=" + IntToString(this.Fact(n"slumlord_fc_fled"))
       + " won=" + IntToString(this.Fact(n"slumlord_fc_won")) + " abort=" + IntToString(this.Fact(n"slumlord_fc_abort"))
       + " tries=" + IntToString(this.Fact(n"slumlord_fc_tries"))
-      + " game free=" + (this.Fact(n"slumlord_gate_on") == 1 ? IntToString(this.Fact(n"slumlord_game_free")) : "no gate")
+      + " start gate (no scene/computer, no combat, no call, no story lock)="
+      + (this.Fact(n"slumlord_gate_on") == 1 ? (this.Fact(n"slumlord_game_free") == 1 ? "open" : "closed") : "phase missing")
       + " Oshima=" + (IsDefined(this.Oshima()) ? "found" : "not seen") + " cleared=" + IntToString(ArraySize(this.m_clearIds))
       + " | pin=" + SlumlordFight.JournalPinState(this.GetGameInstance())
       + " near door:" + this.DescribeLocals()

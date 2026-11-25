@@ -295,7 +295,8 @@ public class SlumlordMotelScene extends ScriptableSystem {
       + " won=" + IntToString(this.Fact(n"slumlord_co_motel_won"))
       + " abort=" + IntToString(this.Fact(n"slumlord_co_abort"))
       + " tries=" + IntToString(this.Fact(n"slumlord_co_tries"))
-      + " game free=" + (this.Fact(n"slumlord_gate_on") == 1 ? IntToString(this.Fact(n"slumlord_game_free")) : "no gate")
+      + " start gate (no scene/computer, no combat, no call, no story lock)="
+      + (this.Fact(n"slumlord_gate_on") == 1 ? (this.Fact(n"slumlord_game_free") == 1 ? "open" : "closed") : "phase missing")
       + " any time=" + (this.m_anyTime ? "yes" : "no") + " dist=" + FloatToStringPrec(dist, 0) + "m"
       + " El Capitan's motel gig=" + (SlumlordMotelScene.GigActive(this.GetGameInstance()) ? "active (encounter waits)" : "not active")
       + " bike=" + (this.m_bikeUp ? "up" : "no") + " cleared NPCs=" + IntToString(ArraySize(this.m_clearIds))

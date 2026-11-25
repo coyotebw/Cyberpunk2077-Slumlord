@@ -5,21 +5,6 @@
 // matching the number of properties owned is shown, and <prefix>5 is marked done when V owns them all.
 module Slumlord
 
-// Start-when-free gate (design doc 13.3): slumlord\quest\slumlord_gate.questphase keeps slumlord_game_free at 1
-// while the game is free for unsolicited content: the main story isn't holding side content (content lock), no
-// scene holds V, V isn't in combat or on another call. The same conditions gate the encounters natively. The phase
-// marks itself with slumlord_gate_on; without it (archive missing) callers fall back to their own checks.
-public abstract class SlumlordGameFree {
-  public static func GateOn(game: GameInstance) -> Bool {
-    return GameInstance.GetQuestsSystem(game).GetFact(n"slumlord_gate_on") == 1;
-  }
-
-  public static func Now(game: GameInstance) -> Bool {
-    if !SlumlordGameFree.GateOn(game) { return true; }
-    return GameInstance.GetQuestsSystem(game).GetFact(n"slumlord_game_free") == 1;
-  }
-}
-
 public abstract class SlumlordBuyUp {
 
   public static func Owned(game: GameInstance, districtId: CName, out total: Int32) -> Int32 {
