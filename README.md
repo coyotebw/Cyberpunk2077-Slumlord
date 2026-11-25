@@ -32,3 +32,5 @@ PNG → `.xbm` texture import works only on Windows (WolvenKit GUI Import Tool, 
 ## Install (dev)
 
 Copy the contents of `mod/` into `Cyberpunk 2077/`, and `Slumlord.archive` into `archive/pc/mod/`.
+
+Working notes (state, open bugs, build, logs): [NOTES.md](NOTES.md).
